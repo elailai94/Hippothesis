@@ -1,3 +1,3 @@
-# hippothesis
+# Recipezy
 
 cs446 group
