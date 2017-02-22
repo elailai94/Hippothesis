@@ -15,7 +15,7 @@ import settings from '../configurations/settings';
 
 export default class Spoonacular {
   // Gets the headers for a request
-  getHeaders() {
+  static getHeaders() {
     return {
       'Accept': 'application/json',
       'X-Mashape-Key': settings.spoonacular.API_KEY
@@ -23,7 +23,7 @@ export default class Spoonacular {
   }
 
   // Calls the endpoint
-  callEndpoint(path, parameters) {
+  static callEndpoint(path, parameters) {
     let queryStrings = qs.stringify(parameters, { skipNulls: true });
     queryStrings = queryStrings === '' ? queryStrings : `?${queryStrings}`; 
     const endpoint = `${settings.spoonacular.BASE_URL}${path}${queryStrings}`;
@@ -43,7 +43,7 @@ export default class Spoonacular {
   }
 
   // Autocompletes a search for an ingredient
-  autocompleteIngredientSearch(parameters) {
+  static autocompleteIngredientSearch(parameters) {
     return this.callEndpoint(
       settings.spoonacular.AUTOCOMPLETE_INGREDIENT_SEARCH_PATH,
       parameters
@@ -51,7 +51,7 @@ export default class Spoonacular {
   }
 
   // Autocompletes a partial input to possible recipe name
-  autocompleteRecipeSearch(parameters) {
+  static autocompleteRecipeSearch(parameters) {
     return this.callEndpoint(
       settings.spoonacular.AUTOCOMPLETE_RECIPE_SEARCH_PATH,
       parameters
@@ -66,7 +66,7 @@ export default class Spoonacular {
    * in parameters to true, half a request is added for each recipe
    * returned as it saves you the get recipe information calls
    */
-  complexRecipeSearch(parameters) {
+  static complexRecipeSearch(parameters) {
     return this.callEndpoint(
       settings.spoonacular.COMPLEX_RECIPE_SEARCH_PATH,
       parameters
@@ -74,14 +74,14 @@ export default class Spoonacular {
   }
 
   // Gets information about a recipe
-  getRecipeInformation(id, parameters) {
+  static getRecipeInformation(id, parameters) {
     const path = settings.spoonacular.GET_RECIPE_INFORMATION_PATH
       .replace('{id}', id);
     return this.callEndpoint(path, parameters);
   }
 
   // Find recipes which are similar to the given one
-  findSimilarRecipes(id) {
+  static findSimilarRecipes(id) {
     const path = settings.spoonacular.FIND_SIMILAR_RECIPES_PATH
          .replace('{id}', id);
     return this.callEndpoint(path, {});
@@ -91,7 +91,7 @@ export default class Spoonacular {
    * Generates a meal plan with three meals per day (breakfast, lunch
    * and dinner)
    */
-  generateMealPlan(parameters) {
+  static generateMealPlan(parameters) {
     return this.callEndpoint(
       settings.spoonacular.GENERATE_MEAL_PLAN_PATH,
       parameters

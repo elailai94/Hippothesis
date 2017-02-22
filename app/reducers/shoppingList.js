@@ -10,9 +10,12 @@
 
 'use strict';
 
-export const images = {
- 	logo: null
-};
+import types from '../actions/types';
 
-export default images;
- 
+const initialState = {
+  shoppingList: []
+}
+
+function shoppingList(state=initialState, action) {
+  return state;
+}
