@@ -1,6 +1,10 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
+/*
+ * Copyright 2017-present, Hippothesis, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
  * @flow
  */
 
@@ -14,8 +18,19 @@ import {
   View
 } from 'react-native';
 
+import Spoonacular from './app/utilities/Spoonacular';
+
 export default class Recipezy extends Component {
   render() {
+    const spoonacular = new Spoonacular();
+    const parameters = {
+       diet: null,
+       exclude: null,
+       targetCalories: null,
+       timeFrame: 'day',
+    };
+    spoonacular.findSimilarRecipes(156992);
+
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>

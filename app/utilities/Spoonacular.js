@@ -1,4 +1,12 @@
-/* @flow */
+/*
+ * Copyright 2017-present, Hippothesis, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @flow
+ */
 
 'use strict';
 
@@ -6,77 +14,87 @@ import qs from 'qs';
 import settings from '../configurations/settings';
 
 export default class Spoonacular {
-   // 
-   getHeaders() {
-      return {
-         'Accept': 'application/json',
-         'X-Mashape-Key': settings.spoonacular.API_KEY
-      };
-   }
+  // Gets the headers for a request
+  getHeaders() {
+    return {
+      'Accept': 'application/json',
+      'X-Mashape-Key': settings.spoonacular.API_KEY
+    };
+  }
 
-   // 
-   callEndpoint(path, parameters) {
-      const endpoint = settings.spoonacular.API_BASE_URL + path + '?' + qs.stringify(parameters);
-      return fetch(endpoint, {
-         headers: this.getHeaders()
-      })
-      .then((response) => {return response.json();})
-      .catch((error) => {console.log(error);});
-   }
+  // Calls the endpoint
+  callEndpoint(path, parameters) {
+    let queryStrings = qs.stringify(parameters, { skipNulls: true });
+    queryStrings = queryStrings === '' ? queryStrings : `?${queryStrings}`; 
+    const endpoint = `${settings.spoonacular.BASE_URL}${path}${queryStrings}`;
 
-   // Autocompletes a search for an ingredient
-   autocompleteIngredientSearch(parameters) {
-      return this.callEndpoint(
-         settings.spoonacular.AUTOCOMPLETE_INGREDIENT_SEARCH_PATH,
-         parameters
-      );
-   }
+    return fetch(endpoint, {
+      headers: this.getHeaders()
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .then((responseJSON) => {
+      console.log(JSON.stringify(responseJSON));
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
 
-   // Autocompletes a partial input to possible recipe name
-   autocompleteRecipeSearch(parameters) {
-      return this.callEndpoint(
-         settings.spoonacular.AUTOCOMPLETE_RECIPE_SEARCH_PATH,
-         parameters
-      );
-   }
+  // Autocompletes a search for an ingredient
+  autocompleteIngredientSearch(parameters) {
+    return this.callEndpoint(
+      settings.spoonacular.AUTOCOMPLETE_INGREDIENT_SEARCH_PATH,
+      parameters
+    );
+  }
 
-   /* 
-    * Searches through hundreds of thousands of recipes using advanced
-    * filtering and ranking
-    * NOTE: Since this method combines three other functionalities, each
-    * request counts as 3 requests. If you set addRecipeInformation in
-    * parameters to true, half a request is added for each recipe
-    * returned as it saves you the get recipe information calls
-    */
-   complexRecipeSearch(parameters) {
-      return this.callEndpoint(
-         settings.spoonacular.COMPLEX_RECIPE_SEARCH_PATH,
-         parameters
-      );
-   }
+  // Autocompletes a partial input to possible recipe name
+  autocompleteRecipeSearch(parameters) {
+    return this.callEndpoint(
+      settings.spoonacular.AUTOCOMPLETE_RECIPE_SEARCH_PATH,
+      parameters
+    );
+  }
 
-   // Gets information about a recipe
-   getRecipeInformation(id, parameters) {
-      const path = settings.spoonacular.GET_RECIPE_INFORMATION_PATH
+  /* 
+   * Searches through hundreds of thousands of recipes using advanced
+   * filtering and ranking
+   * NOTE: Since this method combines three other functionalities, each
+   * request counts as 3 requests. If you set addRecipeInformation
+   * in parameters to true, half a request is added for each recipe
+   * returned as it saves you the get recipe information calls
+   */
+  complexRecipeSearch(parameters) {
+    return this.callEndpoint(
+      settings.spoonacular.COMPLEX_RECIPE_SEARCH_PATH,
+      parameters
+    );
+  }
+
+  // Gets information about a recipe
+  getRecipeInformation(id, parameters) {
+    const path = settings.spoonacular.GET_RECIPE_INFORMATION_PATH
+      .replace('{id}', id);
+    return this.callEndpoint(path, parameters);
+  }
+
+  // Find recipes which are similar to the given one
+  findSimilarRecipes(id) {
+    const path = settings.spoonacular.FIND_SIMILAR_RECIPES_PATH
          .replace('{id}', id);
-      return this.callEndpoint(path, parameters);
-   }
+    return this.callEndpoint(path, {});
+  }
 
-   // Find recipes which are similar to the given one
-   findSimilarRecipes(id) {
-      const path = settings.spoonacular.FIND_SIMILAR_RECIPES_PATH
-         .replace('{id}', id);
-      return this.callEndpoint(path, {});
-   }
-
-   /*
-    * Generates a meal plan with three meals per day (breakfast, lunch
-    * and dinner)
-    */
-   generateMealPlan(parameters) {
-      return this.callEndpoint(
-         settings.spoonacular.GENERATE_MEAL_PLAN_PATH,
-         parameters
-      );
-   }
+  /*
+   * Generates a meal plan with three meals per day (breakfast, lunch
+   * and dinner)
+   */
+  generateMealPlan(parameters) {
+    return this.callEndpoint(
+      settings.spoonacular.GENERATE_MEAL_PLAN_PATH,
+      parameters
+    );
+  }
 }
