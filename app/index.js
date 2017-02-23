@@ -16,28 +16,35 @@ import {
   Text,
   View
 } from 'react-native';
+
 import { createStore } from 'redux';
 
 import {
   addIngredient, removeIngredient, editIngredient, boughtIngredient
 } from './actions/ShoppingList';
+
 import shoppingList from './reducers/shoppingList';
-import Spoonacular from './app/utilities/Spoonacular';
+import Spoonacular from './utilities/Spoonacular';
 
 let store = createStore(shoppingList);
 
+
+
 export default class Recipezy extends Component {
   render() {
+    
     console.log(store.getState());
 
     let unsubscribe = store.subscribe(() =>
-      console.log(store.getState());
+      {console.log(store.getState());}
     );
 
     store.dispatch(addIngredient('apples'));
     store.dispatch(addIngredient('bacon'));
+    store.dispatch(removeIngredient(0));
 
     unsubscribe();
+    
 
     return (
       <View style={styles.container}>

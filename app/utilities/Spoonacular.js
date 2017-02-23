@@ -14,34 +14,6 @@ import qs from 'qs';
 import Settings from '../constants/Settings';
 
 export default class Spoonacular {
-  // Gets the headers for a request
-  static getHeaders() {
-    return {
-      'Accept': 'application/json',
-      'X-Mashape-Key': Settings.spoonacular.API_KEY
-    };
-  }
-
-  // Calls the endpoint
-  static callEndpoint(path, parameters) {
-    let queryStrings = qs.stringify(parameters, { skipNulls: true });
-    queryStrings = queryStrings === '' ? queryStrings : `?${queryStrings}`; 
-    const endpoint = `${Settings.spoonacular.BASE_URL}${path}${queryStrings}`;
-
-    return fetch(endpoint, {
-      headers: this.getHeaders()
-    })
-    .then((response) => {
-      return response.json();
-    })
-    .then((responseJSON) => {
-      console.log(JSON.stringify(responseJSON));
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  }
-
   // Autocompletes a search for an ingredient
   static autocompleteIngredientSearch(parameters) {
     return this.callEndpoint(
@@ -96,5 +68,33 @@ export default class Spoonacular {
       Settings.spoonacular.GENERATE_MEAL_PLAN_PATH,
       parameters
     );
+  }
+
+  // Calls the endpoint
+  static callEndpoint(path, parameters) {
+    let queryStrings = qs.stringify(parameters, { skipNulls: true });
+    queryStrings = queryStrings === '' ? queryStrings : `?${queryStrings}`; 
+    const endpoint = `${Settings.spoonacular.BASE_URL}${path}${queryStrings}`;
+
+    return fetch(endpoint, {
+      headers: this.getHeaders()
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .then((responseJSON) => {
+      console.log(JSON.stringify(responseJSON));
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+
+  // Gets the headers for a request
+  static getHeaders() {
+    return {
+      'Accept': 'application/json',
+      'X-Mashape-Key': Settings.spoonacular.API_KEY
+    };
   }
 }

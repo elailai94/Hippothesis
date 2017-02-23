@@ -12,10 +12,23 @@
 
 import ActionTypes from '../constants/ActionTypes';
 
-const initialState = {
-  shoppingList: []
-}
+const initialState = []
 
 export default function shoppingList(state=initialState, action) {
-  return state;
+  switch (action.type) {
+    case ActionTypes.shoppingList.ADD_INGREDIENT:
+      return [
+        ...state,
+        {
+          ingredient: action.ingredient,
+          bought: false
+        }
+      ];
+    case ActionTypes.shoppingList.REMOVE_INGREDIENT:
+      return state.filter((todo, index) => 
+        index !== action.index
+      );
+    default:
+      return state;
+  }
 }
