@@ -11,14 +11,14 @@
 'use strict';
 
 import qs from 'qs';
-import settings from '../configurations/settings';
+import Settings from '../constants/Settings';
 
 export default class Spoonacular {
   // Gets the headers for a request
   static getHeaders() {
     return {
       'Accept': 'application/json',
-      'X-Mashape-Key': settings.spoonacular.API_KEY
+      'X-Mashape-Key': Settings.spoonacular.API_KEY
     };
   }
 
@@ -26,7 +26,7 @@ export default class Spoonacular {
   static callEndpoint(path, parameters) {
     let queryStrings = qs.stringify(parameters, { skipNulls: true });
     queryStrings = queryStrings === '' ? queryStrings : `?${queryStrings}`; 
-    const endpoint = `${settings.spoonacular.BASE_URL}${path}${queryStrings}`;
+    const endpoint = `${Settings.spoonacular.BASE_URL}${path}${queryStrings}`;
 
     return fetch(endpoint, {
       headers: this.getHeaders()
@@ -45,7 +45,7 @@ export default class Spoonacular {
   // Autocompletes a search for an ingredient
   static autocompleteIngredientSearch(parameters) {
     return this.callEndpoint(
-      settings.spoonacular.AUTOCOMPLETE_INGREDIENT_SEARCH_PATH,
+      Settings.spoonacular.AUTOCOMPLETE_INGREDIENT_SEARCH_PATH,
       parameters
     );
   }
@@ -53,7 +53,7 @@ export default class Spoonacular {
   // Autocompletes a partial input to possible recipe name
   static autocompleteRecipeSearch(parameters) {
     return this.callEndpoint(
-      settings.spoonacular.AUTOCOMPLETE_RECIPE_SEARCH_PATH,
+      Settings.spoonacular.AUTOCOMPLETE_RECIPE_SEARCH_PATH,
       parameters
     );
   }
@@ -68,21 +68,21 @@ export default class Spoonacular {
    */
   static complexRecipeSearch(parameters) {
     return this.callEndpoint(
-      settings.spoonacular.COMPLEX_RECIPE_SEARCH_PATH,
+      Settings.spoonacular.COMPLEX_RECIPE_SEARCH_PATH,
       parameters
     );
   }
 
   // Gets information about a recipe
   static getRecipeInformation(id, parameters) {
-    const path = settings.spoonacular.GET_RECIPE_INFORMATION_PATH
+    const path = Settings.spoonacular.GET_RECIPE_INFORMATION_PATH
       .replace('{id}', id);
     return this.callEndpoint(path, parameters);
   }
 
   // Find recipes which are similar to the given one
   static findSimilarRecipes(id) {
-    const path = settings.spoonacular.FIND_SIMILAR_RECIPES_PATH
+    const path = Settings.spoonacular.FIND_SIMILAR_RECIPES_PATH
          .replace('{id}', id);
     return this.callEndpoint(path, {});
   }
@@ -93,7 +93,7 @@ export default class Spoonacular {
    */
   static generateMealPlan(parameters) {
     return this.callEndpoint(
-      settings.spoonacular.GENERATE_MEAL_PLAN_PATH,
+      Settings.spoonacular.GENERATE_MEAL_PLAN_PATH,
       parameters
     );
   }

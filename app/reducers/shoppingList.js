@@ -10,12 +10,12 @@
 
 'use strict';
 
-import types from '../actions/types';
+import ActionTypes from '../constants/ActionTypes';
 
 const initialState = {
   shoppingList: []
 }
 
-function shoppingList(state=initialState, action) {
+export default function shoppingList(state=initialState, action) {
   return state;
 }

@@ -10,9 +10,9 @@
 
 'use strict';
 
-export const images = {
+export const Images = {
  	logo: null
 };
 
-export default images;
+export default Images;
  

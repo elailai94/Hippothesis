@@ -1,55 +1,16 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
+/*
+ * Copyright 2017-present, Hippothesis, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
  * @flow
  */
 
 'use strict';
 
-import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
-
-export default class Recipezy extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+import { AppRegistry } from 'react-native';
+import Recipezy from './app';
 
 AppRegistry.registerComponent('Recipezy', () => Recipezy);

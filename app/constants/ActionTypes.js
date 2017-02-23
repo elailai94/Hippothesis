@@ -10,7 +10,7 @@
 
 'use strict';
 
-export const types = {
+export const ActionTypes = {
   shoppingList: {
     ADD_INGREDIENT = 'ADD_INGREDIENT_TO_SHOPPING_LIST';
     REMOVE_INGREDIENT = 'REMOVE_INGREDIENT_FROM_SHOPPING_LIST';
@@ -25,4 +25,4 @@ export const types = {
   }
 };
 
-export default types;
+export default ActionTypes;

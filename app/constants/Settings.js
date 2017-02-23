@@ -10,7 +10,7 @@
 
 'use strict';
 
-export const settings = {
+export const Settings = {
   spoonacular: {
     BASE_URL: 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com',
     API_KEY: 'jVDiaXvfpsmshdrtFO7JHibo7Hrtp16UelPjsnBE4Bfzl0CV5u',
@@ -23,4 +23,4 @@ export const settings = {
   }
 };
 
-export default settings;
+export default Settings;

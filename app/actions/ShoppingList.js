@@ -10,25 +10,25 @@
 
 'use strict';
 
-import types from './types';
+import ActionTypes from '../constants/ActionTypes';
 
 export function addIngredient(ingredient) {
 	return {
-    type: types.shoppingList.ADD_INGREDIENT,
+    type: ActionTypes.shoppingList.ADD_INGREDIENT,
     ingredient
   }
 }
 
 export function removeIngredient(index) {
   return {
-    type: types.shoppingList.REMOVE_INGREDIENT,
+    type: ActionTypes.shoppingList.REMOVE_INGREDIENT,
     index
   }
 }
 
 export function editIngredient(index, ingredient) {
   return {
-    type: types.shoppingList.EDIT_INGREDIENT,
+    type: ActionTypes.shoppingList.EDIT_INGREDIENT,
     index,
     ingredient
   }
@@ -36,7 +36,7 @@ export function editIngredient(index, ingredient) {
 
 export function boughtIngredient(index) {
   return {
-    type: types.shoppingList.BOUGHT_INGREDIENT,
+    type: ActionTypes.shoppingList.BOUGHT_INGREDIENT,
     index
   }
 }
