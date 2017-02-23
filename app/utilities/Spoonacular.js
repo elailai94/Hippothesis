@@ -14,7 +14,7 @@ import qs from 'qs';
 import Settings from '../constants/Settings';
 
 export default class Spoonacular {
-  // Autocompletes a search for an ingredient
+  // Autocomplete a search for an ingredient
   static autocompleteIngredientSearch(parameters) {
     return this.callEndpoint(
       Settings.spoonacular.AUTOCOMPLETE_INGREDIENT_SEARCH_PATH,
@@ -22,7 +22,7 @@ export default class Spoonacular {
     );
   }
 
-  // Autocompletes a partial input to possible recipe name
+  // Autocomplete a partial input to possible recipe name
   static autocompleteRecipeSearch(parameters) {
     return this.callEndpoint(
       Settings.spoonacular.AUTOCOMPLETE_RECIPE_SEARCH_PATH,
@@ -31,7 +31,7 @@ export default class Spoonacular {
   }
 
   /* 
-   * Searches through hundreds of thousands of recipes using advanced
+   * Search through hundreds of thousands of recipes using advanced
    * filtering and ranking
    * NOTE: Since this method combines three other functionalities, each
    * request counts as 3 requests. If you set addRecipeInformation
@@ -45,7 +45,7 @@ export default class Spoonacular {
     );
   }
 
-  // Gets information about a recipe
+  // Get information about a recipe
   static getRecipeInformation(id, parameters) {
     const path = Settings.spoonacular.GET_RECIPE_INFORMATION_PATH
       .replace('{id}', id);
@@ -60,7 +60,7 @@ export default class Spoonacular {
   }
 
   /*
-   * Generates a meal plan with three meals per day (breakfast, lunch
+   * Generate a meal plan with three meals per day (breakfast, lunch
    * and dinner)
    */
   static generateMealPlan(parameters) {
@@ -70,7 +70,7 @@ export default class Spoonacular {
     );
   }
 
-  // Calls the endpoint
+  // Call the endpoint
   static callEndpoint(path, parameters) {
     let queryStrings = qs.stringify(parameters, { skipNulls: true });
     queryStrings = queryStrings === '' ? queryStrings : `?${queryStrings}`; 
@@ -90,7 +90,7 @@ export default class Spoonacular {
     });
   }
 
-  // Gets the headers for a request
+  // Get the headers for a request
   static getHeaders() {
     return {
       'Accept': 'application/json',
