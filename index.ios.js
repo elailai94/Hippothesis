@@ -10,8 +10,7 @@
 
 'use strict';
 
-import React from 'react';
 import { AppRegistry } from 'react-native';
-import Recipezy from './app/index';
+import Recipezy from './app/Recipezy';
 
 AppRegistry.registerComponent('Recipezy', () => Recipezy);

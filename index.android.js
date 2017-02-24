@@ -11,6 +11,6 @@
 'use strict';
 
 import { AppRegistry } from 'react-native';
-import Recipezy from './app';
+import Recipezy from './app/Recipezy';
 
 AppRegistry.registerComponent('Recipezy', () => Recipezy);

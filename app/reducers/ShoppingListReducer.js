@@ -43,7 +43,9 @@ function addIngredient(state, action) {
   return [
     ...state,
     {
-      id: state.reduce((maxID, ingredient) => Math.max(ingredient.id, maxID), 0) + 1,
+      id: state.reduce((maxID, ingredient) =>
+        Math.max(ingredient.id, maxID), 0
+      ) + 1,
       name: action.payload.name,
       bought: false
     }
