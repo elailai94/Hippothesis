@@ -11,7 +11,11 @@
 'use strict';
 
 export const Images = {
- 	logo: null
+ 	icons: {
+    home: require('../images/home-icon.png'),
+    search: require('../images/search-icon.png'),
+    profile: require('../images/profile-icon.png')
+  }
 };
 
 export default Images;
