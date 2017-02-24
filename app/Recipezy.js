@@ -37,6 +37,7 @@ import {
   markIngredientAsNotBought
 } from './actions/ShoppingListActions';
 import reduceShoppingList from './reducers/ShoppingListReducer';
+import NavigationBar from './components/navigationbar/NavigationBar';
 
 const store = createStore(reduceShoppingList);
 /*
@@ -66,9 +67,8 @@ export default class Recipezy extends Component {
 
     unsubscribe();
 
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
+/*
+<Text style={styles.welcome}>
           Welcome to Recipezy!
         </Text>
         <Text style={styles.instructions}>
@@ -78,7 +78,11 @@ export default class Recipezy extends Component {
           Press Cmd+R to reload,{'\n'}
           Cmd+D or shake for dev menu
         </Text>
-      </View>
+*/
+    return (
+      //<View style={styles.container}>
+        <NavigationBar />
+      //</View>
     );
   }
 }
