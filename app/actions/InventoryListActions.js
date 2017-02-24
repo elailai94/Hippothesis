@@ -12,30 +12,30 @@
 
 import ActionTypes from '../constants/ActionTypes';
 
-// Add a new ingredient to the shopping list
+// Add a new ingredient to the inventory list
 export function addIngredient(name) {
   return {
-    type: ActionTypes.shoppingList.ADD_INGREDIENT,
+    type: ActionTypes.inventoryList.ADD_INGREDIENT,
     payload: {
       name
     }
   };
 }
 
-// Remove an ingredient from the shopping list
+// Remove an ingredient from the inventory list
 export function removeIngredient(id) {
   return {
-    type: ActionTypes.shoppingList.REMOVE_INGREDIENT,
+    type: ActionTypes.inventoryList.REMOVE_INGREDIENT,
     payload: {
       id
     }
   };
 }
 
-// Edit an ingredient in the shopping list
+// Edit an ingredient in the inventory list
 export function editIngredient(id, name) {
   return {
-    type: ActionTypes.shoppingList.EDIT_INGREDIENT,
+    type: ActionTypes.inventoryList.EDIT_INGREDIENT,
     payload: {
       id,
       name
@@ -43,20 +43,20 @@ export function editIngredient(id, name) {
   };
 }
 
-// Mark an ingredient as bought in the shopping list
+// Mark an ingredient as bought in the inventory list
 export function markIngredientAsBought(id) {
   return {
-    type: ActionTypes.shoppingList.MARK_INGREDIENT_AS_BOUGHT,
+    type: ActionTypes.inventoryList.MARK_INGREDIENT_AS_BOUGHT,
     payload: {
       id
     }
   };
 }
 
-// Mark an ingredient as not bought in the shopping list
+// Mark an ingredient as not bought in the inventory list
 export function markIngredientAsNotBought(id) {
   return {
-    type: ActionTypes.shoppingList.MARK_INGREDIENT_AS_NOT_BOUGHT,
+    type: ActionTypes.inventoryList.MARK_INGREDIENT_AS_NOT_BOUGHT,
     payload: {
       id
     }

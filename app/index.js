@@ -12,17 +12,40 @@
 
 import React, { Component } from 'react';
 import {
+  AsyncStorage,
   StyleSheet,
   Text,
   View
 } from 'react-native';
 
-import { createStore } from 'redux';
-import ShoppingListActions from './actions/ShoppingListActions';
-import ShoppingListReducer from './reducers/ShoppingListReducer';
-import Spoonacular from './utilities/Spoonacular';
+import {
+  createStore,
+  compose,
+  applyMiddleware
+} from 'redux';
 
-let store = createStore(ShoppingListReducer.reduce);
+import {
+  persistStore,
+  autoRehydrate
+} from 'redux-persist';
+
+import {
+  addIngredient,
+  removeIngredient,
+  editIngredient,
+  markIngredientAsBought,
+  markIngredientAsNotBought
+} from './actions/ShoppingListActions';
+import reduceShoppingList from './reducers/ShoppingListReducer';
+
+const store = createStore(reduceShoppingList);
+/*
+const store = compose(autoRehydrate())(createStore)(handleReduction);
+
+persistStore(store, {storage: AsyncStorage}, () => {
+  console.log('Restored');
+});
+*/
 
 export default class Recipezy extends Component {
   render() {
@@ -33,12 +56,13 @@ export default class Recipezy extends Component {
       {console.log(store.getState());}
     );
 
-    store.dispatch(ShoppingListActions.addIngredient('apples'));
-    store.dispatch(ShoppingListActions.addIngredient('bacon'));
-    store.dispatch(ShoppingListActions.removeIngredient(0));
-    store.dispatch(ShoppingListActions.editIngredient(0, 'carrots'));
-    store.dispatch(ShoppingListActions.markIngredientAsBought(0));
-    store.dispatch(ShoppingListActions.markIngredientAsNotBought(0));
+    store.dispatch(addIngredient('apples'));
+    store.dispatch(addIngredient('bacon'));
+    store.dispatch(removeIngredient(1));
+    store.dispatch(addIngredient('apples'));
+    store.dispatch(editIngredient(2, 'carrots'));
+    store.dispatch(markIngredientAsBought(2));
+    store.dispatch(markIngredientAsNotBought(2));
 
     unsubscribe();
 
