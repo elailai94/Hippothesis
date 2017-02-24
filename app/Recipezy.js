@@ -36,10 +36,10 @@ import {
   markIngredientAsBought,
   markIngredientAsNotBought
 } from './actions/ShoppingListActions';
-import reduceShoppingList from './reducers/ShoppingListReducer';
+import shoppingListReducer from './reducers/ShoppingListReducer';
 import NavigationBar from './components/navigationbar/NavigationBar';
 
-const store = createStore(reduceShoppingList);
+const store = createStore(shoppingListReducer);
 /*
 const store = compose(autoRehydrate())(createStore)(handleReduction);
 
