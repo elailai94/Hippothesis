@@ -18,14 +18,15 @@ import ActionTypes from '../constants/ActionTypes';
  */
 export default function navigationReducer(state = 'search', action) {
 	switch (action.type) {
-    case ActionTypes.navigation.SWITCH_TAB:
-      return switchTab(state, action);
+    case ActionTypes.navigation.SELECT_TAB:
+      return selectTab(state, action);
+
     default:
-      return state; 
+      return state;
   }
 }
 
-// Switches to a new tab in the navigation bar
-function switchTab(state, action) {
-  return action.name;
+// Select a new tab in the navigation bar
+function selectTab(state, action) {
+  return action.payload.name;
 }

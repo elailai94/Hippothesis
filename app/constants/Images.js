@@ -10,11 +10,20 @@
 
 'use strict';
 
-export const Images = {
- 	icons: {
-    home: require('../images/home-icon.png'),
-    search: require('../images/search-icon.png'),
-    profile: require('../images/profile-icon.png')
+const Images = {
+  icons: {
+    home: {
+    	active: require('../images/home-icon-active.png'),
+      unactive: require('../images/home-icon-unactive.png')
+    },
+    search: {
+      active: require('../images/search-icon-active.png'),
+      unactive: require('../images/search-icon-unactive.png')
+    },
+    profile: {
+      active: require('../images/profile-icon-active.png'),
+      unactive: require('../images/profile-icon-unactive.png')
+    }
   }
 };
 

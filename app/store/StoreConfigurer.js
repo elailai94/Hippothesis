@@ -10,17 +10,4 @@
 
 'use strict';
 
-import { StyleSheet } from 'react-native';
-
-const Styles = StyleSheet.create({
-  tabContent: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  tabText: {
-    color: 'white',
-    margin: 50,
-  },
-});
-
-export default Styles;
+import { createStore } from 'redux';

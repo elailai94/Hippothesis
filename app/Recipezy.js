@@ -12,22 +12,13 @@
 
 import React, { Component } from 'react';
 import {
-  AsyncStorage,
   StyleSheet,
   Text,
   View
 } from 'react-native';
 
-import {
-  createStore,
-  compose,
-  applyMiddleware
-} from 'redux';
-
-import {
-  persistStore,
-  autoRehydrate
-} from 'redux-persist';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 
 import {
   addIngredient,
@@ -36,17 +27,10 @@ import {
   markIngredientAsBought,
   markIngredientAsNotBought
 } from './actions/ShoppingListActions';
-import shoppingListReducer from './reducers/ShoppingListReducer';
-//import NavigationBar from './components/navigationbar/NavigationBar';
+import rootReducer from './reducers/RootReducer';
+import NavigationBar from './components/navigationbar/NavigationBar';
 
-const store = createStore(shoppingListReducer);
-/*
-const store = compose(autoRehydrate())(createStore)(handleReduction);
-
-persistStore(store, {storage: AsyncStorage}, () => {
-  console.log('Restored');
-});
-*/
+const store = createStore(rootReducer);
 
 export default class Recipezy extends Component {
   render() {
@@ -68,18 +52,9 @@ export default class Recipezy extends Component {
     unsubscribe();
 
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to Recipezy!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
+      <Provider store={store}>
+        <NavigationBar />
+      </Provider>
     );
   }
 }

@@ -12,10 +12,10 @@
 
 import ActionTypes from '../constants/ActionTypes';
 
-// Switches to a new tab in the navigation bar
-export function switchTab(name) {
+// Select a new tab in the navigation bar
+export function selectTab(name) {
 	return {
-    type: ActionTypes.navigation.SWITCH_TAB,
+    type: ActionTypes.navigation.SELECT_TAB,
     payload: {
       name
     }

@@ -10,7 +10,7 @@
 
 'use strict';
 
-export const ActionTypes = {
+const ActionTypes = {
   shoppingList: {
     ADD_INGREDIENT: 'ADD_INGREDIENT_TO_SHOPPING_LIST',
     REMOVE_INGREDIENT: 'REMOVE_INGREDIENT_FROM_SHOPPING_LIST',
@@ -31,7 +31,7 @@ export const ActionTypes = {
     SEARCH_RECIPES_FAILURE: 'SEARCH_RECIPES_FAILURE'
   },
   navigation: {
-    SWITCH_TAB: 'SWITCH_TAB'
+    SELECT_TAB: 'SELECT_TAB'
   }
 };
 
