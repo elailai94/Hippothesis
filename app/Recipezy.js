@@ -11,17 +11,11 @@
 'use strict';
 
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
 
 import Store from './store/Store';
-import {
-  addRecipe
-} from './actions/RecipesActions';
+import { addRecipe } from './actions/RecipesActions';
 import NavigationBar from './components/navigationbar/NavigationBar';
 
 export default class Recipezy extends Component {

@@ -76,16 +76,7 @@ export function callEndpoint(path, parameters) {
   const endpoint = `${Settings.spoonacular.BASE_URL}${path}${queryStrings}`;
 
   return fetch(endpoint, {
-    headers: this.getHeaders()
-  })
-  .then((response) => {
-    return response.json();
-  })
-  .then((responseJSON) => {
-    console.log(JSON.stringify(responseJSON));
-  })
-  .catch((error) => {
-    console.log(error);
+    headers: getHeaders()
   });
 }
 
