@@ -16,28 +16,24 @@ import {
   Text,
   View
 } from 'react-native';
-
-import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
+import Store from './store/Store';
 import {
   addRecipe
 } from './actions/RecipesActions';
-import RootReducer from './reducers/RootReducer';
 import NavigationBar from './components/navigationbar/NavigationBar';
-
-const store = createStore(RootReducer);
 
 export default class Recipezy extends Component {
   render() {
     
-    console.log(store.getState());
+    console.log(Store.getState());
 
-    let unsubscribe = store.subscribe(() =>
-      {console.log(store.getState());}
+    let unsubscribe = Store.subscribe(() =>
+      {console.log(Store.getState());}
     );
 
-    store.dispatch(addRecipe(1, {
+    Store.dispatch(addRecipe(1, {
       image: 'http://spoonacular...',
       aggregateLikes: 227,
       title: 'Ranch Burgers',
@@ -47,7 +43,7 @@ export default class Recipezy extends Component {
     unsubscribe();
 
     return (
-      <Provider store={store}>
+      <Provider store={Store}>
         <NavigationBar />
       </Provider>
     );
