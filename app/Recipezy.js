@@ -21,12 +21,8 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
 import {
-  addIngredient,
-  removeIngredient,
-  editIngredient,
-  markIngredientAsBought,
-  markIngredientAsNotBought
-} from './actions/ShoppingListActions';
+  selectRecipe
+} from './actions/NavigationActions';
 import rootReducer from './reducers/RootReducer';
 import NavigationBar from './components/navigationbar/NavigationBar';
 
@@ -41,13 +37,7 @@ export default class Recipezy extends Component {
       {console.log(store.getState());}
     );
 
-    store.dispatch(addIngredient('apples'));
-    store.dispatch(addIngredient('bacon'));
-    store.dispatch(removeIngredient(1));
-    store.dispatch(addIngredient('apples'));
-    store.dispatch(editIngredient(2, 'carrots'));
-    store.dispatch(markIngredientAsBought(2));
-    store.dispatch(markIngredientAsNotBought(2));
+    store.dispatch(selectRecipe(1));
 
     unsubscribe();
 

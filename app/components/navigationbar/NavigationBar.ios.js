@@ -64,7 +64,7 @@ class NavigationBar extends Component {
 
 function mapStateToProps(state) {
   return {
-    selectedTab: state.navigation
+    selectedTab: state.navigation.selectedTab
   };
 }
 

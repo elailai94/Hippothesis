@@ -12,22 +12,13 @@
 
 import ActionTypes from '../constants/ActionTypes';
 
-// Select a new tab in the navigation bar
-export function selectTab(name) {
+// Add a new recipe to recipes
+export function addRecipe(id, data) {
 	return {
-    type: ActionTypes.navigation.SELECT_TAB,
+    type: ActionTypes.recipes.ADD_RECIPE,
     payload: {
-      name
+      id,
+      data
     }
   };
-}
-
-// Select a new recipe to show on the screen
-export function selectRecipe(id) {
-	return {
-		type: ActionTypes.navigation.SELECT_RECIPE,
-		payload: {
-			id
-		}
-	};
 }
