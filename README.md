@@ -1,5 +1,10 @@
 # Recipezy
 
+## Dependencies Installation
+```Bash
+npm install
+```
+
 ## Running the app for iOS
 ```Bash
 react-native run-ios
