@@ -15,13 +15,13 @@ import ActionTypes from '../constants/ActionTypes';
 const initialState = {
   selectedTab: 'search',
   selectedRecipe: 0
-}
+};
 
 /*
  * Return the next state given the current state and an action to
  * handle
  */
-export default function navigationReducer(state = initialState, action) {
+export default function NavigationReducer(state = initialState, action) {
   switch (action.type) {
     case ActionTypes.navigation.SELECT_TAB:
       return selectTab(state, action);

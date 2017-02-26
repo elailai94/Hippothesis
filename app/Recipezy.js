@@ -21,12 +21,12 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
 import {
-  selectRecipe
-} from './actions/NavigationActions';
-import rootReducer from './reducers/RootReducer';
+  addRecipe
+} from './actions/RecipesActions';
+import RootReducer from './reducers/RootReducer';
 import NavigationBar from './components/navigationbar/NavigationBar';
 
-const store = createStore(rootReducer);
+const store = createStore(RootReducer);
 
 export default class Recipezy extends Component {
   render() {
@@ -37,7 +37,12 @@ export default class Recipezy extends Component {
       {console.log(store.getState());}
     );
 
-    store.dispatch(selectRecipe(1));
+    store.dispatch(addRecipe(1, {
+      image: 'http://spoonacular...',
+      aggregateLikes: 227,
+      title: 'Ranch Burgers',
+      instructions: ['Step 1', 'Step 2']
+    }));
 
     unsubscribe();
 

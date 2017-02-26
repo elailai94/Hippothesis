@@ -12,16 +12,18 @@
 
 import { combineReducers } from 'redux';
 
-import navigationReducer from './NavigationReducer';
-import shoppingListReducer from './ShoppingListReducer';
+import NavigationReducer from './NavigationReducer';
+import RecipesReducer from './RecipesReducer';
+import ShoppingListReducer from './ShoppingListReducer';
 
 /*
  * Return the next state given the current state and an action to
  * handle
  */
-const rootReducer = combineReducers({
-  navigation: navigationReducer,
-  shoppingList: shoppingListReducer
+const RootReducer = combineReducers({
+  navigation: NavigationReducer,
+  recipes: RecipesReducer,
+  shoppingList: ShoppingListReducer
 });
 
-export default rootReducer;
+export default RootReducer;

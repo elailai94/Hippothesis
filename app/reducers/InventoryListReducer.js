@@ -11,14 +11,3 @@
 'use strict';
 
 import ActionTypes from '../constants/ActionTypes';
-
-// Add a new recipe to recipes
-export function addRecipe(id, data) {
-  return {
-    type: ActionTypes.recipes.ADD_RECIPE,
-    payload: {
-      id,
-      data
-    }
-  };
-}

@@ -12,11 +12,13 @@
 
 import ActionTypes from '../constants/ActionTypes';
 
+const initialState = {};
+
 /*
  * Return the next state given the current state and an action to
  * handle
  */
-export default function recipesReducer(state = {}, action) {
+export default function RecipesReducer(state = initialState, action) {
 	switch(action.type) {
     case ActionTypes.recipes.ADD_RECIPE:
       return addRecipe(state, action);
@@ -27,8 +29,7 @@ export default function recipesReducer(state = {}, action) {
 }
 
 // Add a new recipe to recipes
-function addRecipe(state, action) {
-  /*
+function addRecipe(state = initialState, action) {
   const { payload } = action;
   const { id, data } = payload;
   const newRecipe = { ...data };
@@ -37,6 +38,4 @@ function addRecipe(state, action) {
     ...state,
     [id] : newRecipe
   };
-  */
-  return state;
 }

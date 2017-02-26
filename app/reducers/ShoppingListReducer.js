@@ -16,7 +16,7 @@ import ActionTypes from '../constants/ActionTypes';
  * Return the next state given the current state and an action to
  * handle
  */
-export default function shoppingListReducer(state = [], action) {
+export default function ShoppingListReducer(state = [], action) {
   switch (action.type) {
     case ActionTypes.shoppingList.ADD_INGREDIENT:
       return addIngredient(state, action);
