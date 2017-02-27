@@ -23,7 +23,15 @@ const Images = {
     profile: {
       active: require('../images/profile-icon-active.png'),
       unactive: require('../images/profile-icon-unactive.png')
-    }
+    },
+  },
+  food: {
+    egg: require('../images/food/egg.png'),
+    salmon: require('../images/food/fish.png'),
+    rice: require('../images/food/rice.png'),
+    pasta: require('../images/food/spaghetti.png'),
+    steak: require('../images/food/steak.png'),
+    chicken: require('../images/food/turkey.png')
   }
 };
 
