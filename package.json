@@ -9,6 +9,7 @@
   "dependencies": {
     "normalizr": "^3.2.2",
     "object.omit": "^2.0.1",
+    "native-base": "^2.0.10",
     "qs": "^6.3.1",
     "react": "~15.4.0",
     "react-native": "0.41.2",
