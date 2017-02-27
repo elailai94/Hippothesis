@@ -25,7 +25,7 @@ import omit from 'object.omit';
 export default class Recipezy extends Component {
   render() {
 
-
+/*
 const data = [
     {
       "vegetarian": false,
@@ -513,8 +513,9 @@ const recipeSchema = new schema.Entity(
 );
 const recipeListSchema = [ recipeSchema ];
 
-const normalizedData = normalize(data, recipeListSchema);
+const normalizedData = normalize(data[0], recipeSchema);
 console.log(normalizedData);
+*/
     
     console.log(Store.getState());
 

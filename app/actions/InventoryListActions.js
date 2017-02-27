@@ -13,10 +13,11 @@
 import ActionTypes from '../constants/ActionTypes';
 
 // Add a new ingredient to the inventory list
-export function addIngredient(name) {
+export function addIngredient(id, name) {
   return {
     type: ActionTypes.inventoryList.ADD_INGREDIENT,
     payload: {
+      id,
       name
     }
   };
@@ -43,20 +44,20 @@ export function editIngredient(id, name) {
   };
 }
 
-// Mark an ingredient as bought in the inventory list
-export function markIngredientAsBought(id) {
+// Mark an ingredient as used in the inventory list
+export function markIngredientAsUsed(id) {
   return {
-    type: ActionTypes.inventoryList.MARK_INGREDIENT_AS_BOUGHT,
+    type: ActionTypes.inventoryList.MARK_INGREDIENT_AS_USED,
     payload: {
       id
     }
   };
 }
 
-// Mark an ingredient as not bought in the inventory list
-export function markIngredientAsNotBought(id) {
+// Mark an ingredient as not used in the inventory list
+export function markIngredientAsNotUsed(id) {
   return {
-    type: ActionTypes.inventoryList.MARK_INGREDIENT_AS_NOT_BOUGHT,
+    type: ActionTypes.inventoryList.MARK_INGREDIENT_AS_NOT_USED,
     payload: {
       id
     }

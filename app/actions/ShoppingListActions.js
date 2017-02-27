@@ -13,10 +13,11 @@
 import ActionTypes from '../constants/ActionTypes';
 
 // Add a new ingredient to the shopping list
-export function addIngredient(name) {
+export function addIngredient(id, name) {
   return {
     type: ActionTypes.shoppingList.ADD_INGREDIENT,
     payload: {
+      id,
       name
     }
   };
