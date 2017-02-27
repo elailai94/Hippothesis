@@ -19,9 +19,12 @@ const initialState = {};
  * handle
  */
 export default function RecipesReducer(state = initialState, action) {
-	switch(action.type) {
+	switch (action.type) {
     case ActionTypes.recipes.ADD_RECIPE:
       return addRecipe(state, action);
+
+    case ActionTypes.recipes.ADD_RECIPES:
+      return addRecipes(state, action);
 
     default:
       return state;
@@ -38,4 +41,14 @@ function addRecipe(state = initialState, action) {
     ...state,
     [id] : newRecipe
   };
+}
+
+// Add new recipes to recipes
+function addRecipes(state = initialState, action) {
+  return state;
+/*  return {
+    ...state,
+    ...(action.payload.recipes)
+  };
+*/
 }

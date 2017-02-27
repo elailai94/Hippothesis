@@ -13,7 +13,15 @@
 import qs from 'qs';
 import Settings from '../constants/Settings';
 
-// Autocomplete a search for an ingredient
+/*
+ * Autocomplete a search for an ingredient
+ * NOTE: The format of parameters is as follows:
+ * {
+ *   metaInformation: true, // Optional
+ *   number: 10,            // Optional
+ *   query: 'apple'         // Required
+ * }
+ */
 export function autocompleteIngredientSearch(parameters) {
   return callEndpoint(
     Settings.spoonacular.AUTOCOMPLETE_INGREDIENT_SEARCH_PATH,
@@ -21,7 +29,14 @@ export function autocompleteIngredientSearch(parameters) {
   );
 }
 
-// Autocomplete a partial input to possible recipe name
+/*
+ * Autocomplete a partial input to possible recipe name
+ * NOTE: The format of parameters is as follows:
+ * {
+ *   number: 10,      // Optional
+ *   query: 'chicken' // Required
+ * }
+ */
 export function autocompleteRecipeSearch(parameters) {
   return callEndpoint(
     Settings.spoonacular.AUTOCOMPLETE_RECIPE_SEARCH_PATH,
@@ -36,6 +51,31 @@ export function autocompleteRecipeSearch(parameters) {
  * request counts as 3 requests. If you set addRecipeInformation
  * in parameters to true, half a request is added for each recipe
  * returned as it saves you the get recipe information calls
+ * NOTE: The format of parameters is as follows:
+ * {
+ *   addRecipeInformation: true,            // Optional
+ *   cuisine: 'american',                   // Optional
+ *   diet: 'vegetarian',                    // Optional
+ *   excludeIngredients: 'onions, carrots', // Optional
+ *   fillIngredients: false,                // Optional
+ *   includeIngredients: 'lettuce, tomato', // Optional
+ *   instructionsRequired: true,            // Optional
+ *   intolerances: 'peanut, shellfish',     // Optional
+ *   limitLicense: false,                   // Required
+ *   maxCalories: 1500,                     // Optional
+ *   maxCarbs: 100,                         // Optional
+ *   maxFat: 100,                           // Optional
+ *   maxProtein: 100,                       // Optional
+ *   minCalories: 150,                      // Optional
+ *   minCarbs: 5,                           // Optional
+ *   minFat: 5,                             // Optional
+ *   minProtein: 5,                         // Optional
+ *   number: 10,                            // Required
+ *   offset: 0,                             // Required
+ *   query: 'burger',                       // Required
+ *   ranking: 1,                            // Required
+ *   type: 'main course'                    // Optional
+ * }
  */
 export function complexRecipeSearch(parameters) {
   return callEndpoint(
@@ -44,7 +84,13 @@ export function complexRecipeSearch(parameters) {
   );
 }
 
-// Get information about a recipe
+/*
+ * Get information about a recipe
+ * NOTE: The format of parameters is as follows:
+ * {
+ *   includeNutrition: false // Optional
+ * }
+ */
 export function getRecipeInformation(id, parameters) {
   const path = Settings.spoonacular.GET_RECIPE_INFORMATION_PATH
     .replace('{id}', id);
@@ -61,6 +107,13 @@ export function findSimilarRecipes(id) {
 /*
  * Generate a meal plan with three meals per day (breakfast, lunch
  * and dinner)
+ * NOTE: The format of parameters is as follows:
+ * {
+ *   diet: 'vegetarian',         // Optional
+ *   exclude: 'onions, carrots', // Optional
+ *   targetCalories: 2000,       // Optional
+ *   timeFrame: 'week'           // Optional
+ * }
  */
 export function generateMealPlan(parameters) {
   return callEndpoint(
