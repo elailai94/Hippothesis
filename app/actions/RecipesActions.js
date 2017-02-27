@@ -22,3 +22,18 @@ export function addRecipe(id, data) {
     }
   };
 }
+
+// Add new recipes to recipes
+export function addRecipes(json) {
+  return {
+    type: ActionTypes.recipes.ADD_RECIPES,
+    payload: {
+      recipes: json.results.map((recipe) => {
+          const { id } = recipe;
+          return {
+            [id] : recipe.title
+          };
+        })
+    }
+  };
+}
