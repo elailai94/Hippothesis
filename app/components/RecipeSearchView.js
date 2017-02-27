@@ -31,7 +31,7 @@ export default class RecipeSearchView extends Component {
             <Input style={{marginLeft: 10, marginRight: 10}}/>
           </Item>
 
-          <View style={{marginTop: 25}}>
+          <View style={{marginTop: 15}}>
             <Grid>
               <Row>
                 <Col>
@@ -61,7 +61,7 @@ export default class RecipeSearchView extends Component {
           </View>
 
         </Content>
-        <Button block style={{margin: 15}}><Text>Search</Text></Button>
+        <Button block style={{margin: 15, marginTop: 0}}><Text>Search</Text></Button>
       </Container>
     );
   }

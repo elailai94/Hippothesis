@@ -26,10 +26,10 @@ export default class IngredientSelector extends Component {
   render() {
     return (
       <Card>
-        <CardItem cardBody>
-          <Thumbnail square source={this.props.image}/>
+        <CardItem cardBody style={{justifyContent: 'center', alignItems: 'center'}}>
+          <Thumbnail square style={{marginTop: 10}} source={this.props.image}/>
         </CardItem>
-        <CardItem cardFooter>
+        <CardItem cardFooter style={{justifyContent: 'center'}}>
           <Text>{this.props.name}</Text>
         </CardItem>
       </Card>
