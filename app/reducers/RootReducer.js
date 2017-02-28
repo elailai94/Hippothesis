@@ -15,6 +15,7 @@ import { combineReducers } from 'redux';
 import NavigationReducer from './NavigationReducer';
 import RecipeSearchResultsReducer from './RecipeSearchResultsReducer';
 import RecipesReducer from './RecipesReducer';
+import IngredientListReducer from './IngredientListReducer';
 import ShoppingListReducer from './ShoppingListReducer';
 
 /*
@@ -25,6 +26,7 @@ const RootReducer = combineReducers({
   navigation: NavigationReducer,
   recipeSearchResults: RecipeSearchResultsReducer,
   recipes: RecipesReducer,
+  ingredients: IngredientListReducer,
   shoppingList: ShoppingListReducer
 });
 

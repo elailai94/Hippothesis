@@ -47,7 +47,7 @@ class NavigationBar extends Component {
           selectedIcon={Images.icons.search.active}
           selected={this.props.selectedTab === 'search'}
           onPress={() => this.handleTabSelection('search')}>
-          <RecipeSearchView/>
+          <RecipeSearchView {...this.props}/>
         </TabBarIOS.Item>
 
         <TabBarIOS.Item

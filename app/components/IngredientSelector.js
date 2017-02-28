@@ -12,28 +12,51 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Image, View } from 'react-native';
+import { Card, CardItem, Text, Thumbnail, Button } from 'native-base';
 
-import { Image } from 'react-native';
-import { Card, CardItem, Text, Thumbnail } from 'native-base';
+import { addIngredient, removeIngredient, editIngredient } from '../actions/IngredientListActions';
 
-export default class IngredientSelector extends Component {
+class IngredientSelector extends Component {
 
   constructor(props) {
     super(props);
-    console.log(this.props.image);
+    this.originalProps = props;
+    console.log("originalProps", this.originalProps)
+  }
+
+  clickIngredient() {
+    this.props.addIngredient(this.originalProps.name);
+    console.log("click ingredient: ", this.originalProps);
+    console.log("this.props.ingredients: ", this.props.ingredients);
   }
 
   render() {
     return (
       <Card>
-        <CardItem cardBody style={{justifyContent: 'center', alignItems: 'center'}}>
-          <Thumbnail square style={{marginTop: 10}} source={this.props.image}/>
-        </CardItem>
-        <CardItem cardFooter style={{justifyContent: 'center'}}>
-          <Text>{this.props.name}</Text>
+        <CardItem cardBody button style={{justifyContent: 'center', alignItems: 'center'}} onPress={ () => this.clickIngredient() }>
+          <View><Thumbnail square style={{marginTop: 10}} source={this.props.image}/></View>
+          <View><Text>{this.props.name}</Text></View>
         </CardItem>
       </Card>
     );
   }
 
 }
+
+function mapStateToProps(state) {
+  return {
+    ingredients: state.ingredients
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    addIngredient: (name) => dispatch(addIngredient(name))
+  };
+}
+ 
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(IngredientSelector);
