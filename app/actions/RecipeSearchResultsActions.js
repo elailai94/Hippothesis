@@ -29,7 +29,7 @@ export function searchRecipes(parameters) {
         dispatch(addRecipes(json));
       })
       .catch((error) => dispatch(searchRecipesFailure(error)));
-  }
+  };
 }
 
 // Update the search status to be in progress

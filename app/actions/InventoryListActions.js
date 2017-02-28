@@ -11,19 +11,28 @@
 'use strict';
 
 import ActionTypes from '../constants/ActionTypes';
+import { addIngredientToIngredients } from './IngredientsActions';
 
 // Add a new ingredient to the inventory list
-export function addIngredient(name) {
+export function addIngredientToInventoryList(id, name) {
+  //return (dispatch) => {
+  //  dispatch(addIngredient(id));
+  return addIngredient(id);
+  //  dispatch(addIngredientToIngredients(id, name));
+  //};
+}
+
+function addIngredient(id) {
   return {
     type: ActionTypes.inventoryList.ADD_INGREDIENT,
     payload: {
-      name
+      id
     }
   };
 }
 
 // Remove an ingredient from the inventory list
-export function removeIngredient(id) {
+export function removeIngredientFromInventoryList(id) {
   return {
     type: ActionTypes.inventoryList.REMOVE_INGREDIENT,
     payload: {
@@ -33,30 +42,30 @@ export function removeIngredient(id) {
 }
 
 // Edit an ingredient in the inventory list
-export function editIngredient(id, name) {
+export function editIngredientInInventoryList(oldID, newID) {
   return {
     type: ActionTypes.inventoryList.EDIT_INGREDIENT,
     payload: {
-      id,
-      name
+      oldID,
+      newID
     }
   };
 }
 
-// Mark an ingredient as bought in the inventory list
-export function markIngredientAsBought(id) {
+// Mark an ingredient as used in the inventory list
+export function markIngredientAsUsedInInventoryList(id) {
   return {
-    type: ActionTypes.inventoryList.MARK_INGREDIENT_AS_BOUGHT,
+    type: ActionTypes.inventoryList.MARK_INGREDIENT_AS_USED,
     payload: {
       id
     }
   };
 }
 
-// Mark an ingredient as not bought in the inventory list
-export function markIngredientAsNotBought(id) {
+// Mark an ingredient as not used in the inventory list
+export function markIngredientAsNotUsedInInventoryList(id) {
   return {
-    type: ActionTypes.inventoryList.MARK_INGREDIENT_AS_NOT_BOUGHT,
+    type: ActionTypes.inventoryList.MARK_INGREDIENT_AS_NOT_USED,
     payload: {
       id
     }

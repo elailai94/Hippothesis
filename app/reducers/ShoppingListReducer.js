@@ -12,26 +12,28 @@
 
 import ActionTypes from '../constants/ActionTypes';
 
+const initialState = [];
+
 /*
  * Return the next state given the current state and an action to
  * handle
  */
-export default function ShoppingListReducer(state = [], action) {
+export default function ShoppingListReducer(state = initialState, action) {
   switch (action.type) {
     case ActionTypes.shoppingList.ADD_INGREDIENT:
-      return addIngredient(state, action);
+      return addIngredientToShoppingList(state, action);
     
     case ActionTypes.shoppingList.REMOVE_INGREDIENT:
-      return removeIngredient(state, action);
+      return removeIngredientFromShoppingList(state, action);
     
     case ActionTypes.shoppingList.EDIT_INGREDIENT:
-      return editIngredient(state, action);
+      return editIngredientInShoppingList(state, action);
     
     case ActionTypes.shoppingList.MARK_INGREDIENT_AS_BOUGHT:
-      return markIngredientAsBought(state, action);
+      return markIngredientAsBoughtInShoppingList(state, action);
     
     case ActionTypes.shoppingList.MARK_INGREDIENT_AS_NOT_BOUGHT:
-      return markIngredientAsNotBought(state, action);
+      return markIngredientAsNotBoughtInShoppingList(state, action);
     
     default:
       return state;
@@ -39,49 +41,49 @@ export default function ShoppingListReducer(state = [], action) {
 }
 
 // Add a new ingredient to the shopping list
-function addIngredient(state, action) {
-  return [
-    ...state,
-    {
-      id: state.reduce((maxID, ingredient) =>
-        Math.max(ingredient.id, maxID), 0
-      ) + 1,
-      name: action.payload.name,
-      bought: false
-    }
-  ];
+function addIngredientToShoppingList(state = initialState, action) {
+  return state.concat({
+    id: action.payload.id,
+    bought: false
+  });
 }
 
 // Remove an ingredient from the shopping list
-function removeIngredient(state, action) {
-  return state.filter((ingredient) => 
-    ingredient.id !== action.payload.id
-  );
+function removeIngredientFromShoppingList(state = initialState, action) {
+  return state.filter((ingredient) => {
+    return ingredient.id !== action.payload.id;
+  });
 }
 
 // Edit an ingredient in the shopping list
-function editIngredient(state, action) {
-  return state.map((ingredient) => 
-    ingredient.id === action.payload.id ?
-    { ...ingredient, name: action.payload.name } :
-    ingredient
-  );
+function editIngredientInShoppingList(state = initialState, action) {
+  return state.map((ingredient) => {
+    if (ingredient.id === action.payload.oldID) {
+      return { ...ingredient, id: action.payload.newID };
+    } else {
+      return ingredient;
+    }
+  });
 }
 
 // Mark an ingredient as bought in the shopping list
-function markIngredientAsBought(state, action) {
-  return state.map((ingredient) =>
-    ingredient.id === action.payload.id ?
-    { ...ingredient, bought: true } :
-    ingredient
-  );
+function markIngredientAsBoughtInShoppingList(state = initialState, action) {
+  return state.map((ingredient) => {
+    if (ingredient.id === action.payload.id) {
+      return { ...ingredient, bought: true };
+    } else {
+      return ingredient;
+    }
+  });
 }
 
 // Mark an ingredient as not bought in the shopping list
-function markIngredientAsNotBought(state, action) {
-  return state.map((ingredient) =>
-    ingredient.id === action.payload.id ?
-    { ...ingredient, bought: false } :
-    ingredient
-  );
+function markIngredientAsNotBoughtInShoppingList(state = initialState, action) {
+  return state.map((ingredient) => {
+    if (ingredient.id === action.payload.id) {
+      return { ...ingredient, bought: true };
+    } else {
+      return ingredient;
+    }
+  });
 }

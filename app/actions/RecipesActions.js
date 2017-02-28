@@ -29,11 +29,11 @@ export function addRecipes(json) {
     type: ActionTypes.recipes.ADD_RECIPES,
     payload: {
       recipes: json.results.map((recipe) => {
-          const { id } = recipe;
-          return {
-            [id] : recipe.title
-          };
-        })
+        const { id } = recipe;
+        return {
+          [ id ] : recipe
+        };
+      })
     }
   };
 }
