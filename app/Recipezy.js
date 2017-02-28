@@ -15,12 +15,7 @@ import { StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
 
 import Store from './store/Store';
-import { addRecipe } from './actions/RecipesActions';
-//import { searchRecipes } from './actions/RecipeSearchResultsActions';
 import { addIngredientToInventoryList } from './actions/InventoryListActions';
-import {
-  addIngredientToShoppingList
-} from './actions/ShoppingListActions';
 import NavigationBar from './components/navigationbar/NavigationBar';
 
 //import { normalize, schema } from  'normalizr';
@@ -29,17 +24,6 @@ import NavigationBar from './components/navigationbar/NavigationBar';
 export default class Recipezy extends Component {
   render() {
     //Store.dispatch(addIngredientToInventoryList(12, 'Apples'));
-
-    /*Store.dispatch(addRecipe(685, {
-      image: 'http://spoonacular...',
-      aggregateLikes: 227,
-      title: 'Ranch Burgers',
-      instructions: ['Step 1', 'Step 2']
-    }));
-    */
-
-    Store.dispatch(addIngredientToShoppingList(98, 'Pears'));
-    Store.dispatch(addIngredientToShoppingList(100, 'Chicken'));
 
     return (
       <Provider store={Store}>

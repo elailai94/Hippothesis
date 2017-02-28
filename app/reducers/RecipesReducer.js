@@ -45,10 +45,8 @@ function addRecipe(state = initialState, action) {
 
 // Add new recipes to recipes
 function addRecipes(state = initialState, action) {
-  return state;
-/*  return {
+  return {
     ...state,
     ...(action.payload.recipes)
   };
-*/
 }
