@@ -21,19 +21,19 @@ const initialState = [];
 export default function InventoryListReducer(state = initialState, action) {
   switch (action.type) {
     case ActionTypes.inventoryList.ADD_INGREDIENT:
-      return addIngredient(state, action);
+      return addIngredientToInventoryList(state, action);
     
     case ActionTypes.inventoryList.REMOVE_INGREDIENT:
-      return removeIngredient(state, action);
+      return removeIngredientFromInventoryList(state, action);
     
     case ActionTypes.inventoryList.EDIT_INGREDIENT:
-      return editIngredient(state, action);
+      return editIngredientInInventoryList(state, action);
     
     case ActionTypes.inventoryList.MARK_INGREDIENT_AS_USED:
-      return markIngredientAsUsed(state, action);
+      return markIngredientAsUsedInIngredientList(state, action);
     
     case ActionTypes.inventoryList.MARK_INGREDIENT_AS_NOT_USED:
-      return markIngredientAsNotUsed(state, action);
+      return markIngredientAsNotUsedInIngredientList(state, action);
     
     default:
       return state;
@@ -41,29 +41,25 @@ export default function InventoryListReducer(state = initialState, action) {
 }
 
 // Add a new ingredient to the inventory list
-function addIngredient(state = initialState, action) {
-  return [
-    ...state,
-    {
-      id: action.payload.id,
-      name: action.payload.name,
-      used: false
-    }
-  ];
+function addIngredientToInventoryList(state = initialState, action) {
+  return state.concat({
+    id: action.payload.id,
+    used: false
+  });
 }
 
 // Remove an ingredient from the inventory list
-function removeIngredient(state = initialState, action) {
+function removeIngredientFromInventoryList(state = initialState, action) {
   return state.filter((ingredient) => {
     return ingredient.id !== action.payload.id;
   });
 }
 
 // Edit an ingredient in the inventory list
-function editIngredient(state = initialState, action) {
+function editIngredientInInventoryList(state = initialState, action) {
   return state.map((ingredient) => {
-    if (ingredient.id === action.payload.id) {
-      return { ...ingredient, name: action.payload.name };
+    if (ingredient.id === action.payload.oldID) {
+      return { ...ingredient, id: action.payload.newID };
     } else {
       return ingredient;
     }
@@ -71,7 +67,7 @@ function editIngredient(state = initialState, action) {
 }
 
 // Mark an ingredient as used in the inventory list
-function markIngredientAsUsed(state = initialState, action) {
+function markIngredientAsUsedInIngredientList(state = initialState, action) {
   return state.map((ingredient) => {
     if (ingredient.id === action.payload.id) {
       return { ...ingredient, used: true };
@@ -82,7 +78,7 @@ function markIngredientAsUsed(state = initialState, action) {
 }
 
 // Mark an ingredient as not used in the shopping list
-function markIngredientAsNotUsed(state = initialState, action) {
+function markIngredientAsNotUsedInIngredientList(state = initialState, action) {
   return state.map((ingredient) => {
     if (ingredient.id === action.payload.id) {
       return { ...ingredient, used: false };

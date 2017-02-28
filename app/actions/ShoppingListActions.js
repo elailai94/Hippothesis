@@ -11,20 +11,27 @@
 'use strict';
 
 import ActionTypes from '../constants/ActionTypes';
+import { addIngredientToIngredients } from './IngredientsActions';
 
 // Add a new ingredient to the shopping list
-export function addIngredient(id, name) {
+export function addIngredientToShoppingList(id, name) {
+  return (dispatch) => {
+    dispatch(addIngredient(id));
+    dispatch(addIngredientToIngredients(id, name));
+  };
+}
+
+function addIngredient(id) {
   return {
     type: ActionTypes.shoppingList.ADD_INGREDIENT,
     payload: {
-      id,
-      name
+      id
     }
   };
 }
 
 // Remove an ingredient from the shopping list
-export function removeIngredient(id) {
+export function removeIngredientFromShoppingList(id) {
   return {
     type: ActionTypes.shoppingList.REMOVE_INGREDIENT,
     payload: {
@@ -34,18 +41,18 @@ export function removeIngredient(id) {
 }
 
 // Edit an ingredient in the shopping list
-export function editIngredient(id, name) {
+export function editIngredientInShoppingList(oldID, newID) {
   return {
     type: ActionTypes.shoppingList.EDIT_INGREDIENT,
     payload: {
-      id,
-      name
+      oldID,
+      newID
     }
   };
 }
 
 // Mark an ingredient as bought in the shopping list
-export function markIngredientAsBought(id) {
+export function markIngredientAsBoughtInShoppingList(id) {
   return {
     type: ActionTypes.shoppingList.MARK_INGREDIENT_AS_BOUGHT,
     payload: {
@@ -55,7 +62,7 @@ export function markIngredientAsBought(id) {
 }
 
 // Mark an ingredient as not bought in the shopping list
-export function markIngredientAsNotBought(id) {
+export function markIngredientAsNotBoughtInShoppingList(id) {
   return {
     type: ActionTypes.shoppingList.MARK_INGREDIENT_AS_NOT_BOUGHT,
     payload: {
