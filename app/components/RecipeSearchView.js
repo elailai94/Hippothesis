@@ -33,7 +33,7 @@ class RecipeSearchView extends Component {
       limitLicense: false,
       number: 5,
       offset: 0,
-      query: "burger"
+      includeIngredients: "chicken, rice"
     }).then(() => {
       console.log("results = ", this.props.recipes);
     })
