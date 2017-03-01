@@ -13,7 +13,24 @@
 import React, { Component } from 'react';
 import { View, ScrollView, Image, StatusBar, TextInput } from 'react-native';
 import { connect } from 'react-redux';
-import { Container, Content, Text, Item, Input, Thumbnail, Icon, InputGroup, Left, Right, Button, Grid, Row, Col, List, ListItem } from 'native-base';
+import {
+  Container,
+  Content,
+  Text,
+  Item,
+  Input,
+  Thumbnail,
+  Icon,
+  InputGroup,
+  Left,
+  Right,
+  Button,
+  Grid,
+  Row,
+  Col,
+  List,
+  ListItem
+} from 'native-base';
 
 import Images from '../constants/Images';
 import IngredientSelector from './IngredientSelector';
