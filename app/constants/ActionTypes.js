@@ -45,7 +45,8 @@ const ActionTypes = {
   },
   navigation: {
     SELECT_TAB: 'SELECT_TAB',
-    SELECT_RECIPE: 'SELECT_RECIPE'
+    SELECT_RECIPE: 'SELECT_RECIPE',
+    SET_SEARCHVIEW: 'SET_SEARCHVIEW'
   }
 };
 

@@ -14,7 +14,8 @@ import ActionTypes from '../constants/ActionTypes';
 
 const initialState = {
   selectedTab: 'search',
-  selectedRecipe: 0
+  selectedRecipe: 0,
+  searchView: 'search',
 };
 
 /*
@@ -28,6 +29,9 @@ export default function NavigationReducer(state = initialState, action) {
     
     case ActionTypes.navigation.SELECT_RECIPE:
       return selectRecipe(state, action);
+
+    case ActionTypes.navigation.SET_SEARCHVIEW:
+      return setSearchView(state, action);
 
     default:
       return state;
@@ -48,4 +52,12 @@ function selectRecipe(state = initialState, action) {
     ...state,
     selectedRecipe: action.payload.id
   };
+}
+
+// set a new search view
+function setSearchView(state = initalState, action) {
+  return {
+    ...state,
+    searchView: action.payload.name
+  }
 }

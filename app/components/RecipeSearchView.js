@@ -18,9 +18,8 @@ import { Container, Content, Text, Item, Input, Thumbnail, Icon, InputGroup, Lef
 import Images from '../constants/Images';
 import IngredientSelector from './IngredientSelector';
 import { searchRecipes } from '../actions/RecipeSearchResultsActions';
-
 import { addIngredient, removeIngredient, editIngredient } from '../actions/IngredientListActions';
-
+import { setSearchView } from '../actions/NavigationActions';
 
 class RecipeSearchView extends Component {
 
@@ -37,6 +36,7 @@ class RecipeSearchView extends Component {
     }).then(() => {
       console.log("results = ", this.props.recipes);
       // take user to recipe results view
+      this.props.setSearchView('results');
     })
   }
 
@@ -167,7 +167,8 @@ function mapDispatchToProps(dispatch) {
   return {
     addIngredient: (name) => dispatch(addIngredient(name)),
     editIngredient: (id, name) => dispatch(editIngredient(id, name)),
-    searchRecipes: (parameters) => dispatch(searchRecipes(parameters))
+    searchRecipes: (parameters) => dispatch(searchRecipes(parameters)),
+    setSearchView: (name) => dispatch(setSearchView(name))
   };
 }
  
