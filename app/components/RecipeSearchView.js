@@ -29,6 +29,8 @@ class RecipeSearchView extends Component {
     console.log("ingredientString", ingredientString);
 
     this.props.searchRecipes({
+      addRecipeInformation: true,
+      instructionsRequired: true,
       limitLicense: false,
       number: 5,
       offset: 0,

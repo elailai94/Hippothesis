@@ -13,11 +13,34 @@
 import React, { Component } from 'react';
 import { View, ScrollView, Image, StatusBar, TextInput } from 'react-native';
 import { connect } from 'react-redux';
-import { Container, Header, Body, Title, List, ListItem, Left, Right, Button, Icon, Text} from 'native-base';
+import {
+  Container,
+  Header,
+  Body,
+  Title,
+  List,
+  ListItem,
+  Left,
+  Right,
+  Button,
+  Icon,
+  Text
+} from 'native-base';
+
+import Images from '../constants/Images';
+import IngredientSelector from './IngredientSelector';
+import { searchRecipes } from '../actions/RecipeSearchResultsActions';
+import { addIngredient, removeIngredient, editIngredient } from '../actions/IngredientListActions';
+import { setSearchView } from '../actions/NavigationActions';
+
 
 import RecipeCard from './RecipeCard';
 
 class RecipeSearchResultView extends Component {
+
+  goBack() {
+    this.props.setSearchView('search');
+  }
 
   render() {
     return <Container style={{ marginBottom: 50 }}>
@@ -25,7 +48,7 @@ class RecipeSearchResultView extends Component {
       <StatusBar barStyle="light-content" />
       <Header>
         <Left>
-          <Button transparent>
+          <Button transparent onPress={() => this.goBack()}>
             <Icon name="arrow-back" />
           </Button>
         </Left>
@@ -51,7 +74,14 @@ function mapStateToProps(state) {
   };
 }
  
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setSearchView: (name) => dispatch(setSearchView(name))
+  };
+}
+
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(RecipeSearchResultView);
