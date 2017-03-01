@@ -67,6 +67,10 @@ class RecipeSearchView extends Component {
     this.props.editIngredient(id, name);
   }
 
+  deleteIngredient(id) {
+    this.props.removeIngredient(id);
+  }
+
   render() {
 
     let emptyState = 
@@ -84,7 +88,11 @@ class RecipeSearchView extends Component {
           <ListItem style={{margin: 0, padding: 4, paddingLeft: 10, paddingRight: 10}}>
             <Item style={styles.ingredientInput}>
               <Input placeholder="New ingredient" defaultValue={data.name} 
-               onChangeText={(text) => this.updateIngredient(data.id, text)}/>
+                onChangeText={(text) => this.updateIngredient(data.id, text)}
+              />
+              <Button transparent style={styles.trashButton} onPress={() => this.deleteIngredient(data.id)}>
+                <Icon style={styles.trashIcon} name="trash"/>
+              </Button>
             </Item>
           </ListItem>}
       />
@@ -139,7 +147,7 @@ const styles = {
   headerButton: {
     alignSelf: 'flex-end',
     top: -25,
-    marginRight: 25,
+    marginRight: 50,
     height: 50,
     width: 50,
     padding: 0,
@@ -171,6 +179,13 @@ const styles = {
   },
   ingredientInput: {
     borderWidth: 0,
+  },
+  trashButton: {
+    paddingRight: 0,
+    paddingTop: 10,
+  },
+  trashIcon: {
+    color: '#707070'
   }
 }
 
@@ -186,6 +201,7 @@ function mapDispatchToProps(dispatch) {
   return {
     addIngredient: (name) => dispatch(addIngredient(name)),
     editIngredient: (id, name) => dispatch(editIngredient(id, name)),
+    removeIngredient: (id) => dispatch(removeIngredient(id)),
     searchRecipes: (parameters) => dispatch(searchRecipes(parameters)),
     setSearchView: (name) => dispatch(setSearchView(name))
   };
