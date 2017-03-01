@@ -20,7 +20,7 @@ import { connect } from 'react-redux';
 import Styles from './Styles';
 import Images from '../../constants/Images';
 import { selectTab } from '../../actions/NavigationActions';
-import RecipeSearchView from '../RecipeSearchView';
+import RecipeSearchContainer from '../RecipeSearchContainer';
 
 class NavigationBar extends Component {
   handleTabSelection(newTab) {
@@ -30,6 +30,9 @@ class NavigationBar extends Component {
   }
 
   render() {
+
+
+
     return (
       <TabBarIOS>
         <TabBarIOS.Item
@@ -47,7 +50,7 @@ class NavigationBar extends Component {
           selectedIcon={Images.icons.search.active}
           selected={this.props.selectedTab === 'search'}
           onPress={() => this.handleTabSelection('search')}>
-          <RecipeSearchView {...this.props}/>
+          <RecipeSearchContainer/>
         </TabBarIOS.Item>
 
         <TabBarIOS.Item

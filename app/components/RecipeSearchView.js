@@ -11,83 +11,148 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { View, Image } from 'react-native';
+import { View, ScrollView, Image, StatusBar, TextInput } from 'react-native';
 import { connect } from 'react-redux';
-import { Container, Content, Text, Item, Input, InputGroup, Button, Grid, Row, Col } from 'native-base';
+import { Container, Content, Text, Item, Input, Thumbnail, Icon, InputGroup, Left, Right, Button, Grid, Row, Col, List, ListItem } from 'native-base';
 
 import Images from '../constants/Images';
 import IngredientSelector from './IngredientSelector';
-
 import { searchRecipes } from '../actions/RecipeSearchResultsActions';
+import { addIngredient, removeIngredient, editIngredient } from '../actions/IngredientListActions';
+import { setSearchView } from '../actions/NavigationActions';
 
 class RecipeSearchView extends Component {
 
-  constructor(props) {
-    super(props);
-    console.log("props", props);
-  }
-
   search() {
-    console.log("TESTEST", this);
+
+    let ingredientString = this.props.ingredients.map((elem) => elem.name).join(",");
+    console.log("ingredientString", ingredientString);
+
     this.props.searchRecipes({
       limitLicense: false,
       number: 5,
       offset: 0,
-      includeIngredients: "chicken, rice"
+      includeIngredients: ingredientString,
     }).then(() => {
       console.log("results = ", this.props.recipes);
+      // take user to recipe results view
+      this.props.setSearchView('results');
     })
   }
 
+  newIngredient() {
+    this.props.addIngredient("");
+  }
+
+  updateIngredient(id, name) {
+    this.props.editIngredient(id, name);
+  }
+
   render() {
-    return (
-      <Container style={{marginTop: 30, marginBottom: 50}}>
-        <Content style={{margin: 15}}>
-          <Text style={{fontSize: 24, textAlign: 'center', marginBottom: 20, marginTop: 20, }}
-            >What ingredients do you have?
-          </Text>
-          <View>
-            <Item regular>
-                <Input style={{marginLeft: 10, marginRight: 10}}/>
+
+    let emptyState = 
+      <ScrollView style={styles.emptyState} scrollEnabled={false}>
+        <Image style={styles.emptyStateImg} source={Images.food.pot}/>
+        <Text style={styles.emptyStateText}>What do you have in the kitchen?</Text>
+        <Text style={styles.emptyStateText}>Add some tasty ingredients!</Text>
+      </ScrollView>;
+     
+    let ingredientList =
+      <List 
+        style={{marginTop: -50, zIndex: 0}}
+        dataArray={this.props.ingredients} 
+        renderRow={ (data) => 
+          <ListItem style={{margin: 0, padding: 4, paddingLeft: 10, paddingRight: 10}}>
+            <Item style={styles.ingredientInput}>
+              <Input placeholder="New ingredient" defaultValue={data.name} 
+               onChangeText={(text) => this.updateIngredient(data.id, text)}/>
             </Item>
-            <Button><Text>+</Text></Button>
-          </View>
+          </ListItem>}
+      />
 
-          <View style={{marginTop: 15}}>
-            <Grid>
-              <Row>
-                <Col>
-                  <IngredientSelector name="Chicken" image={Images.food.chicken} />
-                </Col>
-                <Col>
-                  <IngredientSelector name="Rice" image={Images.food.rice} />
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <IngredientSelector name="Pasta" image={Images.food.pasta}/>
-                </Col>
-                <Col>
-                  <IngredientSelector name="Steak" image={Images.food.steak}/>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <IngredientSelector name="Salmon" image={Images.food.salmon}/>
-                </Col>
-                <Col>
-                  <IngredientSelector name="Eggs" image={Images.food.egg}/>
-                </Col>
-              </Row>
-            </Grid>
-          </View>
+    let content = emptyState;
+    console.log(this.props.ingredients);
+    if (this.props.ingredients.length > 0) {
+      content = ingredientList
+    }
 
-        </Content>
-        <Button block style={{margin: 15, marginTop: 0}} onPress={() => this.search()}><Text>Search</Text></Button>
+    return (
+      <Container style={{marginBottom: 50}}>
+
+        <View>
+          <StatusBar barStyle="light-content"/>
+          <Image style={styles.background} source={Images.backgrounds.search}>
+            <Text style={styles.header}>Discover</Text>
+          </Image>
+        </View>
+
+        <Button style={styles.headerButton} onPress={() => this.newIngredient()}>
+          <Icon style={styles.headerButtonIcon} name="add"/>
+        </Button>
+
+        {content}
+
+        <Button full style={styles.searchButton} onPress={() => this.search()}>
+          <Text>Search</Text>
+        </Button>
       </Container>
     );
   }
 
+}
+
+const styles = {
+  background: {
+    height: 175,
+    width: null,
+    resizeMode: 'cover',
+    justifyContent: 'center'
+  },
+  header: {
+    backgroundColor: 'transparent',
+    color: 'white',
+    fontSize: 40,
+    marginLeft: 20,
+    marginTop: 10,
+    fontFamily: 'Avenir-Light',
+    letterSpacing: 2
+  },
+  headerButton: {
+    alignSelf: 'flex-end',
+    top: -25,
+    marginRight: 25,
+    height: 50,
+    width: 50,
+    padding: 0,
+    borderRadius: 25,
+    justifyContent: 'center',
+    backgroundColor: '#f2487a',
+    zIndex: 10,
+  },
+  headerButtonIcon: {
+    fontSize: 50,
+    backgroundColor: 'transparent',
+  },
+  searchButton: {
+    backgroundColor: '#f2487a'
+  },
+  emptyState: {
+    //justifyContent: 'center'
+  },
+  emptyStateImg: {
+    height: 175,
+    width: null,
+    resizeMode: 'contain',
+    marginBottom: 20,
+  },
+  emptyStateText: {
+    textAlign: 'center',
+    fontSize: 20,
+    color: '#999999',
+  },
+  ingredientInput: {
+    borderWidth: 0,
+  }
 }
 
 function mapStateToProps(state) {
@@ -100,14 +165,14 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    searchRecipes: (parameters) => dispatch(searchRecipes(parameters))
+    addIngredient: (name) => dispatch(addIngredient(name)),
+    editIngredient: (id, name) => dispatch(editIngredient(id, name)),
+    searchRecipes: (parameters) => dispatch(searchRecipes(parameters)),
+    setSearchView: (name) => dispatch(setSearchView(name))
   };
 }
  
- 
-const thing = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(RecipeSearchView);
-
-export default thing;

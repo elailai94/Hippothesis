@@ -31,7 +31,11 @@ const Images = {
     rice: require('../images/food/rice.png'),
     pasta: require('../images/food/spaghetti.png'),
     steak: require('../images/food/steak.png'),
-    chicken: require('../images/food/turkey.png')
+    chicken: require('../images/food/turkey.png'),
+    pot: require('../images/food/pot.png')
+  },
+  backgrounds: {
+    search: require('../images/search_background.jpg')
   }
 };
 
