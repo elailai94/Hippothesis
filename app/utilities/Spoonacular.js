@@ -44,7 +44,7 @@ export function autocompleteRecipeSearch(parameters) {
   );
 }
 
-/* 
+/*
  * Search through hundreds of thousands of recipes using advanced
  * filtering and ranking
  * NOTE: Since this method combines three other functionalities, each
@@ -80,6 +80,22 @@ export function autocompleteRecipeSearch(parameters) {
 export function complexRecipeSearch(parameters) {
   return callEndpoint(
     Settings.spoonacular.COMPLEX_RECIPE_SEARCH_PATH,
+    parameters
+  );
+}
+
+/*
+ * Find random (popular) recipes
+ * NOTE: The format of parameters is as follows:
+ * {
+ *   limitLicense: false,        // Optional
+ *   number: 5,                  // Optional
+ *   tags: 'vegetarian, dessert' // Optional
+ * }
+ */
+export function getRandomRecipes(parameters) {
+  return callEndpoint(
+    Settings.spoonacular.GET_RANDOM_RECIPES_SEARCH_PATH,
     parameters
   );
 }
@@ -123,9 +139,9 @@ export function generateMealPlan(parameters) {
 }
 
 // Call the endpoint
-export function callEndpoint(path, parameters) {
+function callEndpoint(path, parameters) {
   let queryStrings = qs.stringify(parameters, { skipNulls: true });
-  queryStrings = queryStrings === '' ? queryStrings : `?${queryStrings}`; 
+  queryStrings = queryStrings === '' ? queryStrings : `?${queryStrings}`;
   const endpoint = `${Settings.spoonacular.BASE_URL}${path}${queryStrings}`;
 
   return fetch(endpoint, {
@@ -134,7 +150,7 @@ export function callEndpoint(path, parameters) {
 }
 
 // Get the headers for a request
-export function getHeaders() {
+function getHeaders() {
   return {
     'Accept': 'application/json',
     'X-Mashape-Key': Settings.spoonacular.API_KEY
