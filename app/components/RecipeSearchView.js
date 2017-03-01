@@ -26,20 +26,26 @@ class RecipeSearchView extends Component {
 
   search() {
 
-
+    let ingredientString = this.props.ingredients.map((elem) => elem.name).join(",");
+    console.log("ingredientString", ingredientString);
 
     this.props.searchRecipes({
       limitLicense: false,
       number: 5,
       offset: 0,
-      includeIngredients: "chicken, rice"
+      includeIngredients: ingredientString,
     }).then(() => {
       console.log("results = ", this.props.recipes);
+      // take user to recipe results view
     })
   }
 
   newIngredient() {
     this.props.addIngredient("");
+  }
+
+  updateIngredient(id, name) {
+    this.props.editIngredient(id, name);
   }
 
   render() {
@@ -58,7 +64,8 @@ class RecipeSearchView extends Component {
         renderRow={ (data) => 
           <ListItem style={{margin: 0, padding: 4, paddingLeft: 10, paddingRight: 10}}>
             <Item style={styles.ingredientInput}>
-              <Input placeholder="New ingredient" defaultValue={data.name}/>
+              <Input placeholder="New ingredient" defaultValue={data.name} 
+               onChangeText={(text) => this.updateIngredient(data.id, text)}/>
             </Item>
           </ListItem>}
       />
@@ -159,14 +166,12 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     addIngredient: (name) => dispatch(addIngredient(name)),
+    editIngredient: (id, name) => dispatch(editIngredient(id, name)),
     searchRecipes: (parameters) => dispatch(searchRecipes(parameters))
   };
 }
  
- 
-const thing = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(RecipeSearchView);
-
-export default thing;
