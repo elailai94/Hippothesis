@@ -28,17 +28,17 @@ class RecipeSearchView extends Component {
     let ingredientString = this.props.ingredients.map((elem) => elem.name).join(",");
     console.log("ingredientString", ingredientString);
 
+    this.props.setSearchView('results');
+
     this.props.searchRecipes({
       addRecipeInformation: true,
       instructionsRequired: true,
       limitLicense: false,
-      number: 5,
+      number: 10,
       offset: 0,
       includeIngredients: ingredientString,
     }).then(() => {
       console.log("results = ", this.props.recipes);
-      // take user to recipe results view
-      this.props.setSearchView('results');
     })
   }
 

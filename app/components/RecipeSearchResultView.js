@@ -11,7 +11,7 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { View, ScrollView, Image, StatusBar, TextInput } from 'react-native';
+import { View, ScrollView, Image, StatusBar, TextInput, ListView } from 'react-native';
 import { connect } from 'react-redux';
 import {
   Container,
@@ -24,7 +24,8 @@ import {
   Right,
   Button,
   Icon,
-  Text
+  Text,
+  Spinner
 } from 'native-base';
 
 import Images from '../constants/Images';
@@ -32,7 +33,6 @@ import IngredientSelector from './IngredientSelector';
 import { searchRecipes } from '../actions/RecipeSearchResultsActions';
 import { addIngredient, removeIngredient, editIngredient } from '../actions/IngredientListActions';
 import { setSearchView } from '../actions/NavigationActions';
-
 
 import RecipeCard from './RecipeCard';
 
@@ -43,6 +43,21 @@ class RecipeSearchResultView extends Component {
   }
 
   render() {
+
+    let content = 
+      <View><Spinner color="#999999"/></View>
+    ;
+
+    console.log("props tops:", this.props.recipes);
+
+    if (Object.keys(this.props.recipes).length > 0) {
+      content =  
+        <List 
+          dataArray={this.props.recipes}
+          renderRow={(data) => <RecipeCard {...data[Object.keys(data)[0]]}/>}
+        />;
+    }
+
     return <Container style={{ marginBottom: 50 }}>
 
       <StatusBar barStyle="light-content" />
@@ -58,10 +73,7 @@ class RecipeSearchResultView extends Component {
         <Right/>
       </Header>
 
-      <List
-        dataArray={this.props.recipes}
-        renderRow={(data) => <RecipeCard {...data[Object.keys(data)[0]]}/>}
-      />
+      {content}
 
     </Container>
   }

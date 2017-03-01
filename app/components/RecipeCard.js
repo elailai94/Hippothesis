@@ -18,17 +18,12 @@ import { Card, CardItem, Text } from 'native-base';
 import Images from '../constants/Images';
 
 export default class RecipeCard extends Component {
-  
-  constructor(props) {
-    super(props);
-    console.log("TEST 12345", props);
-  }
 
   render() {
     return (
-      <Card>
-        <CardItem cardBody>
-          <Image source={{uri: this.props.image}} />
+      <Card style={styles.card}>
+        <CardItem cardBody style={styles.imageContainer}>
+          <Image style={styles.image} source={{uri: this.props.image}} />
         </CardItem>
         <CardItem>
           <Text>{this.props.title}</Text>
@@ -37,4 +32,16 @@ export default class RecipeCard extends Component {
     );
   }
 
+}
+
+const styles = {
+  imageContainer: {
+    flex: 1,
+    alignItems: 'center'
+  },
+  image: {
+    flex: 1,
+    height: 120,
+    resizeMode: 'contain',
+  }
 }
