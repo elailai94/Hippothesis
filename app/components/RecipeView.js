@@ -11,7 +11,14 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { View, ScrollView, Image, StatusBar, TextInput } from 'react-native';
+import {
+  View,
+  ScrollView,
+  Image,
+  StatusBar,
+  TextInput,
+  Share
+} from 'react-native';
 import { connect } from 'react-redux';
 import {
   Container,
@@ -33,7 +40,8 @@ import {
   List,
   Left,
   Right,
-  Spinner
+  Spinner,
+  Badge
 } from 'native-base';
 
 import Images from '../constants/Images';
@@ -44,7 +52,7 @@ import { setSearchView } from '../actions/NavigationActions';
 
 class RecipeView extends Component {
   recipe;
-  
+
   goBack() {
     this.props.setSearchView('results');
   }
@@ -70,12 +78,12 @@ class RecipeView extends Component {
 
   generateInstructions() {
     const steps = this.recipe.analyzedInstructions[0].steps;
-    let str = '';
+    let instructions = [];
     for (var i = 0; i < steps.length; i++) {
        const instruction = steps[i].step;
-       str = str.concat(instruction).concat('\n');
+       instructions.push(instruction);
     }
-    return str
+    return instructions;
   }
 
   generateIngredients() {
@@ -90,70 +98,96 @@ class RecipeView extends Component {
     return str
   }
 
+  shareRecipe() {
+    const content = {
+      message: 'Check out this great recipe!',
+      title: 'Recipezy',
+      url: this.recipe.sourceUrl
+    };
+    Share.share(content);
+  }
+
+  getVegetarianBadge() {
+    if (this.recipe.vegetarian) {
+      return (
+        <Badge style={{backgroundColor: 'green', borderRadius: 0, marginRight: 5}}>
+          <Text>Vegetarian</Text>
+        </Badge>
+      );
+    }
+  }
+
+  getGlutenFreeBadge() {
+    if (this.recipe.glutenFree) {
+      return (
+        <Badge style={{backgroundColor: 'orange',  borderRadius: 0, marginRight: 5}}>
+          <Text>Gluten-Free</Text>
+        </Badge>
+      );
+    }
+  }
+
+  getDairyFreeBadge() {
+    if (this.recipe.dairyFree) {
+      return (
+        <Badge style={{backgroundColor: 'lightblue',  borderRadius: 0, marginRight: 5}}>
+          <Text>Dairy-Free</Text>
+        </Badge>
+      );
+    }
+  }
+
   render() {
     this.findMyObject();
-   
-
 
     return (
       <Container style={{marginBottom: 50}}>
 
       <StatusBar barStyle="light-content" />
-      <Header>
-        <Left>
-          <Button transparent onPress={() => this.goBack()}>
-            <Icon name="arrow-back" />
-          </Button>
-        </Left>
-        <Body>
-          <Title>{ this.recipe.title }</Title>
-        </Body>
-        <Right/>
-      </Header>
 
       <Content>
-        <Image style={styles.image} source={{uri: this.recipe.image} } />
-        <Grid>
-          <Row>
-              <Col colInline>
-                <View style={styles.colInline}>
-                  <Icon active name='ios-cash-outline' />
-                  <Text> {this.recipe.pricePerServing} </Text>
-                </View>
-              </Col>
-              <Col>
-              <View style={styles.colInline}>
-                <Icon active name='ios-heart-outline' />
-                <Text> {this.recipe.aggregateLikes} </Text>
-               </View>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-              <View style={styles.colInline}>
-                <Icon active name='ios-time-outline' />
-                <Text> {this.recipe.readyInMinutes} </Text>
-              </View>
-              </Col>
-              <Col>
-               <View style={styles.colInline}>
-                  <Icon active name='ios-leaf-outline' />
-                  <Text> {this.recipe.readyInMinutes} </Text>
-                </View>
-              </Col>
-              </Row>
+
+        <Image style={styles.background} source={{uri: this.recipe.image} }>
+          <Button transparent style={{marginTop: 10}} onPress={() => this.goBack()}>
+            <Icon name="arrow-back" style={{color: 'white'}}/>
+          </Button>
+        </Image>
+
+        <Button style={styles.headerButton} onPress={() => this.shareRecipe()}>
+          <Icon style={styles.headerButtonIcon} name="share"/>
+        </Button>
+
+        <Grid style={{margin: 10, top: -30}}>
+          <Row style={{marginTop: 10, marginBottom: 5}}>
+            <Text style={{fontSize: 20, fontWeight: 'bold'}}>{this.recipe.title}</Text>
+          </Row>
+          <Row style={{marginTop: 5, marginBottom: 5}}>
+            <Col style={{alignItems: 'center'}}>
+              <Icon name='ios-heart-outline' />
+              <Text>{this.recipe.aggregateLikes} likes</Text>
+            </Col>
+            <Col style={{alignItems: 'center'}}>
+              <Icon name='ios-time-outline' />
+              <Text>{this.recipe.readyInMinutes} minutes</Text>
+            </Col>
+            <Col style={{alignItems: 'center'}}>
+              <Icon name='ios-people-outline' />
+              <Text>{this.recipe.servings} servings</Text>
+            </Col>
+          </Row>
+          <Row style={{marginTop: 5, marginBottom: 5, alignSelf: 'flex-start'}}>
+            {this.getVegetarianBadge()}
+            {this.getGlutenFreeBadge()}
+            {this.getDairyFreeBadge()}
+          </Row>
+          <Row style={{marginTop: 5, marginBottom: 5}}>
+            <List dataArray={this.generateInstructions()} renderRow={(step) =>
+              <ListItem>
+                <Text>{step}</Text>
+              </ListItem>
+            } />
+          </Row>
         </Grid>
-        <Text> Price Per Serving </Text>
-        <Text> Serving Size: { this.recipe.servings } </Text>
-        <Text> Spoonacular Score: { this.recipe.spoonacularScore } </Text>
-        <Text> Vegeterian: { this.recipe.vegeterian } </Text>
-        <Text> Very Popular: { this.recipe.veryPopular } </Text>
-        <Text> Very Healthy: { this.recipe.veryHealthy } </Text>
- 
-        <Text>Seasoning: { this.generateIngredients() } </Text> 
-        <Text>Instructions: { this.generateInstructions() } </Text>
-
-
       </Content>
 
       </Container>
@@ -166,8 +200,7 @@ const styles = {
   background: {
     height: 175,
     width: null,
-    resizeMode: 'cover',
-    justifyContent: 'center'
+    resizeMode: 'cover'
   },
   header: {
     backgroundColor: 'transparent',
@@ -181,7 +214,7 @@ const styles = {
   headerButton: {
     alignSelf: 'flex-end',
     top: -25,
-    marginRight: 50,
+    marginRight: 40,
     height: 50,
     width: 50,
     padding: 0,
@@ -191,7 +224,7 @@ const styles = {
     zIndex: 10,
   },
   headerButtonIcon: {
-    fontSize: 50,
+    fontSize: 40,
     backgroundColor: 'transparent',
   },
   searchButton: {
@@ -222,7 +255,7 @@ const styles = {
     color: '#707070'
   },
   image: {
-    height: 250    
+    height: 250
   },
   colInline: {
     flexDirection: 'row',
@@ -249,7 +282,7 @@ function mapDispatchToProps(dispatch) {
     setSearchView: (name) => dispatch(setSearchView(name))
   };
 }
- 
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps

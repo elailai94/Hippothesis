@@ -73,21 +73,21 @@ class RecipeSearchView extends Component {
 
   render() {
 
-    let emptyState = 
+    let emptyState =
       <ScrollView style={styles.emptyState} scrollEnabled={false}>
         <Image style={styles.emptyStateImg} source={Images.food.pot}/>
         <Text style={styles.emptyStateText}>What do you have in the kitchen?</Text>
         <Text style={styles.emptyStateText}>Add some tasty ingredients!</Text>
       </ScrollView>;
-     
+
     let ingredientList =
-      <List 
+      <List
         style={{marginTop: -50, zIndex: 0}}
-        dataArray={this.props.ingredients} 
-        renderRow={ (data) => 
+        dataArray={this.props.ingredients}
+        renderRow={ (data) =>
           <ListItem style={{margin: 0, padding: 4, paddingLeft: 10, paddingRight: 10}}>
             <Item style={styles.ingredientInput}>
-              <Input placeholder="New ingredient" defaultValue={data.name} 
+              <Input placeholder="New ingredient" defaultValue={data.name}
                 onChangeText={(text) => this.updateIngredient(data.id, text)}
               />
               <Button transparent style={styles.trashButton} onPress={() => this.deleteIngredient(data.id)}>
@@ -147,7 +147,7 @@ const styles = {
   headerButton: {
     alignSelf: 'flex-end',
     top: -25,
-    marginRight: 50,
+    marginRight: 40,
     height: 50,
     width: 50,
     padding: 0,
@@ -157,7 +157,7 @@ const styles = {
     zIndex: 10,
   },
   headerButtonIcon: {
-    fontSize: 50,
+    fontSize: 40,
     backgroundColor: 'transparent',
   },
   searchButton: {
@@ -206,7 +206,7 @@ function mapDispatchToProps(dispatch) {
     setSearchView: (name) => dispatch(setSearchView(name))
   };
 }
- 
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps

@@ -30,11 +30,8 @@ class NavigationBar extends Component {
   }
 
   render() {
-
-
-
     return (
-      <TabBarIOS>
+      <TabBarIOS tintColor='#f2487a'>
         <TabBarIOS.Item
           title="Home"
           icon={Images.icons.home.unactive}
@@ -77,7 +74,7 @@ function mapDispatchToProps(dispatch) {
     selectTab: (newTab) => dispatch(selectTab(newTab))
   };
 }
- 
+
 const VisibleNavigationBar = connect(
   mapStateToProps,
   mapDispatchToProps
