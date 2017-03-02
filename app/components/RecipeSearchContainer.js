@@ -17,6 +17,8 @@ import { Container } from 'native-base';
 
 import RecipeSearchView from './RecipeSearchView';
 import RecipeSearchResultView from './RecipeSearchResultView';
+import RecipeView from './RecipeView';
+
 
 class RecipeSearchContainer extends Component {
 
@@ -27,7 +29,10 @@ class RecipeSearchContainer extends Component {
       content = <RecipeSearchView/>
     } else if (this.props.searchView == "results") {
       content = <RecipeSearchResultView/>
+    } else if (this.props.searchView == "recipe") {
+      content = <RecipeView/>
     }
+
 
     return content;
   }

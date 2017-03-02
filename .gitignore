@@ -55,3 +55,6 @@ fastlane/screenshots
 
 #Visual Studio Code
 jsconfig.json
+
+#Whatever this is
+ ios/Recipezy.xcodeproj/project.pbxproj
