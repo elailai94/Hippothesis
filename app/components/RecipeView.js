@@ -53,9 +53,7 @@ class RecipeView extends Component {
     for (var i = 0; i < 10; i++){
       const recipeObj = this.props.recipes[i];
       if (recipeObj.hasOwnProperty(this.props.selectedRecipe)) {
-        console.log(recipeObj);
         const temp = this.props.selectedRecipe;
-        console.log(recipeObj[temp]);
         this.recipe = recipeObj[temp];
       }
 
@@ -68,7 +66,6 @@ class RecipeView extends Component {
     const stringVal = id.toString();
     const zero = '0';
     this.getRecipeObject();
-    console.log(this.recipe.title );
   }
 
   generateInstructions() {
@@ -81,9 +78,21 @@ class RecipeView extends Component {
     return str
   }
 
+  generateIngredients() {
+    const steps = this.recipe.analyzedInstructions[0].steps;
+    let str = '';
+    for (var i = 0; i < steps.length; i++) {
+       const ingredientsArr = steps[i].ingredients;
+       for (var j = 0; j < ingredientsArr.length; j++) {
+          str = str.concat(ingredientsArr[j].name).concat(',');
+       }
+    }
+    return str
+  }
+
   render() {
     this.findMyObject();
-    this.generateInstructions();
+   
 
 
     return (
@@ -104,14 +113,46 @@ class RecipeView extends Component {
 
       <Content>
         <Image style={styles.image} source={{uri: this.recipe.image} } />
+        <Grid>
+          <Row>
+              <Col colInline>
+                <View style={styles.colInline}>
+                  <Icon active name='ios-cash-outline' />
+                  <Text> {this.recipe.pricePerServing} </Text>
+                </View>
+              </Col>
+              <Col>
+              <View style={styles.colInline}>
+                <Icon active name='ios-heart-outline' />
+                <Text> {this.recipe.aggregateLikes} </Text>
+               </View>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+              <View style={styles.colInline}>
+                <Icon active name='ios-time-outline' />
+                <Text> {this.recipe.readyInMinutes} </Text>
+              </View>
+              </Col>
+              <Col>
+               <View style={styles.colInline}>
+                  <Icon active name='ios-leaf-outline' />
+                  <Text> {this.recipe.readyInMinutes} </Text>
+                </View>
+              </Col>
+              </Row>
+        </Grid>
+        <Text> Price Per Serving </Text>
         <Text> Serving Size: { this.recipe.servings } </Text>
         <Text> Spoonacular Score: { this.recipe.spoonacularScore } </Text>
         <Text> Vegeterian: { this.recipe.vegeterian } </Text>
         <Text> Very Popular: { this.recipe.veryPopular } </Text>
         <Text> Very Healthy: { this.recipe.veryHealthy } </Text>
-        
-        <Text> Instructions: { this.generateInstructions() } </Text>
-      
+ 
+        <Text>Seasoning: { this.generateIngredients() } </Text> 
+        <Text>Instructions: { this.generateInstructions() } </Text>
+
 
       </Content>
 
@@ -182,7 +223,12 @@ const styles = {
   },
   image: {
     height: 250    
+  },
+  colInline: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   }
+
 }
 
 function mapStateToProps(state) {
