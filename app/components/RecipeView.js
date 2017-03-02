@@ -180,12 +180,15 @@ class RecipeView extends Component {
             {this.getGlutenFreeBadge()}
             {this.getDairyFreeBadge()}
           </Row>
-          <Row style={{marginTop: 5, marginBottom: 5}}>
+          <Row style={{marginTop: 5}}>
+            <Col>
+            <Text style={{fontWeight: 'bold'}}>Steps</Text>
             <List dataArray={this.generateInstructions()} renderRow={(step) =>
               <ListItem>
                 <Text>{step}</Text>
               </ListItem>
             } />
+            </Col>
           </Row>
         </Grid>
       </Content>
