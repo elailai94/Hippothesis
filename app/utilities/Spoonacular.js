@@ -4,8 +4,6 @@
  *
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
- *
- * @flow
  */
 
 'use strict';
@@ -85,22 +83,6 @@ export function complexRecipeSearch(parameters) {
 }
 
 /*
- * Find random (popular) recipes
- * NOTE: The format of parameters is as follows:
- * {
- *   limitLicense: false,        // Optional
- *   number: 5,                  // Optional
- *   tags: 'vegetarian, dessert' // Optional
- * }
- */
-export function getRandomRecipes(parameters) {
-  return callEndpoint(
-    Settings.spoonacular.GET_RANDOM_RECIPES_SEARCH_PATH,
-    parameters
-  );
-}
-
-/*
  * Get information about a recipe
  * NOTE: The format of parameters is as follows:
  * {
@@ -118,6 +100,22 @@ export function findSimilarRecipes(id) {
   const path = Settings.spoonacular.FIND_SIMILAR_RECIPES_PATH
     .replace('{id}', id);
   return callEndpoint(path, {});
+}
+
+/*
+ * Find random (popular) recipes
+ * NOTE: The format of parameters is as follows:
+ * {
+ *   limitLicense: false,        // Optional
+ *   number: 5,                  // Optional
+ *   tags: 'vegetarian, dessert' // Optional
+ * }
+ */
+export function getRandomRecipes(parameters) {
+  return callEndpoint(
+    Settings.spoonacular.GET_RANDOM_RECIPES_SEARCH_PATH,
+    parameters
+  );
 }
 
 /*

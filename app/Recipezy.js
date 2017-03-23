@@ -4,8 +4,6 @@
  *
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
- *
- * @flow
  */
 
 'use strict';
@@ -17,6 +15,7 @@ import { Provider } from 'react-redux';
 import Store from './store/Store';
 import { addIngredientToInventoryList } from './actions/InventoryListActions';
 import NavigationBar from './components/navigationbar/NavigationBar';
+import AppNavigatorView from './views/AppNavigatorView';
 
 //import { normalize, schema } from  'normalizr';
 //import omit from 'object.omit';

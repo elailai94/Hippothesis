@@ -4,13 +4,14 @@
  *
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
- *
- * @flow
  */
 
 'use strict';
 
+import { combineReducers } from 'redux';
+
 import ActionTypes from '../constants/ActionTypes';
+import AppNavigator from '../components/appnavigator/AppNavigator';
 
 const initialState = {
   selectedTab: 'search',
@@ -19,14 +20,48 @@ const initialState = {
 };
 
 /*
- * Return the next state given the current state and an action to
- * handle
- */
+// Slice reducer for the app navigator
+function appNavigatorReducer(state, action) => {
+  return AppNavigator.router.getStateForAction(action, state);
+}
+
+// Slice reducer for the home navigator
+function homeNavigatorReducer(state, action) {
+  return HomeNavigator.router.getStateForAction(action, state);
+}
+
+// Slice reducer for the search navigator
+function searchNavigatorReducer(state, action) {
+  return SearchNavigator.router.getStateForAction(action, state);
+}
+
+// Slice reducer for the lists navigator
+function listsNavigatorReducer(state, action) {
+  return ListsNavigator.router.getStateForAction(action, state);
+}
+
+// Slice reducer for the profile navigator
+function profileNavigatorReducer(state, action) {
+  return profileNavigator.router.getStateForAction(action, state);
+}
+
+// Root reducer for navigation
+const NavigationReducer = combineReducers({
+  appNavigator: appNavigatorReducer,
+  homeNavigator: homeNavigatorReducer,
+  searchNavigator: searchNavigatorReducer,
+  listsNavigator: listsNavigatorReducer,
+  profileNavigator: profileNavigatorReducer
+});
+
+export default NavigationReducer;
+*/
+
 export default function NavigationReducer(state = initialState, action) {
   switch (action.type) {
     case ActionTypes.navigation.SELECT_TAB:
       return selectTab(state, action);
-    
+
     case ActionTypes.navigation.SELECT_RECIPE:
       return selectRecipe(state, action);
 
@@ -55,7 +90,7 @@ function selectRecipe(state = initialState, action) {
 }
 
 // set a new search view
-function setSearchView(state = initalState, action) {
+function setSearchView(state = initialState, action) {
   return {
     ...state,
     searchView: action.payload.name

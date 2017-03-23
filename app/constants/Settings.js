@@ -4,8 +4,6 @@
  *
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
- *
- * @flow
  */
 
 'use strict';
@@ -17,9 +15,9 @@ const Settings = {
     AUTOCOMPLETE_INGREDIENT_SEARCH_PATH: '/food/ingredients/autocomplete',
     AUTOCOMPLETE_RECIPE_SEARCH_PATH: '/recipes/autocomplete',
     COMPLEX_RECIPE_SEARCH_PATH: '/recipes/searchComplex',
-    GET_RANDOM_RECIPES_SEARCH_PATH: '/recipes/random',
     GET_RECIPE_INFORMATION_PATH: '/recipes/{id}/information',
     FIND_SIMILAR_RECIPES_PATH: '/recipes/{id}/similar',
+    GET_RANDOM_RECIPES_SEARCH_PATH: '/recipes/random',
     GENERATE_MEAL_PLAN_PATH: '/recipes/mealplans/generate'
   }
 };
