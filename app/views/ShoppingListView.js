@@ -32,7 +32,7 @@ class ShoppingListView extends Component {
   }
 
   render() {
-    //dispatch(addIngredientToShoppingList(1, 'Salmon'));
+    this.props.addIngredient(1, 'Salmon');
 
     return (
       <Container>
@@ -48,12 +48,19 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps() {
+function mapDispatchToProps(dispatch) {
   return {
-    addIngredient: (id, name) => dispatch(addIngredientToShoppingList(id, name)),
-    removeIngredient: (id) => dispatch(removeIngredientFromShoppingList(id)),
-    editIngredient: (oldID, newID) => dispatch(editIngredientInShoppingList(oldID, newID))
+    addIngredient: (id, name) =>
+      dispatch(addIngredientToShoppingList(id, name)),
+    removeIngredient: (id) =>
+      dispatch(removeIngredientFromShoppingList(id)),
+    editIngredient: (oldID, newID) =>
+      dispatch(editIngredientInShoppingList(oldID, newID)),
+    markIngredientAsBought: (id) =>
+      dispatch(markIngredientAsBoughtInShoppingList(id)),
+    markIngredientAsNotBought: (id) =>
+      dispatch(markIngredientAsNotBoughtInShoppingList(id))
   }
 }
 
-export default connect(mapStateToProps)(ShoppingListView);
+export default connect(mapStateToProps, mapDispatchToProps)(ShoppingListView);

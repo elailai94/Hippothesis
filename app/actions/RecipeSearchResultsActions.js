@@ -25,7 +25,7 @@ export function searchRecipes(parameters) {
     return complexRecipeSearch(parameters)
       .then((json) => {
         dispatch(searchRecipesSuccess(json));
-        dispatch(addRecipes(json));
+        dispatch(addRecipes(json))
       })
       .catch((error) => dispatch(searchRecipesFailure(error)));
   };

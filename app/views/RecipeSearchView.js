@@ -39,33 +39,34 @@ import { addIngredient, removeIngredient, editIngredient } from '../actions/Ingr
 
 class RecipeSearchView extends Component {
 
-  search() {
-    let ingredientString = this.props.ingredients.map((elem) => elem.name).join(",");
+  searchRecipes() {
+    const includeIngredients = this.props.ingredients.map((elem) => elem.name).join(",");
     console.log("ingredientString", ingredientString);
 
-    this.props.searchRecipes({
+    const parameters = {
       addRecipeInformation: true,
+      fillIngredients: true,
+      includeIngredients: includeIngredients,
       instructionsRequired: true,
       limitLicense: false,
       number: 10,
       offset: 0,
-      includeIngredients: ingredientString,
-    }).then(() => {
-      console.log("results = ", this.props.recipes);
-    })
+      ranking: 1
+    };
+    this.props.searchRecipes(parameters);
 
     this.props.navigation.navigate('recipeSearchResult');
   }
 
-  newIngredient() {
+  addIngredient() {
     this.props.addIngredient("");
   }
 
-  updateIngredient(id, name) {
+  editIngredient(id, name) {
     this.props.editIngredient(id, name);
   }
 
-  deleteIngredient(id) {
+  removeIngredient(id) {
     this.props.removeIngredient(id);
   }
 
@@ -86,9 +87,9 @@ class RecipeSearchView extends Component {
           <ListItem style={{margin: 0, padding: 4, paddingLeft: 10, paddingRight: 10}}>
             <Item style={styles.ingredientInput}>
               <Input placeholder="New ingredient" defaultValue={data.name}
-                onChangeText={(text) => this.updateIngredient(data.id, text)}
+                onChangeText={(text) => this.editIngredient(data.id, text)}
               />
-              <Button transparent style={styles.trashButton} onPress={() => this.deleteIngredient(data.id)}>
+              <Button transparent style={styles.trashButton} onPress={() => this.removeIngredient(data.id)}>
                 <Icon style={styles.trashIcon} name="trash"/>
               </Button>
             </Item>
@@ -111,13 +112,13 @@ class RecipeSearchView extends Component {
           </Image>
         </View>
 
-        <Button style={styles.headerButton} onPress={() => this.newIngredient()}>
+        <Button style={styles.headerButton} onPress={() => this.addIngredient()}>
           <Icon style={styles.headerButtonIcon} name="add"/>
         </Button>
 
         {content}
 
-        <Button full style={styles.searchButton} onPress={() => this.search()}>
+        <Button full style={styles.searchButton} onPress={() => this.searchRecipes()}>
           <Text>Search</Text>
         </Button>
       </Container>
@@ -190,8 +191,7 @@ const styles = {
 function mapStateToProps(state) {
   return {
     ingredients: state.ingredients,
-    recipeSearchResults: state.recipeSearchResults,
-    recipes: state.recipes
+    recipeSearchResults: state.recipeSearchResults
   };
 }
 
@@ -204,7 +204,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(RecipeSearchView);
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeSearchView);
