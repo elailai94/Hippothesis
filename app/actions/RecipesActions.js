@@ -28,7 +28,7 @@ export function addRecipes(json) {
   return {
     type: ActionTypes.recipes.ADD_RECIPES,
     payload: {
-      recipes: json.results.map((recipe) => {
+      recipes: json.map((recipe) => {
         const { id } = recipe;
         return {
           [ id ] : recipe

@@ -49,7 +49,7 @@ import { searchRecipes } from '../actions/RecipeSearchResultsActions';
 import { addIngredient, removeIngredient, editIngredient } from '../actions/IngredientListActions';
 
 import { getRecipeInformation } from '../utilities/Spoonacular';
-import { extractEquipments, extractIngredients, extractInstructions } from
+import { extractEquipments, extractExtendedIngredients, extractInstructions } from
 '../utilities/Extract';
 
 class RecipeView extends Component {
@@ -59,7 +59,7 @@ class RecipeView extends Component {
     getRecipeInformation(479115, {}).then((json) => {
       console.log(json);
       console.log(extractEquipments(json));
-      console.log(extractIngredients(json));
+      console.log(extractExtendedIngredients(json));
       console.log(extractInstructions(json));
     });
   }
@@ -171,10 +171,30 @@ class RecipeView extends Component {
           </Row>
           <Row style={{marginTop: 5}}>
             <Col>
-            <Text style={{fontWeight: 'bold'}}>Steps</Text>
-            <List dataArray={extractInstructions(this.recipe)} renderRow={(step) =>
+            <Text style={{fontWeight: 'bold'}}>Equipments</Text>
+            <List dataArray={this.recipe.equipments} renderRow={(equipment) =>
               <ListItem>
-                <Text>{step}</Text>
+                <Text>{equipment}</Text>
+              </ListItem>
+            } />
+            </Col>
+          </Row>
+          <Row style={{marginTop: 5}}>
+            <Col>
+            <Text style={{fontWeight: 'bold'}}>Ingredients</Text>
+            <List dataArray={this.recipe.ingredients} renderRow={(ingredient) =>
+              <ListItem>
+                <Text>{ingredient}</Text>
+              </ListItem>
+            } />
+            </Col>
+          </Row>
+          <Row style={{marginTop: 5}}>
+            <Col>
+            <Text style={{fontWeight: 'bold'}}>Instructions</Text>
+            <List dataArray={this.recipe.instructions} renderRow={(instruction) =>
+              <ListItem>
+                <Text>{instruction}</Text>
               </ListItem>
             } />
             </Col>

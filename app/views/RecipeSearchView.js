@@ -39,9 +39,12 @@ import { addIngredient, removeIngredient, editIngredient } from '../actions/Ingr
 
 class RecipeSearchView extends Component {
 
+  goToRecipeSearchResultView() {
+    this.props.navigation.navigate('recipeSearchResult');
+  }
+
   searchRecipes() {
     const includeIngredients = this.props.ingredients.map((elem) => elem.name).join(",");
-    console.log("ingredientString", ingredientString);
 
     const parameters = {
       addRecipeInformation: true,
@@ -55,7 +58,7 @@ class RecipeSearchView extends Component {
     };
     this.props.searchRecipes(parameters);
 
-    this.props.navigation.navigate('recipeSearchResult');
+    this.goToRecipeSearchResultView();
   }
 
   addIngredient() {

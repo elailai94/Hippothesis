@@ -13,7 +13,8 @@ import qs from 'qs';
 import Settings from '../constants/Settings';
 import {
   extractEquipments,
-  extractIngredients,
+  extractUsedAndMissedIngredients,
+  extractExtendedIngredients,
   extractInstructions
 } from './Extract';
 
@@ -105,7 +106,23 @@ export function complexRecipeSearch(parameters) {
   return callEndpoint(
     Settings.spoonacular.COMPLEX_RECIPE_SEARCH_PATH,
     parameters
-  );
+  )
+  .then((json) => {
+    return json.results.map((result) => {
+      const normalizedResult = {
+        ...result,
+        equipments: extractEquipments(result),
+        ingredients: extractUsedAndMissedIngredients(result),
+        instructions: extractInstructions(result)
+      };
+
+      delete normalizedResult.analyzedInstructions;
+      delete normalizedResult.usedIngredients;
+      delete normalizedResult.missedIngredients;
+
+      return normalizedResult;
+    });
+  });
 }
 
 /*
