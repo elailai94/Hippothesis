@@ -59,10 +59,13 @@ export default function InventoryListReducer(state = initialState, action) {
 // Add a new ingredient to the inventory list
 function addIngredientToInventoryList(state = initialState, action) {
   return state.concat({
-    id: action.payload.id,
+    id: state.reduce((maxID, ingredient) =>
+      Math.max(ingredient.id, maxID), 0
+    ) + 1,
     used: false,
     bought: true,
-    inShoppingList: false
+    inShoppingList: false,
+    name: action.payload.name,
   });
 }
 
@@ -76,8 +79,8 @@ function removeIngredientFromInventoryList(state = initialState, action) {
 // Edit an ingredient in the inventory list
 function editIngredientInInventoryList(state = initialState, action) {
   return state.map((ingredient) => {
-    if (ingredient.id === action.payload.oldID) {
-      return { ...ingredient, id: action.payload.newID };
+    if (ingredient.id === action.payload.id) {
+      return { ...ingredient, name: action.payload.name };
     } else {
       return ingredient;
     }

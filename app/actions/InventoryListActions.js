@@ -11,22 +11,13 @@
 'use strict';
 
 import ActionTypes from '../constants/ActionTypes';
-import { addIngredientToIngredients } from './IngredientsActions';
 
 // Add a new ingredient to the inventory list
-export function addIngredientToInventoryList(id, name) {
-  //return (dispatch) => {
-  //  dispatch(addIngredient(id));
-  return addIngredient(id);
-  //  dispatch(addIngredientToIngredients(id, name));
-  //};
-}
-
-function addIngredient(id) {
+export function addIngredientToInventoryList(name) {
   return {
     type: ActionTypes.inventoryList.ADD_INGREDIENT,
     payload: {
-      id
+      name
     }
   };
 }
@@ -42,12 +33,12 @@ export function removeIngredientFromInventoryList(id) {
 }
 
 // Edit an ingredient in the inventory list
-export function editIngredientInInventoryList(oldID, newID) {
+export function editIngredientInInventoryList(id, name) {
   return {
     type: ActionTypes.inventoryList.EDIT_INGREDIENT,
     payload: {
-      oldID,
-      newID
+      id,
+      name,
     }
   };
 }

@@ -19,7 +19,9 @@ const Images = {
     pot: require('../images/food/pot.png')
   },
   backgrounds: {
-    search: require('../images/search_background.jpg')
+    search: require('../images/search_background.jpg'),
+    shopping: require('../images/shopping_cart.jpg'),
+    fridge: require('../images/fridge.jpg')
   }
 };
 
