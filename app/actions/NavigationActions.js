@@ -10,16 +10,6 @@
 
 import ActionTypes from '../constants/ActionTypes';
 
-// Select a new tab in the navigation bar
-export function selectTab(name) {
-	return {
-    type: ActionTypes.navigation.SELECT_TAB,
-    payload: {
-      name
-    }
-  };
-}
-
 // Select a new recipe to show on the screen
 export function selectRecipe(id) {
 	return {
