@@ -23,7 +23,6 @@ export function searchRecipes(parameters) {
     dispatch(searchRecipesRequest());
 
     return complexRecipeSearch(parameters)
-      .then((response) => response.json())
       .then((json) => {
         dispatch(searchRecipesSuccess(json));
         dispatch(addRecipes(json));

@@ -11,16 +11,17 @@
 import { TabNavigator } from 'react-navigation';
 
 import RecipeSearchContainer from '../RecipeSearchContainer';
-import RecipeSearchView from '../RecipeSearchView';
+import SearchNavigatorView from '../../views/SearchNavigatorView';
 
 const routeSettings = {
   home   : { screen: RecipeSearchContainer },
-  search : { screen: RecipeSearchContainer },
+  search : { screen: SearchNavigatorView   },
   lists  : { screen: RecipeSearchContainer },
   profile: { screen: RecipeSearchContainer }
 };
 
 const tabNavigatorSettings = {
+  initialRouteName: 'search',
   tabBarOptions: {
     activeTintColor: '#F2487A'
   }

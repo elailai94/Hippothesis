@@ -9,7 +9,33 @@
 'use strict';
 
 import qs from 'qs';
+
 import Settings from '../constants/Settings';
+import {
+  extractEquipments,
+  extractIngredients,
+  extractInstructions
+} from './Extract';
+
+// Get the headers for a request
+function getHeaders() {
+  return {
+    'Accept': 'application/json',
+    'X-Mashape-Key': Settings.spoonacular.API_KEY
+  };
+}
+
+// Call the endpoint
+function callEndpoint(path, parameters) {
+  let queryStrings = qs.stringify(parameters, { skipNulls: true });
+  queryStrings = queryStrings === '' ? queryStrings : `?${queryStrings}`;
+  const endpoint = `${Settings.spoonacular.BASE_URL}${path}${queryStrings}`;
+
+  return fetch(endpoint, {
+    headers: getHeaders()
+  })
+  .then((response) => response.json());
+}
 
 /*
  * Autocomplete a search for an ingredient
@@ -134,23 +160,4 @@ export function generateMealPlan(parameters) {
     Settings.spoonacular.GENERATE_MEAL_PLAN_PATH,
     parameters
   );
-}
-
-// Call the endpoint
-function callEndpoint(path, parameters) {
-  let queryStrings = qs.stringify(parameters, { skipNulls: true });
-  queryStrings = queryStrings === '' ? queryStrings : `?${queryStrings}`;
-  const endpoint = `${Settings.spoonacular.BASE_URL}${path}${queryStrings}`;
-
-  return fetch(endpoint, {
-    headers: getHeaders()
-  });
-}
-
-// Get the headers for a request
-function getHeaders() {
-  return {
-    'Accept': 'application/json',
-    'X-Mashape-Key': Settings.spoonacular.API_KEY
-  };
 }

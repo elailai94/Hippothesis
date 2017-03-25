@@ -45,7 +45,6 @@ import {
 } from 'native-base';
 
 import Images from '../constants/Images';
-import IngredientSelector from './IngredientSelector';
 import { searchRecipes } from '../actions/RecipeSearchResultsActions';
 import { addIngredient, removeIngredient, editIngredient } from '../actions/IngredientListActions';
 import { setSearchView } from '../actions/NavigationActions';

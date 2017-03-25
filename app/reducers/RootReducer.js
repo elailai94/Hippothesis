@@ -28,7 +28,9 @@ const RootReducer = combineReducers({
   navigation: NavigationReducer,
   recipeSearchResults: RecipeSearchResultsReducer,
   recipes: RecipesReducer,
-  ingredients: IngredientListReducer,
+  shoppingList: ShoppingListReducer,
+  inventoryList: InventoryListReducer,
+  ingredients: IngredientListReducer
   //ingredients: IngredientsReducer
 });
 

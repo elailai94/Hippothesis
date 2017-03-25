@@ -14,24 +14,7 @@ import ActionTypes from '../constants/ActionTypes';
 
 const initialState = {};
 
-/*
- * Return the next state given the current state and an action to
- * handle
- */
-export default function RecipesReducer(state = initialState, action) {
-	switch (action.type) {
-    case ActionTypes.recipes.ADD_RECIPE:
-      return addRecipe(state, action);
-
-    case ActionTypes.recipes.ADD_RECIPES:
-      return addRecipes(state, action);
-
-    default:
-      return state;
-  }
-}
-
-// Add a new recipe to recipes
+// Case reducer for recipes
 function addRecipe(state = initialState, action) {
   const { payload } = action;
   const { id, data } = payload;
@@ -43,10 +26,24 @@ function addRecipe(state = initialState, action) {
   };
 }
 
-// Add new recipes to recipes
+// Case reducer for recipes
 function addRecipes(state = initialState, action) {
   return {
     ...state,
     ...(action.payload.recipes)
   };
+}
+
+// Root reducer for recipes
+export default function RecipesReducer(state = initialState, action) {
+	switch (action.type) {
+    case ActionTypes.recipes.ADD_RECIPE:
+      return addRecipe(state, action);
+
+    case ActionTypes.recipes.ADD_RECIPES:
+      return addRecipes(state, action);
+
+    default:
+      return state;
+  }
 }

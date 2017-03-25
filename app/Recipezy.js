@@ -13,20 +13,13 @@ import { StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
 
 import Store from './store/Store';
-import { addIngredientToInventoryList } from './actions/InventoryListActions';
-import NavigationBar from './components/navigationbar/NavigationBar';
 import AppNavigatorView from './views/AppNavigatorView';
-
-//import { normalize, schema } from  'normalizr';
-//import omit from 'object.omit';
 
 export default class Recipezy extends Component {
   render() {
-    //Store.dispatch(addIngredientToInventoryList(12, 'Apples'));
-
     return (
       <Provider store={Store}>
-        <NavigationBar />
+        <AppNavigatorView />
       </Provider>
     );
   }

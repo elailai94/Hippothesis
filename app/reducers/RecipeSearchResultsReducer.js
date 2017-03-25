@@ -17,10 +17,31 @@ const initialState = {
   resultsList: []
 };
 
-/*
- * Return the next state given the current state and an action to
- * handle
- */
+// Case reducer for recipe search results
+function searchRecipesRequest(state = initialState, action) {
+  return {
+    ...state,
+    status: action.payload.status
+  };
+}
+
+// Case reducer for recipe search results
+function searchRecipesSuccess(state = initialState, action) {
+  return {
+    status: action.payload.status,
+    resultsList: action.payload.resultsList
+  };
+}
+
+// Case reducer for recipe search results
+function searchRecipesFailure(state = initialState, action) {
+  return {
+    ...state,
+    status: action.payload.status
+  };
+}
+
+// Root reducer for recipe search results
 export default function RecipeSearchResultsReducer(state = initialState, action) {
   switch (action.type) {
     case ActionTypes.recipeSearchResults.SEARCH_RECIPES_REQUEST:
@@ -30,33 +51,9 @@ export default function RecipeSearchResultsReducer(state = initialState, action)
       return searchRecipesSuccess(state, action);
 
     case ActionTypes.recipeSearchResults.SEARCH_RECIPES_FAILURE:
-      return searchRecipesFailure(state, aciton);
+      return searchRecipesFailure(state, action);
 
     default:
       return state;
   }
-}
-
-// Update the search status to be in progress
-function searchRecipesRequest(state = initialState, action) {
-  return {
-    ...state,
-    status: action.payload.status
-  };
-}
-
-// Update the search status to be success
-function searchRecipesSuccess(state = initialState, action) {
-  return {
-    status: action.payload.status,
-    resultsList: action.payload.resultsList
-  };
-}
-
-// Update the search status to be failure
-function searchRecipesFailure(state = initialState, action) {
-  return {
-    ...state,
-    status: action.payload.status
-  };
 }
