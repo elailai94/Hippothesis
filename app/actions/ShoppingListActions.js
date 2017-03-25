@@ -35,7 +35,7 @@ export function addIngredientToShoppingList(name) {
       dispatch(addIngredientToIngredients(id, name));
     };
   }
-*./
+*/
 
 // Remove an ingredient from the shopping list
 export function removeIngredientFromShoppingList(id) {
