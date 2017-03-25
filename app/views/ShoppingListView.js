@@ -15,6 +15,14 @@ import {
   Text
 } from 'native-base';
 
+import {
+  addIngredientToShoppingList,
+  removeIngredientFromShoppingList,
+  editIngredientInShoppingList,
+  markIngredientAsBoughtInShoppingList,
+  markIngredientAsNotBoughtInShoppingList
+} from '../actions/ShoppingListActions';
+
 class ShoppingListView extends Component {
   // Set up navigation options for the lists navigator
   static navigationOptions = {
@@ -24,6 +32,8 @@ class ShoppingListView extends Component {
   }
 
   render() {
+    //dispatch(addIngredientToShoppingList(1, 'Salmon'));
+
     return (
       <Container>
         <Text>The shopping list goes here.</Text>
@@ -36,6 +46,14 @@ function mapStateToProps(state) {
   return {
     shoppingList: state.shoppingList
   };
+}
+
+function mapDispatchToProps() {
+  return {
+    addIngredient: (id, name) => dispatch(addIngredientToShoppingList(id, name)),
+    removeIngredient: (id) => dispatch(removeIngredientFromShoppingList(id)),
+    editIngredient: (oldID, newID) => dispatch(editIngredientInShoppingList(oldID, newID))
+  }
 }
 
 export default connect(mapStateToProps)(ShoppingListView);

@@ -14,19 +14,24 @@ import ActionTypes from '../constants/ActionTypes';
 import { addIngredientToIngredients } from './IngredientsActions';
 
 // Add a new ingredient to the shopping list
-export function addIngredientToShoppingList(id, name) {
-  return (dispatch) => {
-    dispatch(addIngredient(id));
-    dispatch(addIngredientToIngredients(id, name));
-  };
-}
-
 function addIngredient(id) {
   return {
     type: ActionTypes.shoppingList.ADD_INGREDIENT,
     payload: {
       id
     }
+  };
+}
+
+/*
+ * Add a new ingredient to the shopping list
+ * NOTE: This function also adds the new ingredient to the ingredients
+ * list as well
+ */
+export function addIngredientToShoppingList(id, name) {
+  return (dispatch) => {
+    dispatch(addIngredient(id));
+    dispatch(addIngredientToIngredients(id, name));
   };
 }
 
