@@ -9,20 +9,6 @@
 'use strict';
 
 const Images = {
-  icons: {
-    home: {
-    	active: require('../images/home-icon-active.png'),
-      unactive: require('../images/home-icon-unactive.png')
-    },
-    search: {
-      active: require('../images/search-icon-active.png'),
-      unactive: require('../images/search-icon-unactive.png')
-    },
-    profile: {
-      active: require('../images/profile-icon-active.png'),
-      unactive: require('../images/profile-icon-unactive.png')
-    },
-  },
   food: {
     egg: require('../images/food/egg.png'),
     salmon: require('../images/food/fish.png'),
