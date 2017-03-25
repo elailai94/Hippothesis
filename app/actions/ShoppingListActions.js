@@ -22,6 +22,18 @@ export function addIngredientToShoppingList(name) {
   };
 }
 
+/*
+ * Add a new ingredient to the shopping list
+ * NOTE: This function also adds the new ingredient to the ingredients
+ * list as well
+ */
+export function addIngredientToShoppingList(id, name) {
+  return (dispatch) => {
+    dispatch(addIngredient(id));
+    dispatch(addIngredientToIngredients(id, name));
+  };
+}
+
 // Remove an ingredient from the shopping list
 export function removeIngredientFromShoppingList(id) {
   return {

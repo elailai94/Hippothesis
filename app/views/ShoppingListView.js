@@ -23,11 +23,11 @@ import {
 } from 'native-base';
 
 import {
-  addIngredientToShoppingList, 
-  removeIngredientFromShoppingList, 
+  addIngredientToShoppingList,
+  removeIngredientFromShoppingList,
   editIngredientInShoppingList,
   markIngredientAsBoughtInShoppingList,
-  markIngredientAsNotBoughtInShoppingList,
+  markIngredientAsNotBoughtInShoppingList
 } from '../actions/ShoppingListActions';
 
 class ShoppingListView extends Component {
