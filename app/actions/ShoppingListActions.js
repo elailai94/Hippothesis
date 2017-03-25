@@ -11,14 +11,13 @@
 'use strict';
 
 import ActionTypes from '../constants/ActionTypes';
-import { addIngredientToIngredients } from './IngredientsActions';
 
 // Add a new ingredient to the shopping list
-function addIngredient(id) {
+export function addIngredientToShoppingList(name) {
   return {
     type: ActionTypes.shoppingList.ADD_INGREDIENT,
     payload: {
-      id
+      name
     }
   };
 }
@@ -28,12 +27,15 @@ function addIngredient(id) {
  * NOTE: This function also adds the new ingredient to the ingredients
  * list as well
  */
-export function addIngredientToShoppingList(id, name) {
-  return (dispatch) => {
-    dispatch(addIngredient(id));
-    dispatch(addIngredientToIngredients(id, name));
-  };
-}
+
+/*
+  export function addIngredientToShoppingList(id, name) {
+    return (dispatch) => {
+      dispatch(addIngredient(id));
+      dispatch(addIngredientToIngredients(id, name));
+    };
+  }
+*/
 
 // Remove an ingredient from the shopping list
 export function removeIngredientFromShoppingList(id) {
@@ -46,12 +48,12 @@ export function removeIngredientFromShoppingList(id) {
 }
 
 // Edit an ingredient in the shopping list
-export function editIngredientInShoppingList(oldID, newID) {
+export function editIngredientInShoppingList(id, name) {
   return {
     type: ActionTypes.shoppingList.EDIT_INGREDIENT,
     payload: {
-      oldID,
-      newID
+      id,
+      name
     }
   };
 }
