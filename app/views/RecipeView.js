@@ -130,7 +130,7 @@ class RecipeView extends Component {
     this.findMyObject();
 
     return (
-      <Container style={{marginBottom: 50}}>
+      <Container>
 
       <StatusBar barStyle="light-content" />
 

@@ -60,7 +60,7 @@ class RecipeSearchResultView extends Component {
         />;
     }
 
-    return <Container style={{ marginBottom: 50 }}>
+    return (<Container>
 
       <StatusBar barStyle="light-content" />
       <Header>
@@ -78,6 +78,7 @@ class RecipeSearchResultView extends Component {
       {content}
 
     </Container>
+    );
   }
 }
 

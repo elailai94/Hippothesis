@@ -9,7 +9,7 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { Icon } from 'native-base';
+import { Container, Content, Header, Left, Right, Body, Icon, Tab, Tabs } from 'native-base';
 import {
   TabView,
   TabNavigator
@@ -25,9 +25,9 @@ export default class ListsNavigatorView extends Component {
       label: 'Lists',
       icon: ({ focused, tintColor }) => {
         if (focused) {
-          return <Icon name='ios-list-box' />;
+          return (<Icon name='ios-list-box' color='#F2487A' />);
         } else {
-          return <Icon name='ios-list-box-outline' />;
+          return (<Icon name='ios-list-box-outline' />);
         }
       }
     }
@@ -47,7 +47,15 @@ export default class ListsNavigatorView extends Component {
       tabBarComponent: TabView.TabBarTop,
       initialRouteName: 'shoppingList',
       tabBarOptions: {
-        activeTintColor: '#F2487A'
+        //activeTintColor: '#F2487A',
+        upperCaseLabel: false,
+        indicatorStyle: {
+          backgroundColor: 'white'
+        },
+        style: {
+          backgroundColor: '#F2487A',
+          marginTop: 0
+        }
       }
     };
   }
@@ -59,7 +67,32 @@ export default class ListsNavigatorView extends Component {
     );
 
     return (
-      <ListsNavigator />
+      <Container>
+        <Header hasTabs style={{height: 10, backgroundColor: '#F2487A'}}/>
+        <Tabs
+          tabBarUnderlineStyle={{backgroundColor: 'white'}}
+          tabBarBackgroundColor='#F2487A'
+        >
+          <Tab
+            heading="Shopping List"
+            tabStyle={{backgroundColor: '#F2487A'}}
+            activeTabStyle={{backgroundColor: '#F2487A'}}
+            textStyle={{color: 'white'}}
+            activeTextStyle={{color: 'white'}}
+          >
+            <ShoppingListView />
+          </Tab>
+          <Tab
+            heading="Inventory List"
+            tabStyle={{backgroundColor: '#F2487A'}}
+            activeTabStyle={{backgroundColor: '#F2487A'}}
+            textStyle={{color: 'white'}}
+            activeTextStyle={{color: 'white'}}
+          >
+            <InventoryListView />
+          </Tab>
+        </Tabs>
+      </Container>
     );
   }
 }

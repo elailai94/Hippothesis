@@ -102,7 +102,7 @@ class RecipeSearchView extends Component {
     }
 
     return (
-      <Container style={{marginBottom: 50}}>
+      <Container>
 
         <View>
           <StatusBar barStyle="light-content"/>
