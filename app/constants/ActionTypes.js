@@ -42,9 +42,7 @@ const ActionTypes = {
     ADD_RECIPES: 'ADD_RECIPES_TO_RECIPES'
   },
   navigation: {
-    SELECT_TAB: 'SELECT_TAB',
-    SELECT_RECIPE: 'SELECT_RECIPE',
-    SET_SEARCHVIEW: 'SET_SEARCHVIEW'
+    SELECT_RECIPE: 'SELECT_RECIPE'
   }
 };
 

@@ -14,25 +14,21 @@ import React, { Component } from 'react';
 import { Image, TouchableHighLight } from 'react-native';
 import { connect } from 'react-redux';
 import { Card, CardItem, Text } from 'native-base';
-import { setSearchView, selectRecipe } from '../actions/NavigationActions';
+import { selectRecipe } from '../actions/NavigationActions';
 
 import Images from '../constants/Images';
 
 class RecipeCard extends Component {
-  
+
   goToRecipeView() {
     console.log("This.props");
     console.log(this.props.id);
-    
+
     this.props.setSelectedRecipe(this.props.id);
-    this.props.setSearchView('recipe');
-  
+    this.props.navigation.navigate('recipe');
   }
 
-
-
   render() {
-
     return (
         <Card style={styles.card}>
           <CardItem cardBody style={styles.imageContainer} onPress={() => this.goToRecipeView()}>
@@ -44,7 +40,6 @@ class RecipeCard extends Component {
         </Card>
     );
   }
-
 }
 
 const styles = {
@@ -70,10 +65,9 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     setSelectedRecipe: (id) => dispatch(selectRecipe(id)),
-    setSearchView: (name) => dispatch(setSearchView(name))
   };
 }
- 
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps

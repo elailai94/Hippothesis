@@ -29,17 +29,15 @@ import {
 } from 'native-base';
 
 import Images from '../constants/Images';
-import IngredientSelector from '../components/IngredientSelector';
 import { searchRecipes } from '../actions/RecipeSearchResultsActions';
 import { addIngredient, removeIngredient, editIngredient } from '../actions/IngredientListActions';
-import { setSearchView } from '../actions/NavigationActions';
 
 import RecipeCard from '../components/RecipeCard';
 
 class RecipeSearchResultView extends Component {
 
   goBack() {
-    this.props.setSearchView('search');
+    this.props.navigation.goBack();
   }
 
   render() {
@@ -54,7 +52,11 @@ class RecipeSearchResultView extends Component {
       content =
         <List
           dataArray={this.props.recipes}
-          renderRow={(data) => <RecipeCard {...data[Object.keys(data)[0]]}/>}
+          renderRow={(data) =>
+            <RecipeCard {...data[Object.keys(data)[0]]} navigation={
+              this.props.navigation
+            }/>
+          }
         />;
     }
 
@@ -86,14 +88,4 @@ function mapStateToProps(state) {
   };
 }
 
-
-function mapDispatchToProps(dispatch) {
-  return {
-    setSearchView: (name) => dispatch(setSearchView(name))
-  };
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(RecipeSearchResultView);
+export default connect(mapStateToProps)(RecipeSearchResultView);

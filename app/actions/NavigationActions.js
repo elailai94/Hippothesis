@@ -19,12 +19,3 @@ export function selectRecipe(id) {
 		}
 	};
 }
-
-export function setSearchView(name) {
-	return {
-    type: ActionTypes.navigation.SET_SEARCHVIEW,
-    payload: {
-      name
-    }
-  };
-}

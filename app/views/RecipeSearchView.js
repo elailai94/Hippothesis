@@ -36,15 +36,12 @@ import Images from '../constants/Images';
 import IngredientSelector from '../components/IngredientSelector';
 import { searchRecipes } from '../actions/RecipeSearchResultsActions';
 import { addIngredient, removeIngredient, editIngredient } from '../actions/IngredientListActions';
-import { setSearchView } from '../actions/NavigationActions';
 
 class RecipeSearchView extends Component {
 
   search() {
     let ingredientString = this.props.ingredients.map((elem) => elem.name).join(",");
     console.log("ingredientString", ingredientString);
-
-    this.props.setSearchView('results');
 
     this.props.searchRecipes({
       addRecipeInformation: true,
@@ -203,8 +200,7 @@ function mapDispatchToProps(dispatch) {
     addIngredient: (name) => dispatch(addIngredient(name)),
     editIngredient: (id, name) => dispatch(editIngredient(id, name)),
     removeIngredient: (id) => dispatch(removeIngredient(id)),
-    searchRecipes: (parameters) => dispatch(searchRecipes(parameters)),
-    setSearchView: (name) => dispatch(setSearchView(name))
+    searchRecipes: (parameters) => dispatch(searchRecipes(parameters))
   };
 }
 

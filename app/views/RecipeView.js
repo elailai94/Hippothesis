@@ -47,7 +47,6 @@ import {
 import Images from '../constants/Images';
 import { searchRecipes } from '../actions/RecipeSearchResultsActions';
 import { addIngredient, removeIngredient, editIngredient } from '../actions/IngredientListActions';
-import { setSearchView } from '../actions/NavigationActions';
 
 import { getRecipeInformation } from '../utilities/Spoonacular';
 import { extractEquipments, extractIngredients, extractInstructions } from
@@ -66,7 +65,7 @@ class RecipeView extends Component {
   }
 
   goBack() {
-    this.props.setSearchView('results');
+    this.props.navigation.goBack();
   }
 
   getRecipeObject() {
@@ -271,8 +270,7 @@ function mapDispatchToProps(dispatch) {
     addIngredient: (name) => dispatch(addIngredient(name)),
     editIngredient: (id, name) => dispatch(editIngredient(id, name)),
     removeIngredient: (id) => dispatch(removeIngredient(id)),
-    searchRecipes: (parameters) => dispatch(searchRecipes(parameters)),
-    setSearchView: (name) => dispatch(setSearchView(name))
+    searchRecipes: (parameters) => dispatch(searchRecipes(parameters))
   };
 }
 
