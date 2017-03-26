@@ -21,7 +21,8 @@ const Images = {
   backgrounds: {
     search: require('../images/search_background.jpg'),
     shopping: require('../images/shopping_cart.jpg'),
-    fridge: require('../images/fridge.jpg')
+    fridge: require('../images/fridge.jpg'),
+    cooking: require('../images/cooking.jpg')
   }
 };
 
