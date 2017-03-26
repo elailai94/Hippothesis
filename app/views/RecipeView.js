@@ -4,8 +4,6 @@
  *
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
- *
- * @flow
  */
 
 'use strict';
@@ -43,16 +41,24 @@ import {
   Spinner,
   Badge
 } from 'native-base';
+import Speech from 'react-native-speech';
 
 import Images from '../constants/Images';
 import { searchRecipes } from '../actions/RecipeSearchResultsActions';
 import { addIngredient, removeIngredient, editIngredient } from '../actions/IngredientListActions';
 
+
 class RecipeView extends Component {
   recipe;
+  stepNum = 0;
 
   componentDidMount() {
     /*
+      Speech.speak({
+        text: this.recipe.instructions.join(' '),
+        voice: 'en-CA'
+      }).catch((error) => console.log('Error occurred'));
+    
     getRecipeInformation(479115, {}).then((json) => {
       console.log(json);
       console.log(extractEquipments(json));
@@ -60,6 +66,35 @@ class RecipeView extends Component {
       console.log(extractInstructions(json));
     });
     */
+  }
+
+  readCurrentInstruction() {
+    Speech.speak({
+      text: this.recipe.instructions[this.stepNum],
+      voice: 'en-US'
+    }).catch((error) => console.log('Error'));
+  }
+
+  readPreviousInstruction() {
+    if ((this.stepNum - 1) >= 0) {
+      this.stepNum -= 1;
+      Speech.stop();
+      Speech.speak({
+        text: this.recipe.instructions[this.stepNum],
+        voice: 'en-US'
+      }).catch((error) => console.log('Error'));
+    }
+  }
+
+  readNextInstruction() {
+    if ((this.stepNum + 1) < this.recipe.instructions.length) {
+      this.stepNum += 1;
+      Speech.stop();
+      Speech.speak({
+        text: this.recipe.instructions[this.stepNum],
+        voice: 'en-US'
+      }).catch((error) => console.log('Error'));
+    }
   }
 
   goBack() {
@@ -200,6 +235,18 @@ class RecipeView extends Component {
         </Grid>
       </Content>
 
+      <View>
+      <Button style={styles.searchButton} onPress={() => this.readPreviousInstruction()}>
+          <Text>Previous</Text>
+      </Button>
+      <Button style={styles.searchButton} onPress={() => this.readCurrentInstruction()}>
+          <Text>Current</Text>
+      </Button>
+      <Button style={styles.searchButton} onPress={() => this.readNextInstruction()}>
+          <Text>Next</Text>
+      </Button>
+      </View>
+ 
       </Container>
     );
   }

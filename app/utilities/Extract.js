@@ -15,16 +15,16 @@ export function extractEquipments(recipe) {
   const { steps } = recipe.analyzedInstructions[0];
 
   // Extract deeply-nested equipments
-  const equipments = [];
+  const equipments = new Set();
   for (let i = 0; i < steps.length; i++) {
     const { equipment } = steps[i];
     for (let j = 0; j < equipment.length; j++) {
       const { name } = equipment[j];
-      equipments.push(name);
+      equipments.add(name.toLowerCase());
     }
   }
 
-  return equipments;
+  return [...equipments];
 }
 
 // Extract a list of ingredients from ingredients
