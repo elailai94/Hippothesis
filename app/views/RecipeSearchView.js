@@ -39,18 +39,54 @@ import { addIngredient, removeIngredient, editIngredient } from '../actions/Ingr
 
 class RecipeSearchView extends Component {
 
-  search() {
-    let ingredientString = this.props.ingredients.map((elem) => elem.name).join(",");
-    console.log("ingredientString", ingredientString);
 
-    this.props.searchRecipes({
+  updateFilter(){
+    console.log("Update filter");
+    this.props.navigation.navigate('additionalFilter');
+  }
+
+  search() {
+
+    let ingredientString = this.props.ingredients.map((elem) => elem.name).join(",");
+
+    var parameters = {
       addRecipeInformation: true,
       instructionsRequired: true,
       limitLicense: false,
       number: 10,
       offset: 0,
-      includeIngredients: ingredientString,
-    }).then(() => {
+    };
+
+    console.log("Allergies: ");
+    console.log(this.props.allergies);
+
+
+    console.log("Cuisines: ");
+    console.log(this.props.cuisines);
+
+
+    console.log("Diets: ");
+    console.log(this.props.diets);
+
+
+    console.log("Nutrition: ");
+    console.log(this.props.nutrition);
+
+
+    console.log("Types: ");
+    console.log(this.props.types);
+
+
+    parameters.includeIngredients = ingredientString;
+    parameters.exludeIngredients = this.props.allergies;
+    parameters.cuisine = this.props.cuisines;
+    parameters.diet = this.props.diets;
+    //parameters.nutrition = this.props.nutrition;
+    parameters.type = this.props.types;
+
+    console.log("parameters", parameters);
+
+    this.props.searchRecipes(parameters).then(() => {
       console.log("results = ", this.props.recipes);
     })
 
@@ -111,9 +147,19 @@ class RecipeSearchView extends Component {
           </Image>
         </View>
 
-        <Button style={styles.headerButton} onPress={() => this.newIngredient()}>
-          <Icon style={styles.headerButtonIcon} name="add"/>
-        </Button>
+
+        <View style={styles.buttonView}>
+          <Button style={styles.headerButtonFilter} onPress={() => this.updateFilter()}>
+            <Icon style={styles.headerButtonIcon} name="funnel"/>
+          </Button>
+
+
+          <Button style={styles.headerButton} onPress={() => this.newIngredient()}>
+            <Icon style={styles.headerButtonIcon} name="add"/>
+          </Button>
+
+
+        </View>
 
         {content}
 
@@ -142,16 +188,33 @@ const styles = {
     fontFamily: 'Avenir-Light',
     letterSpacing: 2
   },
-  headerButton: {
+  buttonView:{
     alignSelf: 'flex-end',
     top: -25,
-    marginRight: 40,
     height: 50,
-    width: 50,
+    paddingBottom: 30,
+    flexDirection:'row'
+  },
+  headerButton: {
+    alignSelf: 'flex-end',
     padding: 0,
     borderRadius: 25,
+    height: 50,
+    width: 50,
+    marginRight: 25,
     justifyContent: 'center',
     backgroundColor: '#f2487a',
+    zIndex: 10,
+  },
+  headerButtonFilter: {
+    alignSelf: 'flex-end',
+    padding: 0,
+    borderRadius: 25,
+    height: 50,
+    width: 50,
+    marginRight: 25,
+    justifyContent: 'center',
+    backgroundColor: '#48abf2',
     zIndex: 10,
   },
   headerButtonIcon: {
@@ -191,7 +254,13 @@ function mapStateToProps(state) {
   return {
     ingredients: state.ingredients,
     recipeSearchResults: state.recipeSearchResults,
-    recipes: state.recipes
+    recipes: state.recipes,
+    allergies: state.filters.allergies,
+    cuisines: state.filters.cuisines,
+    diets: state.filters.diets,
+    nutrition: state.filters.nutrition,
+    types: state.filters.types,
+    
   };
 }
 

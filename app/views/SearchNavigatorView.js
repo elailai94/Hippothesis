@@ -15,6 +15,8 @@ import { StackNavigator } from 'react-navigation';
 import RecipeSearchView from './RecipeSearchView';
 import RecipeSearchResultView from './RecipeSearchResultView';
 import RecipeView from './RecipeView';
+import AdditionalFilterView from './AdditionalFilterView';
+
 
 export default class SearchNavigatorView extends Component {
   // Set up navigation options for the app navigator
@@ -38,7 +40,8 @@ export default class SearchNavigatorView extends Component {
     this.routeSettings = {
       recipeSearch      : { screen: RecipeSearchView       },
       recipeSearchResult: { screen: RecipeSearchResultView },
-      recipe            : { screen: RecipeView             }
+      recipe            : { screen: RecipeView             },
+      additionalFilter  : { screen: AdditionalFilterView   },
     };
 
     // Set up stack navigator settings for the search navigator

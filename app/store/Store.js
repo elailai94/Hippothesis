@@ -32,7 +32,7 @@ if (process.env.NODE_ENV === 'development') {
     undefined,
     compose(
       applyMiddleware(thunk, logger),
-      autoRehydrate() 
+      //autoRehydrate() 
     )
   );
 } else {
@@ -41,12 +41,12 @@ if (process.env.NODE_ENV === 'development') {
     undefined, 
     compose(
       applyMiddleware(thunk), 
-      autoRehydrate()
+      //autoRehydrate()
     )
   );
 }
 
 // begin periodically persisting the store
-persistStore(Store, {storage: AsyncStorage});
+//persistStore(Store, {storage: AsyncStorage});
 
 export default Store;

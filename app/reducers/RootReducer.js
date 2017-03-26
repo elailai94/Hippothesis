@@ -17,6 +17,7 @@ import RecipeSearchResultsReducer from './RecipeSearchResultsReducer';
 import RecipesReducer from './RecipesReducer';
 import IngredientListReducer from './IngredientListReducer';
 import InventoryListReducer from './InventoryListReducer';
+import FilterReducer from './FilterReducer';
 
 /*
  * Return the next state given the current state and an action to
@@ -25,9 +26,11 @@ import InventoryListReducer from './InventoryListReducer';
 const RootReducer = combineReducers({
   navigation: NavigationReducer,
   recipeSearchResults: RecipeSearchResultsReducer,
+  recipeSearchResultsList: RecipeSearchResultsReducer,
   recipes: RecipesReducer,
   inventoryList: InventoryListReducer,
   ingredients: IngredientListReducer,
+  filters: FilterReducer,
 });
 
 export default RootReducer;
