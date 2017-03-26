@@ -48,20 +48,18 @@ import Images from '../constants/Images';
 import { searchRecipes } from '../actions/RecipeSearchResultsActions';
 import { addIngredient, removeIngredient, editIngredient } from '../actions/IngredientListActions';
 
-import { getRecipeInformation } from '../utilities/Spoonacular';
-import { extractEquipments, extractExtendedIngredients, extractInstructions } from
-'../utilities/Extract';
-
 class RecipeView extends Component {
   recipe;
 
   componentDidMount() {
+    /*
     getRecipeInformation(479115, {}).then((json) => {
       console.log(json);
       console.log(extractEquipments(json));
       console.log(extractExtendedIngredients(json));
       console.log(extractInstructions(json));
     });
+    */
   }
 
   goBack() {
