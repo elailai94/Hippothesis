@@ -11,6 +11,7 @@
     "qs": "^6.3.1",
     "react": "~15.4.0",
     "react-native": "0.41.2",
+    "react-native-speech": "^0.1.2",
     "react-navigation": "^1.0.0-beta.7",
     "react-redux": "^5.0.3",
     "redux": "^3.6.0",

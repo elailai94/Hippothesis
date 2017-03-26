@@ -41,8 +41,10 @@ export default function ShoppingListReducer(state = initialState, action) {
 // Add a new ingredient to the shopping list
 function addIngredientToShoppingList(state = initialState, action) {
   return state.concat({
-    id: action.payload.id,
-    bought: false
+    id: state.reduce((maxID, ingredient) =>
+      Math.max(ingredient.id, maxID), 0
+    ) + 1,
+    bought: false,
   });
 }
 

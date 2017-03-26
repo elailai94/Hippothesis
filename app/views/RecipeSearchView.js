@@ -39,10 +39,14 @@ import { addIngredient, removeIngredient, editIngredient } from '../actions/Ingr
 
 class RecipeSearchView extends Component {
 
-
   updateFilter(){
     console.log("Update filter");
     this.props.navigation.navigate('additionalFilter');
+  }
+
+
+  goToRecipeSearchResultView() {
+    this.props.navigation.navigate('recipeSearchResult');
   }
 
   search() {
@@ -51,6 +55,7 @@ class RecipeSearchView extends Component {
 
     var parameters = {
       addRecipeInformation: true,
+      fillIngredients: true,
       instructionsRequired: true,
       limitLicense: false,
       number: 10,
@@ -90,18 +95,18 @@ class RecipeSearchView extends Component {
       console.log("results = ", this.props.recipes);
     })
 
-    this.props.navigation.navigate('recipeSearchResult');
+    this.goToRecipeSearchResultView();
   }
 
-  newIngredient() {
+  addIngredient() {
     this.props.addIngredient("");
   }
 
-  updateIngredient(id, name) {
+  editIngredient(id, name) {
     this.props.editIngredient(id, name);
   }
 
-  deleteIngredient(id) {
+  removeIngredient(id) {
     this.props.removeIngredient(id);
   }
 
@@ -122,9 +127,9 @@ class RecipeSearchView extends Component {
           <ListItem style={{margin: 0, padding: 4, paddingLeft: 10, paddingRight: 10}}>
             <Item style={styles.ingredientInput}>
               <Input placeholder="New ingredient" defaultValue={data.name}
-                onChangeText={(text) => this.updateIngredient(data.id, text)}
+                onChangeText={(text) => this.editIngredient(data.id, text)}
               />
-              <Button transparent style={styles.trashButton} onPress={() => this.deleteIngredient(data.id)}>
+              <Button transparent style={styles.trashButton} onPress={() => this.removeIngredient(data.id)}>
                 <Icon style={styles.trashIcon} name="trash"/>
               </Button>
             </Item>
@@ -147,14 +152,13 @@ class RecipeSearchView extends Component {
           </Image>
         </View>
 
-
         <View style={styles.buttonView}>
           <Button style={styles.headerButtonFilter} onPress={() => this.updateFilter()}>
             <Icon style={styles.headerButtonIcon} name="funnel"/>
           </Button>
 
 
-          <Button style={styles.headerButton} onPress={() => this.newIngredient()}>
+          <Button style={styles.headerButton} onPress={() => this.addIngredient()}>
             <Icon style={styles.headerButtonIcon} name="add"/>
           </Button>
 
@@ -259,8 +263,7 @@ function mapStateToProps(state) {
     cuisines: state.filters.cuisines,
     diets: state.filters.diets,
     nutrition: state.filters.nutrition,
-    types: state.filters.types,
-    
+    types: state.filters.types,    
   };
 }
 
@@ -273,7 +276,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(RecipeSearchView);
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeSearchView);

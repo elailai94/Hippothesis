@@ -12,26 +12,6 @@
 
 import ActionTypes from '../constants/ActionTypes';
 
-/*
- * Return the next state given the current state and an action to
- * handle
- */
-export default function IngredientListReducer(state = [], action) {
-  switch (action.type) {
-    case ActionTypes.ingredientList.ADD_INGREDIENT:
-      return addIngredient(state, action);
-    
-    case ActionTypes.ingredientList.REMOVE_INGREDIENT:
-      return removeIngredient(state, action);
-    
-    case ActionTypes.ingredientList.EDIT_INGREDIENT:
-      return editIngredient(state, action);
-    
-    default:
-      return state;
-  }
-}
-
 // Add a new ingredient to the search list
 function addIngredient(state, action) {
   return [
@@ -60,3 +40,24 @@ function editIngredient(state, action) {
     ingredient
   );
 }
+
+/*
+ * Return the next state given the current state and an action to
+ * handle
+ */
+export default function IngredientListReducer(state = [], action) {
+  switch (action.type) {
+    case ActionTypes.ingredientList.ADD_INGREDIENT:
+      return addIngredient(state, action);
+    
+    case ActionTypes.ingredientList.REMOVE_INGREDIENT:
+      return removeIngredient(state, action);
+    
+    case ActionTypes.ingredientList.EDIT_INGREDIENT:
+      return editIngredient(state, action);
+    
+    default:
+      return state;
+  }
+}
+

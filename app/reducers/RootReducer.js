@@ -15,9 +15,10 @@ import { combineReducers } from 'redux';
 import NavigationReducer from './NavigationReducer';
 import RecipeSearchResultsReducer from './RecipeSearchResultsReducer';
 import RecipesReducer from './RecipesReducer';
-import IngredientListReducer from './IngredientListReducer';
+import ShoppingListReducer from './ShoppingListReducer';
 import InventoryListReducer from './InventoryListReducer';
 import FilterReducer from './FilterReducer';
+import IngredientListReducer from './IngredientListReducer';
 
 /*
  * Return the next state given the current state and an action to

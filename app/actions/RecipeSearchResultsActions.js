@@ -23,9 +23,9 @@ export function searchRecipes(parameters) {
     dispatch(searchRecipesRequest());
 
     return complexRecipeSearch(parameters)
-      .then((json) => {
-        dispatch(searchRecipesSuccess(json));
-        dispatch(addRecipes(json));
+      .then((normalizedJSON) => {
+        dispatch(searchRecipesSuccess(normalizedJSON));
+        dispatch(addRecipes(normalizedJSON))
       })
       .catch((error) => dispatch(searchRecipesFailure(error)));
   };
@@ -50,7 +50,7 @@ function searchRecipesSuccess(json) {
     type: ActionTypes.recipeSearchResults.SEARCH_RECIPES_SUCCESS,
     payload: {
       status: 'success',
-      resultsList: json.results.map((result) => result.id)
+      resultsList: json.map((result) => result.id)
     }
   };
 }
