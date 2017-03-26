@@ -52,17 +52,6 @@ class RecipeView extends Component {
   recipe;
   stepNum = 0;
 
-  componentDidMount() {
-    /*
-    getRecipeInformation(479115, {}).then((json) => {
-      console.log(json);
-      console.log(extractEquipments(json));
-      console.log(extractExtendedIngredients(json));
-      console.log(extractInstructions(json));
-    });
-    */
-  }
-
   readCurrentInstruction() {
     TextToSpeech.addEventListener('tts-start', (event) => console.log("Start", event));
     TextToSpeech.speak(this.recipe.instructions[this.stepNum]);
