@@ -41,7 +41,7 @@ import {
   Spinner,
   Badge
 } from 'native-base';
-import Speech from 'react-native-speech';
+import TextToSpeech from 'react-native-tts';
 
 import Images from '../constants/Images';
 import { searchRecipes } from '../actions/RecipeSearchResultsActions';
@@ -54,11 +54,6 @@ class RecipeView extends Component {
 
   componentDidMount() {
     /*
-      Speech.speak({
-        text: this.recipe.instructions.join(' '),
-        voice: 'en-CA'
-      }).catch((error) => console.log('Error occurred'));
-    
     getRecipeInformation(479115, {}).then((json) => {
       console.log(json);
       console.log(extractEquipments(json));
@@ -69,31 +64,23 @@ class RecipeView extends Component {
   }
 
   readCurrentInstruction() {
-    Speech.speak({
-      text: this.recipe.instructions[this.stepNum],
-      voice: 'en-US'
-    }).catch((error) => console.log('Error'));
+    TextToSpeech.addEventListener('tts-start', (event) => console.log("Start", event));
+    TextToSpeech.speak(this.recipe.instructions[this.stepNum]);
   }
 
   readPreviousInstruction() {
     if ((this.stepNum - 1) >= 0) {
       this.stepNum -= 1;
-      Speech.stop();
-      Speech.speak({
-        text: this.recipe.instructions[this.stepNum],
-        voice: 'en-US'
-      }).catch((error) => console.log('Error'));
+      TextToSpeech.stop();
+      TextToSpeech.speak(this.recipe.instructions[this.stepNum]);
     }
   }
 
   readNextInstruction() {
     if ((this.stepNum + 1) < this.recipe.instructions.length) {
       this.stepNum += 1;
-      Speech.stop();
-      Speech.speak({
-        text: this.recipe.instructions[this.stepNum],
-        voice: 'en-US'
-      }).catch((error) => console.log('Error'));
+      TextToSpeech.stop();
+      TextToSpeech.speak(this.recipe.instructions[this.stepNum]);
     }
   }
 
@@ -339,7 +326,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(RecipeView);
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeView);
