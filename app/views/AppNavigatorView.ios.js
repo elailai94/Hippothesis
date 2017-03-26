@@ -11,7 +11,7 @@
 import React, { Component } from 'react';
 import { TabNavigator } from 'react-navigation';
 
-import HomeView from './HomeView';
+import HomeNavigatorView from './HomeNavigatorView';
 import SearchNavigatorView from './SearchNavigatorView';
 import ListsNavigatorView from './ListsNavigatorView';
 import ProfileView from './ProfileView';
@@ -22,7 +22,7 @@ export default class AppNavigatorView extends Component {
 
     // Set up route settings for the app navigator
     this.routeSettings = {
-      home   : { screen: HomeView            },
+      home   : { screen: HomeNavigatorView   },
       search : { screen: SearchNavigatorView },
       lists  : { screen: ListsNavigatorView  },
       profile: { screen: ProfileView         }

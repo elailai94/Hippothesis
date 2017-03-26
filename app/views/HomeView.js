@@ -19,22 +19,31 @@ import {
   Container,
   Icon,
   Text,
+  Spinner,
+  Button
 } from 'native-base';
 import Images from '../constants/Images';
+import { searchRecipes } from '../actions/RecipeSearchResultsActions';
 
-export default class HomeView extends Component {
-  // Set up navigation options for the app navigator
-  static navigationOptions = {
-    tabBar: {
-      label: 'Home',
-      icon: ({ focused, tintColor }) => {
-        if (focused) {
-          return <Icon name='ios-home' />;
-        } else {
-          return <Icon name='ios-home-outline' />;
-        }
-      }
-    }
+
+class HomeView extends Component {
+
+  search() {
+    const includeIngredients = this.props.inventoryList.map((elem) => elem.name).join(",");
+
+    const parameters = {
+      addRecipeInformation: true,
+      fillIngredients: true,
+      includeIngredients: includeIngredients,
+      instructionsRequired: true,
+      limitLicense: false,
+      number: 10,
+      offset: 0,
+      ranking: 1
+    };
+    this.props.searchRecipes(parameters);  
+
+    this.props.navigation.navigate('recipeSearchResult');
   }
 
   render() {
@@ -46,6 +55,11 @@ export default class HomeView extends Component {
             <Text style={styles.header}>Explore</Text>
           </Image>
         </View>
+
+        <Button full style={styles.searchButton} onPress={() => this.search()}>
+          <Text>Search for recipes</Text>
+        </Button>
+
       </Container>
     );
   }
@@ -67,4 +81,22 @@ const styles = {
     fontFamily: 'Avenir-Light',
     letterSpacing: 2
   },
+  searchButton: {
+    backgroundColor: '#f2487a'
+  },
 };
+
+function mapStateToProps(state) {
+  return {
+    inventoryList: state.inventoryList,
+    recipes: state.recipes,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    searchRecipes: (parameters) => dispatch(searchRecipes(parameters))
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeView);
