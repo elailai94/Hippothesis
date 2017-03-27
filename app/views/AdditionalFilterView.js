@@ -108,49 +108,6 @@ class additionalFilterView extends Component {
   }
 
   update() {
-
-    //let ingredientString = this.props.ingredients.map((elem) => elem.name).join(",");
-
-    /*
-    var parameters = {
-      addRecipeInformation: true,
-      instructionsRequired: true,
-      limitLicense: false,
-      number: 10,
-      offset: 0,
-    };
-
-    let ingredientString = '';
-    let isVegeterian = false;
-
-    for( var elem in this.props.ingredients ){
-      
-      console.log(this.props.ingredients[elem].name);
-      
-      if(this.props.ingredients[elem].name === "Vegetarian"){
-          console.log("Vegetarian cuisine!");
-          parameters.vegetarian = true;
-     
-      }else{
-          console.log("add Indgredients");
-          ingredientString += this.props.ingredients[elem].name;
-          ingredientString += ',';
-      
-      }      
-    }
-
-    parameters.includeIngredients = ingredientString;
-
-
-    console.log("parameters", parameters);
-    */
-
-    /*
-    this.props.searchRecipes(parameters).then(() => {
-      console.log("results = ", this.props.recipes);
-    })
-    */
-
     this.props.navigation.goBack();
   }
 
