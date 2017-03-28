@@ -46,7 +46,7 @@ import TextToSpeech from 'react-native-tts';
 import Images from '../constants/Images';
 import { searchRecipes } from '../actions/RecipeSearchResultsActions';
 import { addIngredient, removeIngredient, editIngredient } from '../actions/IngredientListActions';
-
+import { addRecipeStore } from '../actions/RecipesStoreActions'
 
 class RecipeView extends Component {
   recipe;
@@ -135,6 +135,12 @@ class RecipeView extends Component {
     }
   }
 
+  saveRecipeToList() {
+    console.log(this.recipe);
+    
+    this.props.addRecipeStore( this.recipe.id, this.recipe);
+  }
+
   render() {
     this.findMyObject();
 
@@ -163,7 +169,7 @@ class RecipeView extends Component {
             <Col style={{alignItems: 'center'}}>
               <Icon name='ios-heart-outline' />
               <Text>{this.recipe.aggregateLikes} likes</Text>
-            </Col>
+            </Col>  
             <Col style={{alignItems: 'center'}}>
               <Icon name='ios-time-outline' />
               <Text>{this.recipe.readyInMinutes} minutes</Text>
@@ -212,15 +218,21 @@ class RecipeView extends Component {
       </Content>
 
       <View>
-      <Button style={styles.searchButton} onPress={() => this.readPreviousInstruction()}>
-          <Text>Previous</Text>
-      </Button>
-      <Button style={styles.searchButton} onPress={() => this.readCurrentInstruction()}>
-          <Text>Current</Text>
-      </Button>
-      <Button style={styles.searchButton} onPress={() => this.readNextInstruction()}>
-          <Text>Next</Text>
-      </Button>
+        <Button style={styles.saveRecipe} onPress={() => this.saveRecipeToList()}>
+            <Text>Save Recipe</Text>
+        </Button>      
+      </View>
+
+      <View>
+        <Button style={styles.searchButton} onPress={() => this.readPreviousInstruction()}>
+            <Text>Previous</Text>
+        </Button>
+        <Button style={styles.searchButton} onPress={() => this.readCurrentInstruction()}>
+            <Text>Current</Text>
+        </Button>
+        <Button style={styles.searchButton} onPress={() => this.readNextInstruction()}>
+            <Text>Next</Text>
+        </Button>
       </View>
  
       </Container>
@@ -302,7 +314,8 @@ function mapStateToProps(state) {
     ingredients: state.ingredients,
     recipeSearchResults: state.recipeSearchResults,
     recipes: state.recipes,
-    selectedRecipe: state.navigation.selectedRecipe
+    selectedRecipe: state.navigation.selectedRecipe,
+    recipesStore: state.recipesStore,
   };
 }
 
@@ -311,7 +324,8 @@ function mapDispatchToProps(dispatch) {
     addIngredient: (name) => dispatch(addIngredient(name)),
     editIngredient: (id, name) => dispatch(editIngredient(id, name)),
     removeIngredient: (id) => dispatch(removeIngredient(id)),
-    searchRecipes: (parameters) => dispatch(searchRecipes(parameters))
+    searchRecipes: (parameters) => dispatch(searchRecipes(parameters)),
+    addRecipeStore: (id, data)=> dispatch(addRecipeStore(id, data))
   };
 }
 

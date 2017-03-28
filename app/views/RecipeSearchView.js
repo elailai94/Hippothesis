@@ -264,7 +264,9 @@ function mapStateToProps(state) {
     cuisines: state.filters.cuisines,
     diets: state.filters.diets,
     nutrition: state.filters.nutrition,
-    types: state.filters.types,    
+    types: state.filters.types,
+    recipesStore: state.recipesStore
+    
   };
 }
 
