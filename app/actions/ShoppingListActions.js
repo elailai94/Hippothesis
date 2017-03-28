@@ -13,7 +13,7 @@
 import ActionTypes from '../constants/ActionTypes';
 
 // Add a new ingredient to the shopping list
-export function addIngredientToShoppingList(name) {
+export function addIngredient(name) {
   return {
     type: ActionTypes.shoppingList.ADD_INGREDIENT,
     payload: {
@@ -22,23 +22,8 @@ export function addIngredientToShoppingList(name) {
   };
 }
 
-/*
- * Add a new ingredient to the shopping list
- * NOTE: This function also adds the new ingredient to the ingredients
- * list as well
- */
-
-/*
-  export function addIngredientToShoppingList(id, name) {
-    return (dispatch) => {
-      dispatch(addIngredient(id));
-      dispatch(addIngredientToIngredients(id, name));
-    };
-  }
-*/
-
 // Remove an ingredient from the shopping list
-export function removeIngredientFromShoppingList(id) {
+export function removeIngredient(id) {
   return {
     type: ActionTypes.shoppingList.REMOVE_INGREDIENT,
     payload: {
@@ -48,7 +33,7 @@ export function removeIngredientFromShoppingList(id) {
 }
 
 // Edit an ingredient in the shopping list
-export function editIngredientInShoppingList(id, name) {
+export function editIngredient(id, name) {
   return {
     type: ActionTypes.shoppingList.EDIT_INGREDIENT,
     payload: {
@@ -59,7 +44,7 @@ export function editIngredientInShoppingList(id, name) {
 }
 
 // Mark an ingredient as bought in the shopping list
-export function markIngredientAsBoughtInShoppingList(id) {
+export function markIngredientAsBought(id) {
   return {
     type: ActionTypes.shoppingList.MARK_INGREDIENT_AS_BOUGHT,
     payload: {
@@ -69,7 +54,7 @@ export function markIngredientAsBoughtInShoppingList(id) {
 }
 
 // Mark an ingredient as not bought in the shopping list
-export function markIngredientAsNotBoughtInShoppingList(id) {
+export function markIngredientAsNotBought(id) {
   return {
     type: ActionTypes.shoppingList.MARK_INGREDIENT_AS_NOT_BOUGHT,
     payload: {

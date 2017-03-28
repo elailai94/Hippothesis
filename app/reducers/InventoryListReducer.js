@@ -14,48 +14,6 @@ import ActionTypes from '../constants/ActionTypes';
 
 const initialState = [];
 
-/*
- * Return the next state given the current state and an action to
- * handle
- */
-export default function InventoryListReducer(state = initialState, action) {
-  switch (action.type) {
-    case ActionTypes.inventoryList.ADD_INGREDIENT:
-      return addIngredientToInventoryList(state, action);
-    
-    case ActionTypes.inventoryList.REMOVE_INGREDIENT:
-      return removeIngredientFromInventoryList(state, action);
-    
-    case ActionTypes.inventoryList.EDIT_INGREDIENT:
-      return editIngredientInInventoryList(state, action);
-    
-    case ActionTypes.inventoryList.MARK_INGREDIENT_AS_USED:
-      return markIngredientAsUsedInIngredientList(state, action);
-    
-    case ActionTypes.inventoryList.MARK_INGREDIENT_AS_NOT_USED:
-      return markIngredientAsNotUsedInIngredientList(state, action);
-    
-    // SHOPPING LIST ACTIONS
-    case ActionTypes.shoppingList.ADD_INGREDIENT:
-      return addIngredientToShoppingList(state, action);
-    
-    case ActionTypes.shoppingList.REMOVE_INGREDIENT:
-      return removeIngredientFromShoppingList(state, action);
-    
-    case ActionTypes.shoppingList.EDIT_INGREDIENT:
-      return editIngredientInShoppingList(state, action);
-    
-    case ActionTypes.shoppingList.MARK_INGREDIENT_AS_BOUGHT:
-      return markIngredientAsBoughtInShoppingList(state, action);
-    
-    case ActionTypes.shoppingList.MARK_INGREDIENT_AS_NOT_BOUGHT:
-      return markIngredientAsNotBoughtInShoppingList(state, action);
-    
-    default:
-      return state;
-  }
-}
-
 // Add a new ingredient to the inventory list
 function addIngredientToInventoryList(state = initialState, action) {
   return state.concat({
@@ -159,4 +117,38 @@ function markIngredientAsNotBoughtInShoppingList(state = initialState, action) {
       return ingredient;
     }
   });
+}
+
+// Case reducer for inventory list
+function addIngredient(state = initialState, action) {
+  return state.concat({
+    id: state.reduce((maxID, ingredient) =>
+      Math.max(ingredient.id, maxID), 0
+    ) + 1,
+    name: action.payload.name,
+    used: false
+  });
+}
+
+// Root reducer for inventory list
+export default function InventoryListReducer(state = initialState, action) {
+  switch (action.type) {
+    case ActionTypes.inventoryList.ADD_INGREDIENT:
+      return addIngredient(state, action);
+    
+    case ActionTypes.inventoryList.REMOVE_INGREDIENT:
+      return removeIngredient(state, action);
+    
+    case ActionTypes.inventoryList.EDIT_INGREDIENT:
+      return editIngredient(state, action);
+    
+    case ActionTypes.inventoryList.MARK_INGREDIENT_AS_USED:
+      return markIngredientAsUsed(state, action);
+    
+    case ActionTypes.inventoryList.MARK_INGREDIENT_AS_NOT_USED:
+      return markIngredientAsNotUsed(state, action);
+    
+    default:
+      return state;
+  }
 }
