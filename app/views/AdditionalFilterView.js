@@ -162,112 +162,122 @@ class additionalFilterView extends Component {
 
         <View>
           <StatusBar barStyle="light-content"/>
-          <Image style={styles.background} source={Images.backgrounds.search}>
+          <Image style={styles.background} source={Images.backgrounds.filter}>
             <Text style={styles.header}>Filters</Text>
           </Image>
         </View>
 
-        <Button style={styles.headerButton} onPress={() => this.newIngredient()}>
-          <Icon style={styles.headerButtonIcon} name="add"/>
-        </Button>
-
+        <View style={{height:10}} />
 
         <Content>
 
-          <Text>Allergies/Intolerances</Text>        
-          <Picker
-            iosHeader="Select one"
-            mode="dropdown"
-            selectedValue={this.state.selected1}
-            onValueChange={this.onAllergiesValueChange.bind(this)}>
-            <Item label="None" value="None" />
-            <Item label="Dairy" value="Dairy" />
-            <Item label="Egg" value="Egg" />
-            <Item label="Gluten" value="Gluten" />
-            <Item label="Peanut" value="Peanut" />
-            <Item label="Sesame" value="Sesame" />
-            <Item label="Seafood" value="Seafood" />
-            <Item label="Shellfish" value="Shellfish" />
-            <Item label="Soy" value="Soy" />
-            <Item label="Sulfite" value="Sulfite" />
-            <Item label="Tree Nut" value="Tree Nut" />
-            <Item label="Wheat" value="Wheat" />
-          </Picker>
-        
-          <Text>Cuisines</Text>
-          <Picker
-            iosHeader="Select Two"
-            mode="dropdown"
-            selectedValue={this.state.selected2}
-            onValueChange={this.onCuisineValueChange.bind(this)}>
-            <Item label="None" value="None" />
-            <Item label="American" value="American" />
-            <Item label="Chinese" value="Chinese" />
-            <Item label="Japanese" value="Japanese" />
-            <Item label="Korean" value="Korean" />
-            <Item label="Vietnamese" value="Vietnamese" />
-            <Item label="Thai" value="Thai" />
-            <Item label="Indian" value="Indian" />
-            <Item label="French" value="French" />
-            <Item label="Italian" value="Italian" />
-            <Item label="Mexican" value="Mexican" />
-            <Item label="Middle Eastern" value="Middle Eastern" />
-          </Picker>
+          <Image style={styles.pickerHeader} source={Images.backgrounds.allergies}>
+            <Text style={{fontSize: 16, color: 'white', fontWeight: 'bold'}}> Allergies/Intolerances </Text>        
+            <Picker
+              iosHeader="Allergies or Intolerances"
+              styles={styles.picker}
+              mode="dropdown"
+              color="white"
+              selectedValue={this.state.selected1}
+              onValueChange={this.onAllergiesValueChange.bind(this)}
+              iconColor="white">
+              <Item label="None" value="None" />
+              <Item label="Dairy" value="Dairy" />
+              <Item label="Egg" value="Egg" />
+              <Item label="Gluten" value="Gluten" />
+              <Item label="Peanut" value="Peanut" />
+              <Item label="Sesame" value="Sesame" />
+              <Item label="Seafood" value="Seafood" />
+              <Item label="Shellfish" value="Shellfish" />
+              <Item label="Soy" value="Soy" />
+              <Item label="Sulfite" value="Sulfite" />
+              <Item label="Tree Nut" value="Tree Nut" />
+              <Item label="Wheat" value="Wheat" />
+            </Picker>
+          </Image>
 
-          <Text>Diets</Text>
-          <Picker
-            iosHeader="Select Three"
-            mode="dropdown"
-            selectedValue={this.state.selected3}
-            onValueChange={this.onDietValueChange.bind(this)}>
-            <Item label="None" value="None" />
-            <Item label="Vegetarian" value="Vegetarian" />
-            <Item label="Vegan" value="Vegan" />
-            <Item label="Paleo" value="Paleo" />
-            <Item label="Primal" value="Primal" />
-            <Item label="Pescetarian" value="Pescetarian" />
-            <Item label="Lacto Vegetarian" value="Lacto Vegetarian" />
-            <Item label="Ovo Vegetarian" value="Ovo Vegetarian" />
-          </Picker>
+          <Image style={styles.pickerHeader} source={Images.backgrounds.cuisines}>
+            <Text style={{fontSize: 16, color: 'white', fontWeight: 'bold'}}>Cuisines</Text>       
+            <Picker
+              iosHeader="Select Two"
+              mode="dropdown"
+              selectedValue={this.state.selected2}
+              onValueChange={this.onCuisineValueChange.bind(this)}>
+              <Item label="None" value="None" />
+              <Item label="American" value="American" />
+              <Item label="Chinese" value="Chinese" />
+              <Item label="Japanese" value="Japanese" />
+              <Item label="Korean" value="Korean" />
+              <Item label="Vietnamese" value="Vietnamese" />
+              <Item label="Thai" value="Thai" />
+              <Item label="Indian" value="Indian" />
+              <Item label="French" value="French" />
+              <Item label="Italian" value="Italian" />
+              <Item label="Mexican" value="Mexican" />
+              <Item label="Middle Eastern" value="Middle Eastern" />
+            </Picker>
+          </Image>
+          
+          <Image style={styles.pickerHeader} source={Images.backgrounds.diets}>
+            <Text style={{fontSize: 16, color: 'white', fontWeight: 'bold'}}>Diets</Text>
+            <Picker
+              iosHeader="Diets"
+              mode="dropdown"
+              selectedValue={this.state.selected3}
+              onValueChange={this.onDietValueChange.bind(this)}>
+              <Item label="None" value="None" />
+              <Item label="Vegetarian" value="Vegetarian" />
+              <Item label="Vegan" value="Vegan" />
+              <Item label="Paleo" value="Paleo" />
+              <Item label="Primal" value="Primal" />
+              <Item label="Pescetarian" value="Pescetarian" />
+              <Item label="Lacto Vegetarian" value="Lacto Vegetarian" />
+              <Item label="Ovo Vegetarian" value="Ovo Vegetarian" />
+            </Picker>
+          </Image>
 
-          <Text>Nutrition: </Text>
-          <Picker
-            iosHeader="Select Four"
-            mode="dropdown"
-            selectedValue={this.state.selected4}
-            onValueChange={this.onNutritionValueChange.bind(this)}>
-            <Item label="None" value="None" />
-            <Item label="Mininum Calories" value="Mininum Calories" />
-            <Item label="Maximum Calories" value="Maximum Calories" />
-            <Item label="Minimum Carbohydrates" value="Minimum Carbohydrates" />
-            <Item label="Maximum Carbohydrates" value="Maximum Carbohydrates" />
-            <Item label="Minimum Fat" value="Minimum Fat" />
-            <Item label="Maximum Fat" value="Maximum Fat" />
-            <Item label="Minimum Protein" value="Minimum Protein" />
-            <Item label="Maximum Protein" value="Maximum Protein" />
-          </Picker>
+          <Image style={styles.pickerHeader} source={Images.backgrounds.nutritions}>
+            <Text style={{fontSize: 16, color: 'white', fontWeight: 'bold'}}>Nutrition: </Text>
+            <Picker
+              iosHeader="Select Four"
+              mode="dropdown"
+              selectedValue={this.state.selected4}
+              onValueChange={this.onNutritionValueChange.bind(this)}>
+              <Item label="None" value="None" />
+              <Item label="Mininum Calories" value="Mininum Calories" />
+              <Item label="Maximum Calories" value="Maximum Calories" />
+              <Item label="Minimum Carbohydrates" value="Minimum Carbohydrates" />
+              <Item label="Maximum Carbohydrates" value="Maximum Carbohydrates" />
+              <Item label="Minimum Fat" value="Minimum Fat" />
+              <Item label="Maximum Fat" value="Maximum Fat" />
+              <Item label="Minimum Protein" value="Minimum Protein" />
+              <Item label="Maximum Protein" value="Maximum Protein" />
+            </Picker>
+          </Image>
 
-          <Text>Types: </Text>
-          <Picker
-            iosHeader="Select Five"
-            mode="dropdown"
-            selectedValue={this.state.selected5}
-            onValueChange={this.onTypeValueChange.bind(this)}>
-            <Item label="None" value="None" />
-            <Item label="Main Course" value="Main Course" />
-            <Item label="Side Dish" value="Side Dish" />
-            <Item label="Dessert" value="Dessert" />
-            <Item label="Appetizer" value="Appetizer" />
-            <Item label="Salad" value="Salad" />
-            <Item label="Bread" value="Bread" />
-            <Item label="Breakfast" value="Breakfast" />
-            <Item label="Soup" value="Soup" />
-            <Item label="Beverage" value="Beverage" />
-            <Item label="Sauce" value="Sauce" />
-            <Item label="Drink" value="Drink" />
-            <Item label="Lunch" value="Lunch" />
-            <Item label="Dinner" value="Dinner" />          
-          </Picker>
+          <Image style={styles.pickerHeader} source={Images.backgrounds.types}>
+            <Text style={{fontSize: 16, color: 'white', fontWeight: 'bold'}}>Types: </Text>
+            <Picker
+              iosHeader="Select Five"
+              mode="dropdown"
+              selectedValue={this.state.selected5}
+              onValueChange={this.onTypeValueChange.bind(this)}>
+              <Item label="None" value="None" />
+              <Item label="Main Course" value="Main Course" />
+              <Item label="Side Dish" value="Side Dish" />
+              <Item label="Dessert" value="Dessert" />
+              <Item label="Appetizer" value="Appetizer" />
+              <Item label="Salad" value="Salad" />
+              <Item label="Bread" value="Bread" />
+              <Item label="Breakfast" value="Breakfast" />
+              <Item label="Soup" value="Soup" />
+              <Item label="Beverage" value="Beverage" />
+              <Item label="Sauce" value="Sauce" />
+              <Item label="Drink" value="Drink" />
+              <Item label="Lunch" value="Lunch" />
+              <Item label="Dinner" value="Dinner" />          
+            </Picker>
+          </Image>
         </Content>
 
         <Button full style={styles.updateButton} onPress={() => this.update()}>
@@ -282,6 +292,15 @@ class additionalFilterView extends Component {
 const styles = {
   background: {
     height: 175,
+    width: null,
+    resizeMode: 'cover',
+    justifyContent: 'center'
+  },
+  picker: {
+    color: 'white'
+  },
+  pickerHeader: {
+    height: 75,
     width: null,
     resizeMode: 'cover',
     justifyContent: 'center'
