@@ -199,7 +199,7 @@ class additionalFilterView extends Component {
           <Image style={styles.pickerHeader} source={Images.backgrounds.cuisines}>
             <Text style={{fontSize: 16, color: 'white', fontWeight: 'bold'}}>Cuisines</Text>       
             <Picker
-              iosHeader="Select Two"
+              iosHeader="Cuisines"
               mode="dropdown"
               selectedValue={this.state.selected2}
               onValueChange={this.onCuisineValueChange.bind(this)}>
@@ -237,28 +237,24 @@ class additionalFilterView extends Component {
           </Image>
 
           <Image style={styles.pickerHeader} source={Images.backgrounds.nutritions}>
-            <Text style={{fontSize: 16, color: 'white', fontWeight: 'bold'}}>Nutrition: </Text>
+            <Text style={{fontSize: 16, color: 'white', fontWeight: 'bold'}}>Max Calories: </Text>
             <Picker
-              iosHeader="Select Four"
+              iosHeader="Max Calories"
               mode="dropdown"
               selectedValue={this.state.selected4}
               onValueChange={this.onNutritionValueChange.bind(this)}>
               <Item label="None" value="None" />
-              <Item label="Mininum Calories" value="Mininum Calories" />
-              <Item label="Maximum Calories" value="Maximum Calories" />
-              <Item label="Minimum Carbohydrates" value="Minimum Carbohydrates" />
-              <Item label="Maximum Carbohydrates" value="Maximum Carbohydrates" />
-              <Item label="Minimum Fat" value="Minimum Fat" />
-              <Item label="Maximum Fat" value="Maximum Fat" />
-              <Item label="Minimum Protein" value="Minimum Protein" />
-              <Item label="Maximum Protein" value="Maximum Protein" />
+              <Item label="100 Calories" value="100 Calories" />
+              <Item label="500 Calories" value="500 Calories" />
+              <Item label="1500 Calories" value="1500 Calories" />
+              <Item label="2500 Calories" value="2500 Calories" />
             </Picker>
           </Image>
 
           <Image style={styles.pickerHeader} source={Images.backgrounds.types}>
             <Text style={{fontSize: 16, color: 'white', fontWeight: 'bold'}}>Types: </Text>
             <Picker
-              iosHeader="Select Five"
+              iosHeader="Types"
               mode="dropdown"
               selectedValue={this.state.selected5}
               onValueChange={this.onTypeValueChange.bind(this)}>
