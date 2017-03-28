@@ -20,10 +20,13 @@ import {
   Icon,
   Text,
   Spinner,
-  Button
+  Button,
+  List,
+  ListItem
 } from 'native-base';
 import Images from '../constants/Images';
 import { searchRecipes } from '../actions/RecipeSearchResultsActions';
+import RecipeCard from '../components/RecipeCard';
 
 
 class HomeView extends Component {
@@ -46,7 +49,32 @@ class HomeView extends Component {
     this.props.navigation.navigate('recipeSearchResult');
   }
 
+
+
   render() {
+
+    let content =
+      <View><Text>No Recipes Saved</Text></View>
+    ;
+
+    console.log("props tops:", this.props);
+    console.log("props tops:", this.props.recipesStore);
+    
+    if (Object.keys(this.props.recipesStore) != null){
+      if(Object.keys(this.props.recipesStore).length > 0) {
+        content =
+          <List
+            dataArray={this.props.recipesStore}
+            renderRow={(data) =>
+              <RecipeCard {...data[Object.keys(data)[0]]} navigation={
+                this.props.navigation
+              }/>
+            }
+          />;
+      }
+    }
+    
+    
     return (
       <Container>
         <View>
@@ -59,6 +87,10 @@ class HomeView extends Component {
         <Button full style={styles.searchButton} onPress={() => this.search()}>
           <Text>Search for recipes</Text>
         </Button>
+
+
+        {content}
+
 
       </Container>
     );
@@ -90,6 +122,7 @@ function mapStateToProps(state) {
   return {
     inventoryList: state.inventoryList,
     recipes: state.recipes,
+    recipesStore: state.recipesStore,
   };
 }
 

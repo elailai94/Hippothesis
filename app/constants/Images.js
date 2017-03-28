@@ -22,7 +22,14 @@ const Images = {
     search: require('../images/search_background.jpg'),
     shopping: require('../images/shopping_cart.jpg'),
     fridge: require('../images/fridge.jpg'),
-    cooking: require('../images/cooking.jpg')
+    cooking: require('../images/cooking.jpg'),
+    allergies: require('../images/allergies.jpg'),
+    filter: require('../images/filter.jpg'),
+    cuisines: require('../images/cuisines.jpg'),
+    diets: require('../images/diets.jpg'),
+    nutritions: require('../images/nutritions.jpg'),
+    types: require('../images/types.jpeg'),
+    profile: require('../images/profile.jpg')
   }
 };
 

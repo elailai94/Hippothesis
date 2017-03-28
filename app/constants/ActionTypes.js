@@ -41,7 +41,7 @@ const ActionTypes = {
     ADD_RECIPE: 'ADD_RECIPE_TO_RECIPES',
     ADD_RECIPES: 'ADD_RECIPES_TO_RECIPES'
   },
-  filters:{
+  filters: {
     UPDATE_ALLERGIES: 'UPDATE_ALLERGIES',
     UPDATE_CUISINES: 'UPDATE_CUISINES',
     UPDATE_DIETS: 'UPDATE_DIETS',
@@ -50,6 +50,10 @@ const ActionTypes = {
   },
   navigation: {
     SELECT_RECIPE: 'SELECT_RECIPE'
+  },
+  recipesStore: {
+    ADD_RECIPE_TO_STORE: 'ADD_RECIPE_TO_STORE',
+    ADD_RECIPES_TO_STORE: 'ADD_RECIPES_TO_STORE'    
   }
 };
 

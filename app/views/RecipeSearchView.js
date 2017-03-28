@@ -76,6 +76,7 @@ class RecipeSearchView extends Component {
 
     console.log("Nutrition: ");
     console.log(this.props.nutrition);
+    console.log(parseInt(this.props.nutrition));
 
 
     console.log("Types: ");
@@ -86,7 +87,7 @@ class RecipeSearchView extends Component {
     parameters.exludeIngredients = this.props.allergies;
     parameters.cuisine = this.props.cuisines;
     parameters.diet = this.props.diets;
-    //parameters.nutrition = this.props.nutrition;
+    parameters.maxCalories = parseInt(this.props.nutrition);
     parameters.type = this.props.types;
 
     console.log("parameters", parameters);
@@ -263,7 +264,9 @@ function mapStateToProps(state) {
     cuisines: state.filters.cuisines,
     diets: state.filters.diets,
     nutrition: state.filters.nutrition,
-    types: state.filters.types,    
+    types: state.filters.types,
+    recipesStore: state.recipesStore
+    
   };
 }
 
