@@ -155,12 +155,12 @@ class RecipeSearchView extends Component {
 
         <View style={styles.buttonView}>
           <Button style={styles.headerButtonFilter} onPress={() => this.updateFilter()}>
-            <Icon style={styles.headerButtonIcon} name="funnel"/>
+            <Icon style={styles.headerButtonIconFilter} name="funnel"/>
           </Button>
 
 
-          <Button style={styles.headerButton} onPress={() => this.addIngredient()}>
-            <Icon style={styles.headerButtonIcon} name="add"/>
+          <Button style={styles.headerButtonPlus} onPress={() => this.addIngredient()}>
+            <Icon style={styles.headerButtonIconPlus} name="add"/>
           </Button>
 
 
@@ -200,7 +200,7 @@ const styles = {
     paddingBottom: 30,
     flexDirection:'row'
   },
-  headerButton: {
+  headerButtonPlus: {
     alignSelf: 'flex-end',
     padding: 0,
     borderRadius: 25,
@@ -222,8 +222,12 @@ const styles = {
     backgroundColor: '#48abf2',
     zIndex: 10,
   },
-  headerButtonIcon: {
+  headerButtonIconPlus: {
     fontSize: 40,
+    backgroundColor: 'transparent',
+  },
+  headerButtonIconFilter: {
+    fontSize: 30,
     backgroundColor: 'transparent',
   },
   searchButton: {
