@@ -16,7 +16,7 @@ const initialState = {
 	allergies: 'None',
 	cuisines: 'None',
 	diets: 'None',
-	nutrition: 2500,
+	nutrition: '2500 Calories',
 	types: 'None'
 };
 

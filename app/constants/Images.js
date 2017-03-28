@@ -29,6 +29,7 @@ const Images = {
     diets: require('../images/diets.jpg'),
     nutritions: require('../images/nutritions.jpg'),
     types: require('../images/types.jpeg'),
+    profile: requires('../images/profile.jpg')
   }
 };
 

@@ -175,7 +175,7 @@ class ProfileView extends Component {
 
         <View>
           <StatusBar barStyle="light-content"/>
-          <Image style={styles.background} source={Images.backgrounds.filter}>
+          <Image style={styles.background} source={Images.backgrounds.profile}>
             <Text style={styles.header}>Profile</Text>
           </Image>
         </View>
