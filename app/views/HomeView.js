@@ -17,6 +17,8 @@ import {
 } from 'react-native';
 import {
   Container,
+  Card,
+  CardItem,
   Icon,
   Text,
   Spinner,
@@ -27,6 +29,7 @@ import {
 import Images from '../constants/Images';
 import { searchRecipes } from '../actions/RecipeSearchResultsActions';
 import RecipeCard from '../components/RecipeCard';
+import { selectRecipe } from '../actions/NavigationActions';
 
 
 class HomeView extends Component {
@@ -49,7 +52,10 @@ class HomeView extends Component {
     this.props.navigation.navigate('recipeSearchResult');
   }
 
-
+  goToRecipeView(id) {
+    this.props.setSelectedRecipe(id);
+    this.props.navigation.navigate('recipe');
+  }
 
   render() {
 
@@ -66,9 +72,19 @@ class HomeView extends Component {
           <List
             dataArray={this.props.recipesStore}
             renderRow={(data) =>
-              <RecipeCard {...data[Object.keys(data)[0]]} navigation={
-                this.props.navigation
-              }/>
+              {
+                console.log("Object keys", data);
+                return (
+                  <Card style={styles.card}>
+                    <CardItem cardBody style={styles.imageContainer}  onPress={() => this.goToRecipeView(data.id)}>
+                      <Image style={styles.image} source={{uri: data.image}} />
+                    </CardItem>
+                    <CardItem>
+                      <Text>{data.title}</Text>
+                    </CardItem>
+                  </Card>
+                );            
+              }
             }
           />;
       }
@@ -87,11 +103,7 @@ class HomeView extends Component {
         <Button full style={styles.searchButton} onPress={() => this.search()}>
           <Text>Search for recipes</Text>
         </Button>
-
-
         {content}
-
-
       </Container>
     );
   }
@@ -116,6 +128,14 @@ const styles = {
   searchButton: {
     backgroundColor: '#f2487a'
   },
+  imageContainer: {
+    flex: 1,
+    alignItems: 'center'
+  },
+  image: {
+    flex: 1,
+    height: 120
+  }
 };
 
 function mapStateToProps(state) {
@@ -128,7 +148,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    searchRecipes: (parameters) => dispatch(searchRecipes(parameters))
+    searchRecipes: (parameters) => dispatch(searchRecipes(parameters)),
+    setSelectedRecipe: (id) => dispatch(selectRecipe(id))
   };
 }
 
