@@ -9,7 +9,7 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { View, Image } from 'react-native';
+import { ScrollView, View, Image } from 'react-native';
 import {
   Button,
   Container,
