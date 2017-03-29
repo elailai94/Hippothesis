@@ -58,25 +58,40 @@ class RecipeSearchResultView extends Component {
         />;
     }
 
-    return (<Container>
-
-      <StatusBar barStyle="light-content" />
-      <Header>
-        <Left>
-          <Button transparent onPress={() => this.goBack()}>
-            <Icon name="arrow-back" />
-          </Button>
-        </Left>
-        <Body>
-          <Title>Recipes</Title>
-        </Body>
-        <Right/>
-      </Header>
+    return (
+      <Container>
+      <Image
+        style={styles.headerImage}
+        source={Images.backgrounds.search}
+      >
+        <Button transparent style={{marginTop: 10}} onPress={() => this.goBack()}>
+          <Icon name="arrow-back" style={{color: 'white'}}/>
+        </Button>
+        <Text style={styles.headerText}>Search{'\n'}Results</Text>
+      </Image>
 
       {content}
 
-    </Container>
+      </Container>
     );
+  }
+}
+
+const styles = {
+  headerImage: {
+    height: 175,
+    width: null,
+    resizeMode: 'cover',
+    justifyContent: 'center'
+  },
+  headerText: {
+    backgroundColor: 'transparent',
+    color: 'white',
+    fontSize: 40,
+    marginLeft: 20,
+    marginTop: 10,
+    fontFamily: 'Avenir-Light',
+    letterSpacing: 2
   }
 }
 

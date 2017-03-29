@@ -355,7 +355,7 @@ const styles = {
 
 function mapStateToProps(state) {
   return {
-    ingredients: state.ingredients,
+    ingredients: state.recipeSearchIngredientsList,
     recipeSearchResults: state.recipeSearchResults,
     recipes: state.recipes,
     allergies: state.filters.allergies,

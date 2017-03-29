@@ -134,7 +134,7 @@ class RecipeView extends Component {
     }
   }
 
-  saveRecipeToList() {
+  saveRecipe() {
     console.log(this.recipe);
     
     this.props.addRecipeStore(this.recipe.id , this.recipe);
@@ -156,9 +156,15 @@ class RecipeView extends Component {
           </Button>
         </Image>
 
-        <Button style={styles.headerButton} onPress={() => this.shareRecipe()}>
-          <Icon style={styles.headerButtonIcon} name="share"/>
-        </Button>
+        <View style={{flexDirection: 'row'}}>
+          <Button style={styles.headerButton} onPress={() => this.saveRecipe()}>
+            <Icon style={styles.headerButtonIcon} name="bookmark"/>
+          </Button>
+
+          <Button style={styles.headerButton} onPress={() => this.shareRecipe()}>
+            <Icon style={styles.headerButtonIcon} name="share"/>
+          </Button>
+        </View>
 
         <Grid style={{margin: 10, top: -30}}>
           <Row style={{marginTop: 10, marginBottom: 5}}>
@@ -216,13 +222,7 @@ class RecipeView extends Component {
         </Grid>
       </Content>
 
-      <View>
-        <Button style={styles.saveRecipe} onPress={() => this.saveRecipeToList()}>
-            <Text>Save Recipe</Text>
-        </Button>      
-      </View>
-
-      <View>
+      <View style={{flexDirection: 'row'}}>
         <Button style={styles.searchButton} onPress={() => this.readPreviousInstruction()}>
             <Text>Previous</Text>
         </Button>

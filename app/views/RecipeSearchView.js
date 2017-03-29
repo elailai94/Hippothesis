@@ -11,21 +11,14 @@
 import React, { Component } from 'react';
 import { View, Image } from 'react-native';
 import {
-  Container,
-  Content,
-  Text,
-  Item,
-  Input,
-  Icon,
-  InputGroup,
-  Left,
-  Right,
   Button,
-  Grid,
-  Row,
-  Col,
+  Container,
+  Icon,
+  Input,
+  Item,
   List,
-  ListItem
+  ListItem,
+  Text
 } from 'native-base';
 import { connect } from 'react-redux';
 
@@ -38,8 +31,7 @@ import {
 import { searchRecipes } from '../actions/RecipeSearchResultsActions';
 
 class RecipeSearchView extends Component {
-
-  updateFilter(){
+  updateFilter() {
     this.props.navigation.navigate('additionalFilter');
   }
 
@@ -92,9 +84,7 @@ class RecipeSearchView extends Component {
 
     console.log("parameters", parameters);
 
-    this.props.searchRecipes(parameters).then(() => {
-      console.log("results = ", this.props.recipes);
-    })
+    this.props.searchRecipes(parameters);
 
     this.goToRecipeSearchResultView();
   }
@@ -276,14 +266,12 @@ const styles = {
 function mapStateToProps(state) {
   return {
     recipeSearchIngredientsList: state.recipeSearchIngredientsList,
-    recipeSearchResults: state.recipeSearchResults,
     recipes: state.recipes,
     allergies: state.filters.allergies,
     cuisines: state.filters.cuisines,
     diets: state.filters.diets,
     nutrition: state.filters.nutrition,
-    types: state.filters.types,
-    recipesStore: state.recipesStore
+    types: state.filters.types
   };
 }
 
