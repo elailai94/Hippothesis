@@ -156,12 +156,12 @@ class RecipeView extends Component {
           </Button>
         </Image>
 
-        <View style={{flexDirection: 'row'}}>
-          <Button style={styles.headerButton} onPress={() => this.saveRecipe()}>
+        <View style={styles.buttonView}>
+          <Button style={styles.headerButtonSave} onPress={() => this.saveRecipe()}>
             <Icon style={styles.headerButtonIcon} name="bookmark"/>
           </Button>
 
-          <Button style={styles.headerButton} onPress={() => this.shareRecipe()}>
+          <Button style={styles.headerButtonShare} onPress={() => this.shareRecipe()}>
             <Icon style={styles.headerButtonIcon} name="share"/>
           </Button>
         </View>
@@ -221,18 +221,6 @@ class RecipeView extends Component {
           </Row>
         </Grid>
       </Content>
-
-      <View style={{flexDirection: 'row'}}>
-        <Button style={styles.searchButton} onPress={() => this.readPreviousInstruction()}>
-            <Text>Previous</Text>
-        </Button>
-        <Button style={styles.searchButton} onPress={() => this.readCurrentInstruction()}>
-            <Text>Current</Text>
-        </Button>
-        <Button style={styles.searchButton} onPress={() => this.readNextInstruction()}>
-            <Text>Next</Text>
-        </Button>
-      </View>
  
       </Container>
     );
@@ -255,14 +243,30 @@ const styles = {
     fontFamily: 'Avenir-Light',
     letterSpacing: 2
   },
-  headerButton: {
+  buttonView:{
     alignSelf: 'flex-end',
-    top: -25,
-    marginRight: 40,
     height: 50,
-    width: 50,
+    paddingBottom: 30,
+    flexDirection:'row'
+  },
+  headerButtonSave: {
+    alignSelf: 'flex-end',
     padding: 0,
     borderRadius: 25,
+    height: 50,
+    width: 50,
+    marginRight: 25,
+    justifyContent: 'center',
+    backgroundColor: '#48abf2',
+    zIndex: 10,
+  },
+  headerButtonShare: {
+    alignSelf: 'flex-end',
+    padding: 0,
+    borderRadius: 25,
+    height: 50,
+    width: 50,
+    marginRight: 25,
     justifyContent: 'center',
     backgroundColor: '#f2487a',
     zIndex: 10,
