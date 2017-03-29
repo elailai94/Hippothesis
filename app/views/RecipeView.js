@@ -272,7 +272,7 @@ const styles = {
     zIndex: 10,
   },
   headerButtonIcon: {
-    fontSize: 40,
+    fontSize: 30,
     backgroundColor: 'transparent',
   },
   searchButton: {

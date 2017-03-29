@@ -14,6 +14,7 @@ import {
   View,
   StatusBar,
   Image,
+  ScrollView
 } from 'react-native';
 import {
   Container,
@@ -60,7 +61,10 @@ class HomeView extends Component {
   render() {
 
     let content =
-      <View><Text>No Recipes Saved</Text></View>
+      <ScrollView style={styles.emptyState} scrollEnabled={false}>
+        <Text style={styles.emptyStateText}>Your saved recipes will show up here.</Text>
+        <Text style={styles.emptyStateText}>Add some recipes!</Text>
+      </ScrollView>
     ;
 
     console.log("props tops:", this.props);
@@ -135,7 +139,15 @@ const styles = {
   image: {
     flex: 1,
     height: 120
-  }
+  },
+  emptyState: {
+    marginTop: 150,
+  },
+  emptyStateText: {
+    textAlign: 'center',
+    fontSize: 20,
+    color: '#999999',
+  },
 };
 
 function mapStateToProps(state) {

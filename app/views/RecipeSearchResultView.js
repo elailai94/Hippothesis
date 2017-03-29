@@ -60,17 +60,19 @@ class RecipeSearchResultView extends Component {
 
     return (
       <Container>
-      <Image
-        style={styles.headerImage}
-        source={Images.backgrounds.search}
-      >
-        <Button transparent style={{marginTop: 10}} onPress={() => this.goBack()}>
-          <Icon name="arrow-back" style={{color: 'white'}}/>
-        </Button>
-        <Text style={styles.headerText}>Search{'\n'}Results</Text>
-      </Image>
+        <Header>
+          <Left>
+            <Button transparent onPress={() => this.goBack()}>
+              <Icon name="arrow-back" />
+            </Button>
+          </Left>
+          <Body>
+            <Title>Recipes</Title>
+          </Body>
+          <Right/>
+        </Header>
 
-      {content}
+        {content}
 
       </Container>
     );
