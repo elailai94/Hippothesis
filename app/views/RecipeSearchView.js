@@ -105,12 +105,13 @@ class RecipeSearchView extends Component {
   }
 
   render() {
+    // PLEASE LEAVE AS SCOLLVIEW IT FIXES SPACING
     let emptyState = (
-      <View style={styles.emptyState}>
+      <ScrollView style={styles.emptyState} scrollEnabled={false}>
         <Image style={styles.emptyStateImg} source={Images.food.pot}/>
         <Text style={styles.emptyStateText}>What do you have in the kitchen?</Text>
         <Text style={styles.emptyStateText}>Add some tasty ingredients!</Text>
-      </View>
+      </ScrollView>
     );
 
     let recipeSearchIngredientsList = (
