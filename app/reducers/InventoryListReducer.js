@@ -25,9 +25,9 @@ function addIngredientToInventoryList(state = initialState, action) {
 
 // Case reducer for inventory list
 function removeIngredientFromInventoryList(state = initialState, action) {
-  return state.filter((ingredient) => {
-    return ingredient.id !== action.payload.id;
-  });
+  return state.filter((ingredient) =>
+    ingredient.id !== action.payload.id
+  );
 }
 
 // Case reducer for inventory list

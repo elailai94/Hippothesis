@@ -25,9 +25,9 @@ function addIngredientToShoppingList(state = initialState, action) {
 
 // Case reducer for shopping list
 function removeIngredientFromShoppingList(state = initialState, action) {
-  return state.filter((ingredient) => {
-    return ingredient.id !== action.payload.id;
-  });
+  return state.filter((ingredient) =>
+    ingredient.id !== action.payload.id
+  );
 }
 
 // Case reducer for shopping list

@@ -40,6 +40,21 @@ class ShoppingListView extends Component {
     }
   }
 
+  // Add a new ingredient to the shopping list
+  addIngredient() {
+    this.props.addIngredient('');
+  }
+
+  // Remove an ingredient from the shopping list
+  removeIngredient(id) {
+    this.props.removeIngredient(id);
+  }
+
+  // Edit an ingredient in the shopping list
+  editIngredient(id, name) {
+    this.props.editIngredient(id, name);
+  }
+
   // Mark an ingredient as bought or not bought in the shopping list
   markIngredient(id, used) {
     if (used) {
@@ -61,7 +76,7 @@ class ShoppingListView extends Component {
 
         <Button
           style={styles.headerButton}
-          onPress={() => this.props.addIngredient('')}
+          onPress={() => this.addIngredient()}
         >
           <Icon style={styles.headerButtonIcon} name="add"/>
         </Button>
@@ -69,22 +84,22 @@ class ShoppingListView extends Component {
         <List
           style={styles.shoppingList}
           dataArray={this.props.shoppingList}
-          renderRow={(instruction) =>
+          renderRow={(ingredient) =>
             <ListItem style={styles.shoppingListItem}>
               <Item style={styles.ingredientItem}>
                 <CheckBox
                   style={styles.ingredientCheckBox}
-                  checked={instruction.bought}
-                  onPress={() => this.markIngredient(instruction.id, instruction.bought)}
+                  checked={ingredient.bought}
+                  onPress={() => this.markIngredient(ingredient.id, ingredient.bought)}
                 />
                 <Input
                   placeholder="New ingredient"
-                  defaultValue={instruction.name}
-                  onChangeText={(name) => this.props.editIngredient(instruction.id, name)}
+                  defaultValue={ingredient.name}
+                  onChangeText={(name) => this.editIngredient(ingredient.id, name)}
                 />
                 <Button transparent
                   style={styles.trashButton}
-                  onPress={() => this.props.removeIngredient(data.id)}
+                  onPress={() => this.removeIngredient(ingredient.id)}
                 >
                   <Icon style={styles.trashIcon} name="trash"/>
                 </Button>
@@ -162,8 +177,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     addIngredient: (name) => dispatch(addIngredientToShoppingList(name)),
-    editIngredient: (id, name) => dispatch(editIngredientInShoppingList(id, name)),
     removeIngredient: (id) => dispatch(removeIngredientFromShoppingList(id)),
+    editIngredient: (id, name) => dispatch(editIngredientInShoppingList(id, name)),
     markIngredientAsBought: (id) => dispatch(markIngredientAsBoughtInShoppingList(id)),
     markIngredientAsNotBought: (id) => dispatch(markIngredientAsNotBoughtInShoppingList(id)),
   };

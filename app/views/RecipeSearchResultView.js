@@ -30,8 +30,6 @@ import {
 
 import Images from '../constants/Images';
 import { searchRecipes } from '../actions/RecipeSearchResultsActions';
-import { addIngredient, removeIngredient, editIngredient } from '../actions/IngredientListActions';
-
 import RecipeCard from '../components/RecipeCard';
 
 class RecipeSearchResultView extends Component {

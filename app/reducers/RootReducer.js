@@ -4,8 +4,6 @@
  *
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
- *
- * @flow
  */
 
 'use strict';
@@ -15,26 +13,23 @@ import { combineReducers } from 'redux';
 import NavigationReducer from './NavigationReducer';
 import RecipeSearchResultsReducer from './RecipeSearchResultsReducer';
 import RecipesReducer from './RecipesReducer';
+import RecipeSearchIngredientsListReducer from './RecipeSearchIngredientsListReducer';
 import ShoppingListReducer from './ShoppingListReducer';
 import InventoryListReducer from './InventoryListReducer';
 import FilterReducer from './FilterReducer';
-import IngredientListReducer from './IngredientListReducer';
 import RecipesStoreReducer from './RecipesStoreReducer';
 
-/*
- * Return the next state given the current state and an action to
- * handle
- */
+// Root reducer for Recipezy
 const RootReducer = combineReducers({
   navigation: NavigationReducer,
   recipeSearchResults: RecipeSearchResultsReducer,
   recipeSearchResultsList: RecipeSearchResultsReducer,
   recipes: RecipesReducer,
+  recipeSearchIngredientsList: RecipeSearchIngredientsListReducer,
   shoppingList: ShoppingListReducer,
   inventoryList: InventoryListReducer,
-  ingredients: IngredientListReducer,
   filters: FilterReducer,
-  recipesStore: RecipesStoreReducer,
+  recipesStore: RecipesStoreReducer
 });
 
 export default RootReducer;

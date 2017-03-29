@@ -40,6 +40,21 @@ class InventoryListView extends Component {
     }
   }
 
+  // Add a new ingredient to the inventory list
+  addIngredient() {
+    this.props.addIngredient('');
+  }
+
+  // Remove an ingredient from the inventory list
+  removeIngredient(id) {
+    this.props.removeIngredient(id);
+  }
+
+  // Edit an ingredient in the inventory list
+  editIngredient(id, name) {
+    this.props.editIngredient(id, name);
+  }
+
   // Mark an ingredient as used or not used in the inventory list
   markIngredient(id, used) {
     if (used) {
@@ -61,7 +76,7 @@ class InventoryListView extends Component {
 
         <Button
           style={styles.headerButton}
-          onPress={() => this.props.addIngredient('')}
+          onPress={() => this.addIngredient('')}
         >
           <Icon style={styles.headerButtonIcon} name="add"/>
         </Button>
@@ -80,11 +95,11 @@ class InventoryListView extends Component {
                 <Input
                   placeholder="New ingredient"
                   defaultValue={ingredient.name}
-                  onChangeText={(name) => this.props.editIngredient(ingredient.id, name)}
+                  onChangeText={(name) => this.editIngredient(ingredient.id, name)}
                 />
                 <Button transparent
                   style={styles.trashButton}
-                  onPress={() => this.props.removeIngredient(ingredient.id)}
+                  onPress={() => this.removeIngredient(ingredient.id)}
                 >
                   <Icon style={styles.trashIcon} name="trash"/>
                 </Button>
@@ -162,8 +177,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     addIngredient: (name) => dispatch(addIngredientToInventoryList(name)),
-    editIngredient: (id, name) => dispatch(editIngredientInInventoryList(id, name)),
     removeIngredient: (id) => dispatch(removeIngredientFromInventoryList(id)),
+    editIngredient: (id, name) => dispatch(editIngredientInInventoryList(id, name)),
     markIngredientAsUsed: (id) => dispatch(markIngredientAsUsedInInventoryList(id)),
     markIngredientAsNotUsed: (id) => dispatch(markIngredientAsNotUsedInInventoryList(id))
   };
