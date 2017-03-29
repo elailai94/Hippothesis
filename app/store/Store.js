@@ -9,6 +9,9 @@
 'use strict';
 
 import {
+  AsyncStorage
+} from 'react-native';
+import {
   compose,
   createStore,
   applyMiddleware
@@ -17,11 +20,9 @@ import {
   persistStore, 
   autoRehydrate
 } from 'redux-persist';
-import {
-  AsyncStorage
-} from 'react-native';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
+
 import RootReducer from '../reducers/RootReducer';
 
 const Store = null;
@@ -32,7 +33,7 @@ if (process.env.NODE_ENV === 'development') {
     undefined,
     compose(
       applyMiddleware(thunk, logger),
-      //autoRehydrate() 
+      autoRehydrate() 
     )
   );
 } else {
@@ -41,12 +42,18 @@ if (process.env.NODE_ENV === 'development') {
     undefined, 
     compose(
       applyMiddleware(thunk), 
-      //autoRehydrate()
+      autoRehydrate()
     )
   );
 }
 
-// begin periodically persisting the store
-//persistStore(Store, {storage: AsyncStorage});
+// Begin periodically persisting the store
+persistStore(
+  Store,
+  {
+    whitelist: ['shoppingList', 'inventoryList'],
+    storage: AsyncStorage
+  }
+);
 
 export default Store;

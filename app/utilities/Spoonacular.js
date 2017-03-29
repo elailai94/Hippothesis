@@ -8,7 +8,7 @@
 
 'use strict';
 
-import qs from 'qs';
+import QueryStrings from 'qs';
 
 import Settings from '../constants/Settings';
 import {
@@ -28,7 +28,7 @@ function getHeaders() {
 
 // Call the endpoint
 function callEndpoint(path, parameters) {
-  let queryStrings = qs.stringify(parameters, { skipNulls: true });
+  let queryStrings = QueryStrings.stringify(parameters, { skipNulls: true });
   queryStrings = queryStrings === '' ? queryStrings : `?${queryStrings}`;
   const endpoint = `${Settings.spoonacular.BASE_URL}${path}${queryStrings}`;
 

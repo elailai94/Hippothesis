@@ -19,6 +19,7 @@
     "redux-persist": "^4.5.0",
     "redux-thunk": "^2.2.0",
     "reselect": "^2.5.4",
+    "sentence-cleaner": "^1.0.0",
     "string": "^3.3.3"
   },
   "devDependencies": {

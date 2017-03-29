@@ -34,9 +34,7 @@ import {
 } from 'native-base';
 
 import Images from '../constants/Images';
-import IngredientSelector from '../components/IngredientSelector';
 import { searchRecipes } from '../actions/RecipeSearchResultsActions'; //TODO: Remove 
-import { addIngredient, removeIngredient, editIngredient } from '../actions/IngredientListActions'; //TODO: Remove 
 import { updateAllergies,  updateCuisines,  updateDiets,  updateNutrition,  updateTypes } from '../actions/FilterActions';
 
 
@@ -357,7 +355,7 @@ const styles = {
 
 function mapStateToProps(state) {
   return {
-    ingredients: state.ingredients,
+    ingredients: state.recipeSearchIngredientsList,
     recipeSearchResults: state.recipeSearchResults,
     recipes: state.recipes,
     allergies: state.filters.allergies,
@@ -370,9 +368,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addIngredient: (name) => dispatch(addIngredient(name)),
-    editIngredient: (id, name) => dispatch(editIngredient(id, name)),
-    removeIngredient: (id) => dispatch(removeIngredient(id)),
     searchRecipes: (parameters) => dispatch(searchRecipes(parameters)),
     updateAllergies: (name) => dispatch(updateAllergies(name)),
     updateCuisines: (name) => dispatch(updateCuisines(name)),

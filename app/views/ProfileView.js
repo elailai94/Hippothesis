@@ -34,9 +34,6 @@ import {
 } from 'native-base';
 
 import Images from '../constants/Images';
-import IngredientSelector from '../components/IngredientSelector';
-import { searchRecipes } from '../actions/RecipeSearchResultsActions'; //TODO: Remove 
-import { addIngredient, removeIngredient, editIngredient } from '../actions/IngredientListActions'; //TODO: Remove 
 import { updateAllergies,  updateCuisines,  updateDiets,  updateNutrition,  updateTypes } from '../actions/FilterActions';
 
 
@@ -120,54 +117,7 @@ class ProfileView extends Component {
       this.props.updateTypes(value);
   }
 
-  update() {
-    this.props.navigation.goBack();
-  }
-
-  newIngredient() {
-    this.props.addIngredient("");
-  }
-
-  updateIngredient(id, name) {
-    this.props.editIngredient(id, name);
-  }
-
-  deleteIngredient(id) {
-    this.props.removeIngredient(id);
-  }
-
   render() {
-
-    let emptyState =
-      <ScrollView style={styles.emptyState} scrollEnabled={false}>
-        <Image style={styles.emptyStateImg} source={Images.food.pot}/>
-        <Text style={styles.emptyStateText}>What Filters do you wanna apply?</Text>
-        <Text style={styles.emptyStateText}>Add some tasty ingredients!</Text>
-      </ScrollView>;
-
-    let ingredientList =
-      <List
-        style={{marginTop: -50, zIndex: 0}}
-        dataArray={this.props.ingredients}
-        renderRow={ (data) =>
-          <ListItem style={{margin: 0, padding: 4, paddingLeft: 10, paddingRight: 10}}>
-            <Item style={styles.ingredientInput}>
-              <Input placeholder="New ingredient" defaultValue={data.name}
-                onChangeText={(text) => this.updateIngredient(data.id, text)}
-              />
-              <Button transparent style={styles.trashButton} onPress={() => this.deleteIngredient(data.id)}>
-                <Icon style={styles.trashIcon} name="trash"/>
-              </Button>
-            </Item>
-          </ListItem>}
-      />
-
-    let content = emptyState;
-    console.log(this.props.ingredients);
-    if (this.props.ingredients.length > 0) {
-      content = ingredientList
-    }
-
     var dummyVal = '';
 
     return (
@@ -176,7 +126,7 @@ class ProfileView extends Component {
         <View>
           <StatusBar barStyle="light-content"/>
           <Image style={styles.background} source={Images.backgrounds.profile}>
-            <Text style={styles.header}>Profile</Text>
+            <Text style={styles.header}>Manage</Text>
           </Image>
         </View>
 
@@ -288,10 +238,6 @@ class ProfileView extends Component {
             </Picker>
           </Image>
         </Content>
-
-        <Button full style={styles.updateButton} onPress={() => this.update()}>
-          <Text>Back</Text>
-        </Button>
       </Container>
     );
   }
@@ -370,8 +316,6 @@ const styles = {
 
 function mapStateToProps(state) {
   return {
-    ingredients: state.ingredients,
-    recipeSearchResults: state.recipeSearchResults,
     recipes: state.recipes,
     allergies: state.filters.allergies,
     cuisines: state.filters.cuisines,
@@ -383,10 +327,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addIngredient: (name) => dispatch(addIngredient(name)),
-    editIngredient: (id, name) => dispatch(editIngredient(id, name)),
-    removeIngredient: (id) => dispatch(removeIngredient(id)),
-    searchRecipes: (parameters) => dispatch(searchRecipes(parameters)),
     updateAllergies: (name) => dispatch(updateAllergies(name)),
     updateCuisines: (name) => dispatch(updateCuisines(name)),
     updateDiets: (name) => dispatch(updateDiets(name)),

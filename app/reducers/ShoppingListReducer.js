@@ -12,10 +12,58 @@ import ActionTypes from '../constants/ActionTypes';
 
 const initialState = [];
 
-/*
- * Return the next state given the current state and an action to
- * handle
- */
+// Case reducer for shopping list
+function addIngredientToShoppingList(state = initialState, action) {
+  return state.concat({
+    id: state.reduce((maxID, ingredient) =>
+      Math.max(ingredient.id, maxID), 0
+    ) + 1,
+    name: action.payload.name,
+    bought: false
+  });
+}
+
+// Case reducer for shopping list
+function removeIngredientFromShoppingList(state = initialState, action) {
+  return state.filter((ingredient) =>
+    ingredient.id !== action.payload.id
+  );
+}
+
+// Case reducer for shopping list
+function editIngredientInShoppingList(state = initialState, action) {
+  return state.map((ingredient) => {
+    if (ingredient.id === action.payload.id) {
+      return { ...ingredient, name: action.payload.name };
+    } else {
+      return ingredient;
+    }
+  });
+}
+
+// Case reducer for shopping list
+function markIngredientAsBoughtInShoppingList(state = initialState, action) {
+  return state.map((ingredient) => {
+    if (ingredient.id === action.payload.id) {
+      return { ...ingredient, bought: true };
+    } else {
+      return ingredient;
+    }
+  });
+}
+
+// Case reducer for shopping list
+function markIngredientAsNotBoughtInShoppingList(state = initialState, action) {
+  return state.map((ingredient) => {
+    if (ingredient.id === action.payload.id) {
+      return { ...ingredient, bought: false };
+    } else {
+      return ingredient;
+    }
+  });
+}
+
+// Root reducer for shopping list
 export default function ShoppingListReducer(state = initialState, action) {
   switch (action.type) {
     case ActionTypes.shoppingList.ADD_INGREDIENT:
@@ -36,54 +84,4 @@ export default function ShoppingListReducer(state = initialState, action) {
     default:
       return state;
   }
-}
-
-// Add a new ingredient to the shopping list
-function addIngredientToShoppingList(state = initialState, action) {
-  return state.concat({
-    id: state.reduce((maxID, ingredient) =>
-      Math.max(ingredient.id, maxID), 0
-    ) + 1,
-    bought: false,
-  });
-}
-
-// Remove an ingredient from the shopping list
-function removeIngredientFromShoppingList(state = initialState, action) {
-  return state.filter((ingredient) => {
-    return ingredient.id !== action.payload.id;
-  });
-}
-
-// Edit an ingredient in the shopping list
-function editIngredientInShoppingList(state = initialState, action) {
-  return state.map((ingredient) => {
-    if (ingredient.id === action.payload.oldID) {
-      return { ...ingredient, id: action.payload.newID };
-    } else {
-      return ingredient;
-    }
-  });
-}
-
-// Mark an ingredient as bought in the shopping list
-function markIngredientAsBoughtInShoppingList(state = initialState, action) {
-  return state.map((ingredient) => {
-    if (ingredient.id === action.payload.id) {
-      return { ...ingredient, bought: true };
-    } else {
-      return ingredient;
-    }
-  });
-}
-
-// Mark an ingredient as not bought in the shopping list
-function markIngredientAsNotBoughtInShoppingList(state = initialState, action) {
-  return state.map((ingredient) => {
-    if (ingredient.id === action.payload.id) {
-      return { ...ingredient, bought: false };
-    } else {
-      return ingredient;
-    }
-  });
 }

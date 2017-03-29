@@ -45,7 +45,6 @@ import TextToSpeech from 'react-native-tts';
 
 import Images from '../constants/Images';
 import { searchRecipes } from '../actions/RecipeSearchResultsActions';
-import { addIngredient, removeIngredient, editIngredient } from '../actions/IngredientListActions';
 import { addRecipeStore } from '../actions/RecipesStoreActions'
 
 class RecipeView extends Component {
@@ -135,7 +134,7 @@ class RecipeView extends Component {
     }
   }
 
-  saveRecipeToList() {
+  saveRecipe() {
     console.log(this.recipe);
     
     this.props.addRecipeStore(this.recipe.id , this.recipe);
@@ -157,9 +156,15 @@ class RecipeView extends Component {
           </Button>
         </Image>
 
-        <Button style={styles.headerButton} onPress={() => this.shareRecipe()}>
-          <Icon style={styles.headerButtonIcon} name="share"/>
-        </Button>
+        <View style={{flexDirection: 'row'}}>
+          <Button style={styles.headerButton} onPress={() => this.saveRecipe()}>
+            <Icon style={styles.headerButtonIcon} name="bookmark"/>
+          </Button>
+
+          <Button style={styles.headerButton} onPress={() => this.shareRecipe()}>
+            <Icon style={styles.headerButtonIcon} name="share"/>
+          </Button>
+        </View>
 
         <Grid style={{margin: 10, top: -30}}>
           <Row style={{marginTop: 10, marginBottom: 5}}>
@@ -217,13 +222,7 @@ class RecipeView extends Component {
         </Grid>
       </Content>
 
-      <View>
-        <Button style={styles.saveRecipe} onPress={() => this.saveRecipeToList()}>
-            <Text>Save Recipe</Text>
-        </Button>      
-      </View>
-
-      <View>
+      <View style={{flexDirection: 'row'}}>
         <Button style={styles.searchButton} onPress={() => this.readPreviousInstruction()}>
             <Text>Previous</Text>
         </Button>
@@ -311,7 +310,6 @@ const styles = {
 
 function mapStateToProps(state) {
   return {
-    ingredients: state.ingredients,
     recipeSearchResults: state.recipeSearchResults,
     recipes: state.recipes,
     selectedRecipe: state.navigation.selectedRecipe,
@@ -321,13 +319,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addIngredient: (name) => dispatch(addIngredient(name)),
-    editIngredient: (id, name) => dispatch(editIngredient(id, name)),
-    removeIngredient: (id) => dispatch(removeIngredient(id)),
     searchRecipes: (parameters) => dispatch(searchRecipes(parameters)),
     addRecipeStore: (id, data)=> dispatch(addRecipeStore(id, data)),
     addRecipesStore: (json)=> dispatch(addRecipeStore(json))
-  
   };
 }
 

@@ -4,54 +4,45 @@
  *
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
- *
- * @flow
  */
 
 'use strict';
 
 import React, { Component } from 'react';
-import { View, ScrollView, Image, StatusBar, TextInput } from 'react-native';
-import { connect } from 'react-redux';
+import { View, Image } from 'react-native';
 import {
-  Container,
-  Content,
-  Text,
-  Item,
-  Input,
-  Thumbnail,
-  Icon,
-  InputGroup,
-  Left,
-  Right,
   Button,
-  Grid,
-  Row,
-  Col,
+  Container,
+  Icon,
+  Input,
+  Item,
   List,
-  ListItem
+  ListItem,
+  Text
 } from 'native-base';
+import { connect } from 'react-redux';
 
 import Images from '../constants/Images';
-import IngredientSelector from '../components/IngredientSelector';
+import {
+  addIngredientToRecipeSearchIngredientsList,
+  removeIngredientFromRecipeSearchIngredientsList,
+  editIngredientInRecipeSearchIngredientsList
+} from '../actions/RecipeSearchIngredientsListActions';
 import { searchRecipes } from '../actions/RecipeSearchResultsActions';
-import { addIngredient, removeIngredient, editIngredient } from '../actions/IngredientListActions';
 
 class RecipeSearchView extends Component {
-
-  updateFilter(){
-    console.log("Update filter");
+  updateFilter() {
     this.props.navigation.navigate('additionalFilter');
   }
-
 
   goToRecipeSearchResultView() {
     this.props.navigation.navigate('recipeSearchResult');
   }
 
-  search() {
+  searchRecipes() {
 
-    let ingredientString = this.props.ingredients.map((elem) => elem.name).join(",");
+    let ingredientString =
+      this.props.recipeSearchIngredientsList.map((elem) => elem.name).join(",");
 
     var parameters = {
       addRecipeInformation: true,
@@ -60,6 +51,7 @@ class RecipeSearchView extends Component {
       limitLicense: false,
       number: 10,
       offset: 0,
+      ranking: 1
     };
 
     console.log("Allergies: ");
@@ -92,83 +84,86 @@ class RecipeSearchView extends Component {
 
     console.log("parameters", parameters);
 
-    this.props.searchRecipes(parameters).then(() => {
-      console.log("results = ", this.props.recipes);
-    })
+    this.props.searchRecipes(parameters);
 
     this.goToRecipeSearchResultView();
   }
 
+  // Add a new ingredient to the recipe search ingredients list
   addIngredient() {
-    this.props.addIngredient("");
+    this.props.addIngredient('');
   }
 
-  editIngredient(id, name) {
-    this.props.editIngredient(id, name);
-  }
-
+  // Remove an ingredient from the recipe search ingredients list
   removeIngredient(id) {
     this.props.removeIngredient(id);
   }
 
-  render() {
+  // Edit an ingredient in the recipe search ingredients list
+  editIngredient(id, name) {
+    this.props.editIngredient(id, name);
+  }
 
-    let emptyState =
-      <ScrollView style={styles.emptyState} scrollEnabled={false}>
+  render() {
+    let emptyState = (
+      <View style={styles.emptyState}>
         <Image style={styles.emptyStateImg} source={Images.food.pot}/>
         <Text style={styles.emptyStateText}>What do you have in the kitchen?</Text>
         <Text style={styles.emptyStateText}>Add some tasty ingredients!</Text>
-      </ScrollView>;
+      </View>
+    );
 
-    let ingredientList =
+    let recipeSearchIngredientsList = (
       <List
-        style={{marginTop: -50, zIndex: 0}}
-        dataArray={this.props.ingredients}
-        renderRow={ (data) =>
-          <ListItem style={{margin: 0, padding: 4, paddingLeft: 10, paddingRight: 10}}>
-            <Item style={styles.ingredientInput}>
-              <Input placeholder="New ingredient" defaultValue={data.name}
-                onChangeText={(text) => this.editIngredient(data.id, text)}
+        style={styles.recipeSearchIngredientsList}
+        dataArray={this.props.recipeSearchIngredientsList}
+        renderRow={(ingredient) =>
+          <ListItem style={styles.recipeSearchIngredientsListItem}>
+            <Item style={styles.ingredientItem}>
+              <Input
+                placeholder="New ingredient"
+                defaultValue={ingredient.name}
+                onChangeText={(name) => this.editIngredient(ingredient.id, name)}
               />
-              <Button transparent style={styles.trashButton} onPress={() => this.removeIngredient(data.id)}>
+              <Button transparent
+                style={styles.trashButton}
+                onPress={() => this.removeIngredient(ingredient.id)}
+              >
                 <Icon style={styles.trashIcon} name="trash"/>
               </Button>
             </Item>
-          </ListItem>}
+          </ListItem>
+        }
       />
+    );
 
     let content = emptyState;
-    console.log(this.props.ingredients);
-    if (this.props.ingredients.length > 0) {
-      content = ingredientList
+    if (this.props.recipeSearchIngredientsList.length > 0) {
+      content = recipeSearchIngredientsList;
     }
 
     return (
       <Container>
-
-        <View>
-          <StatusBar barStyle="light-content"/>
-          <Image style={styles.background} source={Images.backgrounds.search}>
-            <Text style={styles.header}>Discover</Text>
-          </Image>
-        </View>
+        <Image
+          style={styles.headerImage}
+          source={Images.backgrounds.search}
+        >
+          <Text style={styles.headerText}>Discover</Text>
+        </Image>
 
         <View style={styles.buttonView}>
           <Button style={styles.headerButtonFilter} onPress={() => this.updateFilter()}>
             <Icon style={styles.headerButtonIconFilter} name="funnel"/>
           </Button>
 
-
           <Button style={styles.headerButtonPlus} onPress={() => this.addIngredient()}>
             <Icon style={styles.headerButtonIconPlus} name="add"/>
           </Button>
-
-
         </View>
 
         {content}
 
-        <Button full style={styles.searchButton} onPress={() => this.search()}>
+        <Button full style={styles.searchButton} onPress={() => this.searchRecipes()}>
           <Text>Search</Text>
         </Button>
       </Container>
@@ -178,13 +173,13 @@ class RecipeSearchView extends Component {
 }
 
 const styles = {
-  background: {
+  headerImage: {
     height: 175,
     width: null,
     resizeMode: 'cover',
     justifyContent: 'center'
   },
-  header: {
+  headerText: {
     backgroundColor: 'transparent',
     color: 'white',
     fontSize: 40,
@@ -246,7 +241,16 @@ const styles = {
     fontSize: 20,
     color: '#999999',
   },
-  ingredientInput: {
+  recipeSearchIngredientsList: {
+    marginTop: -50,
+  },
+  recipeSearchIngredientsListItem: {
+    margin: 0,
+    padding: 4,
+    paddingLeft: 10,
+    paddingRight: 10
+  },
+  ingredientItem: {
     borderWidth: 0,
   },
   trashButton: {
@@ -260,24 +264,21 @@ const styles = {
 
 function mapStateToProps(state) {
   return {
-    ingredients: state.ingredients,
-    recipeSearchResults: state.recipeSearchResults,
+    recipeSearchIngredientsList: state.recipeSearchIngredientsList,
     recipes: state.recipes,
     allergies: state.filters.allergies,
     cuisines: state.filters.cuisines,
     diets: state.filters.diets,
     nutrition: state.filters.nutrition,
-    types: state.filters.types,
-    recipesStore: state.recipesStore
-    
+    types: state.filters.types
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    addIngredient: (name) => dispatch(addIngredient(name)),
-    editIngredient: (id, name) => dispatch(editIngredient(id, name)),
-    removeIngredient: (id) => dispatch(removeIngredient(id)),
+    addIngredient: (name) => dispatch(addIngredientToRecipeSearchIngredientsList(name)),
+    removeIngredient: (id) => dispatch(removeIngredientFromRecipeSearchIngredientsList(id)),
+    editIngredient: (id, name) => dispatch(editIngredientInRecipeSearchIngredientsList(id, name)),
     searchRecipes: (parameters) => dispatch(searchRecipes(parameters))
   };
 }

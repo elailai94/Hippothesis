@@ -8,7 +8,8 @@
 
 'use strict';
 
-import string from 'string';
+import Str from 'string';
+import SentenceCleaner from 'sentence-cleaner';
 
 // Extract a list of equipments from a recipe
 export function extractEquipments(recipe) {
@@ -76,7 +77,12 @@ export function extractInstructions(recipe) {
   let instructions = steps.map((step) => step.step);
 
   // Remove step numbers from instructions
-  return instructions.filter((instruction) =>
-    !string(instruction).isNumeric()
+  instructions = instructions.filter((instruction) =>
+    !Str(instruction).isNumeric()
+  );
+
+  // Capitalizes the first letter of each sentence in each instruction
+  return instructions.map((instruction) =>
+    SentenceCleaner(instruction)
   );
 }

@@ -10,19 +10,20 @@
 
 import React, { Component } from 'react';
 import { Image } from 'react-native';
-import { connect } from 'react-redux';
 import {
+  Button,
+  CheckBox,
   Container,
-  Text,
+  Icon,
+  Input,
+  Item,
   List,
   ListItem,
-  Item,
-  Button,
-  Input,
-  CheckBox,
-  Icon
+  Text
 } from 'native-base';
+import { connect } from 'react-redux';
 
+import Images from '../constants/Images';
 import {
   addIngredientToShoppingList,
   removeIngredientFromShoppingList,
@@ -30,8 +31,6 @@ import {
   markIngredientAsBoughtInShoppingList,
   markIngredientAsNotBoughtInShoppingList
 } from '../actions/ShoppingListActions';
-
-import Images from '../constants/Images';
 
 class ShoppingListView extends Component {
   // Set up navigation options for the lists navigator
@@ -41,79 +40,86 @@ class ShoppingListView extends Component {
     }
   }
 
-  check(id, bought) {
-    if (bought) {
-      this.props.markAsNotBought(id);
+  // Add a new ingredient to the shopping list
+  addIngredient() {
+    this.props.addIngredient('');
+  }
+
+  // Remove an ingredient from the shopping list
+  removeIngredient(id) {
+    this.props.removeIngredient(id);
+  }
+
+  // Edit an ingredient in the shopping list
+  editIngredient(id, name) {
+    this.props.editIngredient(id, name);
+  }
+
+  // Mark an ingredient as bought or not bought in the shopping list
+  markIngredient(id, used) {
+    if (used) {
+      this.props.markIngredientAsNotBought(id);
     } else {
-      this.props.markAsBought(id);
+      this.props.markIngredientAsBought(id);
     }
   }
 
   render() {
-    var shoppingList = [];
-    if (this.props.inventoryList) shoppingList = this.props.inventoryList.filter((item) => item.inShoppingList);
-
     return (
       <Container>
-        <Image style={styles.background} source={Images.backgrounds.shopping}>
-          <Text style={styles.header}>Restock</Text>
+        <Image
+          style={styles.headerImage}
+          source={Images.backgrounds.shopping}
+        >
+          <Text style={styles.headerText}>Restock</Text>
         </Image>
 
-        <Button style={styles.headerButton} onPress={() => this.props.addItem("")}>
+        <Button
+          style={styles.headerButton}
+          onPress={() => this.addIngredient()}
+        >
           <Icon style={styles.headerButtonIcon} name="add"/>
         </Button>
 
         <List
-        style={styles.list}
-        dataArray={shoppingList}
-        renderRow={ (data) =>
-          <ListItem style={{margin: 0, padding: 4, paddingLeft: 10, paddingRight: 10}}>
-            <Item style={styles.listItem}>
-              <CheckBox style={styles.checkbox} checked={data.bought} onPress={() => this.check(data.id, data.bought)}/>
-              <Input placeholder="New item" defaultValue={data.name}
-                onChangeText={(text) => this.props.editItem(data.id, text)}
-              />
-              <Button transparent style={styles.trashButton} onPress={() => this.props.removeItem(data.id)}>
-                <Icon style={styles.trashIcon} name="trash"/>
-              </Button>
-            </Item>
-          </ListItem>}
+          style={styles.shoppingList}
+          dataArray={this.props.shoppingList}
+          renderRow={(ingredient) =>
+            <ListItem style={styles.shoppingListItem}>
+              <Item style={styles.ingredientItem}>
+                <CheckBox
+                  style={styles.ingredientCheckBox}
+                  checked={ingredient.bought}
+                  onPress={() => this.markIngredient(ingredient.id, ingredient.bought)}
+                />
+                <Input
+                  placeholder="New ingredient"
+                  defaultValue={ingredient.name}
+                  onChangeText={(name) => this.editIngredient(ingredient.id, name)}
+                />
+                <Button transparent
+                  style={styles.trashButton}
+                  onPress={() => this.removeIngredient(ingredient.id)}
+                >
+                  <Icon style={styles.trashIcon} name="trash"/>
+                </Button>
+              </Item>
+            </ListItem>
+          }
         />
-        <Button full style={styles.searchButton} onPress={() => this.props.addItem("test")}>
-          <Text>New Item</Text>
-        </Button>
       </Container>
     );
   }
 }
 
 const styles = {
-  list: {
-    marginTop: -50,
-  },
-  listItem: {
-    borderWidth: 0,
-  },
-  checkbox: {
-    marginRight: 30,
-  },
-  trashButton: {
-    paddingRight: 0,
-    paddingTop: 10,
-  },
-  trashIcon: {
-    color: '#707070'
-  },
-  searchButton: {
-    backgroundColor: '#f2487a'
-  },
-  background: {
-    height: 100,
+  headerImage: {
+    height: 110,
     width: null,
     resizeMode: 'cover',
     justifyContent: 'center'
   },
-  header: {
+  headerText: {
     backgroundColor: 'transparent',
     color: 'white',
     fontSize: 30,
@@ -138,21 +144,43 @@ const styles = {
     fontSize: 40,
     backgroundColor: 'transparent',
   },
+  shoppingList: {
+    marginTop: -50,
+  },
+  shoppingListItem: {
+    margin: 0,
+    padding: 4,
+    paddingLeft: 10,
+    paddingRight: 10
+  },
+  ingredientItem: {
+    borderWidth: 0,
+  },
+  ingredientCheckBox: {
+    marginRight: 30,
+  },
+  trashButton: {
+    paddingRight: 0,
+    paddingTop: 10,
+  },
+  trashIcon: {
+    color: '#707070'
+  }
 };
 
 function mapStateToProps(state) {
   return {
-    inventoryList: state.inventoryList
+    shoppingList: state.shoppingList
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    addItem: (name) => dispatch(addIngredientToShoppingList(name)),
-    editItem: (id, name) => dispatch(editIngredientInShoppingList(id, name)),
-    removeItem: (id) => dispatch(removeIngredientFromShoppingList(id)),
-    markAsBought: (id) => dispatch(markIngredientAsBoughtInShoppingList(id)),
-    markAsNotBought: (id) => dispatch(markIngredientAsNotBoughtInShoppingList(id)),
+    addIngredient: (name) => dispatch(addIngredientToShoppingList(name)),
+    removeIngredient: (id) => dispatch(removeIngredientFromShoppingList(id)),
+    editIngredient: (id, name) => dispatch(editIngredientInShoppingList(id, name)),
+    markIngredientAsBought: (id) => dispatch(markIngredientAsBoughtInShoppingList(id)),
+    markIngredientAsNotBought: (id) => dispatch(markIngredientAsNotBoughtInShoppingList(id)),
   };
 }
 
