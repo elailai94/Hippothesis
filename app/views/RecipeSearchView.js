@@ -195,7 +195,6 @@ const styles = {
   },
   buttonView:{
     alignSelf: 'flex-end',
-    top: -25,
     height: 50,
     paddingBottom: 30,
     flexDirection:'row'
