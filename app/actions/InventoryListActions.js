@@ -4,8 +4,6 @@
  *
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
- *
- * @flow
  */
 
 'use strict';
@@ -13,7 +11,7 @@
 import ActionTypes from '../constants/ActionTypes';
 
 // Add a new ingredient to the inventory list
-export function addIngredient(name) {
+export function addIngredientToInventoryList(name) {
   return {
     type: ActionTypes.inventoryList.ADD_INGREDIENT,
     payload: {
@@ -23,7 +21,7 @@ export function addIngredient(name) {
 }
 
 // Remove an ingredient from the inventory list
-export function removeIngredient(id) {
+export function removeIngredientFromInventoryList(id) {
   return {
     type: ActionTypes.inventoryList.REMOVE_INGREDIENT,
     payload: {
@@ -33,7 +31,7 @@ export function removeIngredient(id) {
 }
 
 // Edit an ingredient in the inventory list
-export function editIngredient(id, name) {
+export function editIngredientInInventoryList(id, name) {
   return {
     type: ActionTypes.inventoryList.EDIT_INGREDIENT,
     payload: {
@@ -44,7 +42,7 @@ export function editIngredient(id, name) {
 }
 
 // Mark an ingredient as used in the inventory list
-export function markIngredientAsUsed(id) {
+export function markIngredientAsUsedInInventoryList(id) {
   return {
     type: ActionTypes.inventoryList.MARK_INGREDIENT_AS_USED,
     payload: {
@@ -54,7 +52,7 @@ export function markIngredientAsUsed(id) {
 }
 
 // Mark an ingredient as not used in the inventory list
-export function markIngredientAsNotUsed(id) {
+export function markIngredientAsNotUsedInInventoryList(id) {
   return {
     type: ActionTypes.inventoryList.MARK_INGREDIENT_AS_NOT_USED,
     payload: {

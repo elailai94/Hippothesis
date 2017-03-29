@@ -4,8 +4,6 @@
  *
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
- *
- * @flow
  */
 
 'use strict';
@@ -13,7 +11,7 @@
 import ActionTypes from '../constants/ActionTypes';
 
 // Add a new ingredient to the shopping list
-export function addIngredient(name) {
+export function addIngredientToShoppingList(name) {
   return {
     type: ActionTypes.shoppingList.ADD_INGREDIENT,
     payload: {
@@ -23,7 +21,7 @@ export function addIngredient(name) {
 }
 
 // Remove an ingredient from the shopping list
-export function removeIngredient(id) {
+export function removeIngredientFromShoppingList(id) {
   return {
     type: ActionTypes.shoppingList.REMOVE_INGREDIENT,
     payload: {
@@ -33,7 +31,7 @@ export function removeIngredient(id) {
 }
 
 // Edit an ingredient in the shopping list
-export function editIngredient(id, name) {
+export function editIngredientInShoppingList(id, name) {
   return {
     type: ActionTypes.shoppingList.EDIT_INGREDIENT,
     payload: {
@@ -44,7 +42,7 @@ export function editIngredient(id, name) {
 }
 
 // Mark an ingredient as bought in the shopping list
-export function markIngredientAsBought(id) {
+export function markIngredientAsBoughtInShoppingList(id) {
   return {
     type: ActionTypes.shoppingList.MARK_INGREDIENT_AS_BOUGHT,
     payload: {
@@ -54,7 +52,7 @@ export function markIngredientAsBought(id) {
 }
 
 // Mark an ingredient as not bought in the shopping list
-export function markIngredientAsNotBought(id) {
+export function markIngredientAsNotBoughtInShoppingList(id) {
   return {
     type: ActionTypes.shoppingList.MARK_INGREDIENT_AS_NOT_BOUGHT,
     payload: {

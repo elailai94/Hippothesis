@@ -122,7 +122,7 @@ class RecipeSearchView extends Component {
 
     let ingredientList =
       <List
-        style={{marginTop: -50, zIndex: 0}}
+        style={{marginTop: -50}}
         dataArray={this.props.ingredients}
         renderRow={ (data) =>
           <ListItem style={{margin: 0, padding: 4, paddingLeft: 10, paddingRight: 10}}>
