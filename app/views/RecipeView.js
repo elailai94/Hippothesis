@@ -138,7 +138,7 @@ class RecipeView extends Component {
   saveRecipeToList() {
     console.log(this.recipe);
     
-    this.props.addRecipeStore( this.recipe.id, this.recipe);
+    this.props.addRecipeStore(this.recipe.id , this.recipe);
   }
 
   render() {
@@ -325,7 +325,9 @@ function mapDispatchToProps(dispatch) {
     editIngredient: (id, name) => dispatch(editIngredient(id, name)),
     removeIngredient: (id) => dispatch(removeIngredient(id)),
     searchRecipes: (parameters) => dispatch(searchRecipes(parameters)),
-    addRecipeStore: (id, data)=> dispatch(addRecipeStore(id, data))
+    addRecipeStore: (id, data)=> dispatch(addRecipeStore(id, data)),
+    addRecipesStore: (json)=> dispatch(addRecipeStore(json))
+  
   };
 }
 
