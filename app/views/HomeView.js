@@ -10,7 +10,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Image } from 'react-native';
+import { Image, ListView } from 'react-native';
 import {
   Container,
   Card,
@@ -55,25 +55,28 @@ class HomeView extends Component {
   }
 
   renderSuccessView() {
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+
     return (
-      <Container>
-        <List
-          dataArray={this.props.recipeSuggestionResults.resultsList}
+      <Container style={styles.container2}>
+        <Text style={styles.title}>Popular Recipes</Text>
+        <ListView
+          dataSource={ds.cloneWithRows(this.props.recipeSuggestionResults.resultsList)}
           renderRow={(data) =>
             {
-                console.log("Object keys", data);
                 return (
-                  <Card>
-                    <CardItem cardBody style={styles.imageContainer}  onPress={() => this.goToRecipeView(data.id)}>
+                  <Card style={styles.recipeCard}>
+                    <CardItem cardBody onPress={() => this.goToRecipeView(data.id)}>
                       <Image style={styles.image} source={{uri: data.image}} />
                     </CardItem>
                     <CardItem>
-                      <Text>{data.title}</Text>
+                      <Text ellipsizeMode="tail" numberOfLines={1}>{data.title}</Text>
                     </CardItem>
                   </Card>
                 );            
               }
           }
+          horizontal={true}
         />
       </Container>
     );
@@ -153,13 +156,35 @@ const styles = {
   inProgressSpinner: {
     color: '#F2487A'
   },
+  container2: {
+    backgroundColor: '#fff',
+   // borderBottomWidth: 1,
+    borderBottomColor:'#d3d3d3'
+  },
+  title:{
+    fontWeight:'400',
+    fontSize:20,
+    color:'#333',
+    margin:20,
+    marginBottom:15
+  },
+  recipeCard: {
+    height: 150,
+    width: 200
+  },
   imageContainer: {
     flex: 1,
     alignItems: 'center'
   },
   image: {
     flex: 1,
-    height: 120
+    resizeMode: 'stretch',
+    height: 150,
+    width: 200,
+    margin:5,
+    marginBottom:30,
+    justifyContent: 'space-between',
+    alignItems:'center'
   }
 };
 
