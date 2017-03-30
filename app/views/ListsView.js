@@ -19,43 +19,7 @@ import ShoppingListView from './ShoppingListView';
 import InventoryListView from './InventoryListView';
 
 export default class ListsView extends Component {
-
-  constructor(props) {
-    super(props);
-
-    // Set up route settings for the lists navigator
-    this.routeSettings = {
-      shoppingList : { screen: ShoppingListView  },
-      inventoryList: { screen: InventoryListView }
-    };
-
-    // Set up tab navigator settings for the lists navigator
-    this.tabNavigatorSettings = {
-      tabBarComponent: TabView.TabBarTop,
-      initialRouteName: 'shoppingList',
-      tabBarOptions: {
-        //activeTintColor: '#F2487A',
-        upperCaseLabel: false,
-        indicatorStyle: {
-          backgroundColor: 'white'
-        },
-        style: {
-          backgroundColor: '#F2487A',
-          marginTop: 0
-        }
-      }
-    };
-
-    const ListsNavigator = TabNavigator(
-      this.routeSettings,
-      this.tabNavigatorSettings
-    );
-
-  }
-
   render() {
-   
-
     return (
       <Container>
         <Header hasTabs style={{height: 10, backgroundColor: '#F2487A'}}/>
