@@ -51,7 +51,7 @@ if (process.env.NODE_ENV === 'development') {
 persistStore(
   Store,
   {
-    whitelist: ['shoppingList', 'inventoryList', 'filters'],
+    whitelist: ['shoppingList', 'inventoryList', 'filters', 'recipesStore'],
     storage: AsyncStorage
   }
 );

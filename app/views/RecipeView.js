@@ -133,9 +133,7 @@ class RecipeView extends Component {
     }
   }
 
-  saveRecipe() {
-    console.log(this.recipe);
-    
+  saveRecipe() {    
     this.props.addRecipeStore(this.recipe.id , this.recipe);
   }
 

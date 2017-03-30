@@ -39,7 +39,7 @@ class HomeView extends Component {
       number: 6
     };
 
-    this.props.suggestRecipes(parameters).catch((error) => console.log(error));
+    this.props.suggestRecipes(parameters);
   }
 
   componentDidMount() {
