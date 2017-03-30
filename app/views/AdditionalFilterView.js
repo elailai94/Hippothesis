@@ -163,8 +163,6 @@ class additionalFilterView extends Component {
           </Image>
         </View>
 
-        <View style={{height:10}} />
-
         <Content>
 
           <Image style={styles.pickerHeader} source={Images.backgrounds.allergies}>
