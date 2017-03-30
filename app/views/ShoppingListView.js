@@ -65,6 +65,10 @@ class ShoppingListView extends Component {
   }
 
   render() {
+
+    var shoppingList = [];
+    if (this.props.inventoryList) shoppingList = this.props.inventoryList.filter((item) => item.inShoppingList);
+
     return (
       <Container>
         <Image
@@ -83,7 +87,7 @@ class ShoppingListView extends Component {
 
         <List
           style={styles.shoppingList}
-          dataArray={this.props.shoppingList}
+          dataArray={shoppingList}
           renderRow={(ingredient) =>
             <ListItem style={styles.shoppingListItem}>
               <Item style={styles.ingredientItem}>
@@ -170,7 +174,7 @@ const styles = {
 
 function mapStateToProps(state) {
   return {
-    shoppingList: state.shoppingList
+    inventoryList: state.inventoryList,
   };
 }
 

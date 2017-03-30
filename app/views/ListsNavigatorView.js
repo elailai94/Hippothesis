@@ -9,14 +9,12 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { Container, Content, Header, Left, Right, Body, Icon, Tab, Tabs } from 'native-base';
-import {
-  TabView,
-  TabNavigator
-} from 'react-navigation';
+import { Icon } from 'native-base';
+import { StackNavigator } from 'react-navigation';
 
-import ShoppingListView from './ShoppingListView';
-import InventoryListView from './InventoryListView';
+import ListsView from './ListsView';
+import RecipeSearchResultView from './RecipeSearchResultView';
+import RecipeView from './RecipeView';
 
 export default class ListsNavigatorView extends Component {
   // Set up navigation options for the app navigator
@@ -36,63 +34,28 @@ export default class ListsNavigatorView extends Component {
   constructor(props) {
     super(props);
 
-    // Set up route settings for the lists navigator
+    // Set up route settings for the search navigator
     this.routeSettings = {
-      shoppingList : { screen: ShoppingListView  },
-      inventoryList: { screen: InventoryListView }
+      lists: { screen: ListsView },
+      recipeSearchResult: { screen: RecipeSearchResultView },
+      recipe            : { screen: RecipeView             },
     };
 
-    // Set up tab navigator settings for the lists navigator
-    this.tabNavigatorSettings = {
-      tabBarComponent: TabView.TabBarTop,
-      initialRouteName: 'shoppingList',
-      tabBarOptions: {
-        //activeTintColor: '#F2487A',
-        upperCaseLabel: false,
-        indicatorStyle: {
-          backgroundColor: 'white'
-        },
-        style: {
-          backgroundColor: '#F2487A',
-          marginTop: 0
-        }
-      }
+    // Set up stack navigator settings for the search navigator
+    this.stackNavigatorSettings = {
+      initialRouteName: 'lists',
+      headerMode: 'none'
     };
   }
 
   render() {
-    const ListsNavigator = TabNavigator(
+    const Navigator = StackNavigator(
       this.routeSettings,
-      this.tabNavigatorSettings
+      this.stackNavigatorSettings
     );
-
+    
     return (
-      <Container>
-        <Header hasTabs style={{height: 10, backgroundColor: '#F2487A'}}/>
-        <Tabs
-          tabBarUnderlineStyle={{backgroundColor: 'white'}}
-          tabBarBackgroundColor='#F2487A'
-        >
-          <Tab
-            heading="Shopping List"
-            tabStyle={{backgroundColor: '#F2487A'}}
-            activeTabStyle={{backgroundColor: '#F2487A'}}
-            textStyle={{color: 'white'}}
-            activeTextStyle={{color: 'white'}}
-          >
-            <ShoppingListView />
-          </Tab>
-          <Tab
-            heading="Inventory List"
-            tabStyle={{backgroundColor: '#F2487A'}}
-            activeTabStyle={{backgroundColor: '#F2487A'}}
-            textStyle={{color: 'white'}}
-            activeTextStyle={{color: 'white'}}
-          >
-            <InventoryListView />
-          </Tab>
-        </Tabs>
-      </Container>
+      <Navigator/>
     );
   }
 }
