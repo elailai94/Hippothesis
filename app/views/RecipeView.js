@@ -237,7 +237,6 @@ class RecipeView extends Component {
       </Container>
     );
   }
-
 }
 
 const styles = {
