@@ -4,8 +4,6 @@
  *
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
- *
- * @flow
  */
 
 'use strict';
@@ -33,14 +31,13 @@ import { searchRecipes } from '../actions/RecipeSearchResultsActions';
 import RecipeCard from '../components/RecipeCard';
 
 class RecipeSearchResultView extends Component {
-
   goBack() {
     this.props.navigation.goBack();
   }
 
   renderInProgressView() {
     return (
-      <Container style={styles.inProgressView}>
+      <Container style={styles.inProgressContainer}>
         <Spinner
           type="ThreeBounce"
           color={styles.inProgressSpinner.color}
@@ -49,14 +46,10 @@ class RecipeSearchResultView extends Component {
     );
   }
 
-  render() {
-
-    let content = this.renderInProgressView();
-
-    console.log("props tops:", this.props.recipes);
-
-    if (Object.keys(this.props.recipes).length > 0) {
-      content =
+  renderSuccessView() {
+    if (this.props.recipeSearchResults.resultsList.length > 0) {
+      return (
+        <Container>
         <List
           dataArray={this.props.recipes}
           renderRow={(data) =>
@@ -64,7 +57,35 @@ class RecipeSearchResultView extends Component {
               this.props.navigation
             }/>
           }
-        />;
+        />
+      </Container>
+      );
+    } else {
+      return (
+        <Container>
+          <Text>We couldn't find any recipes. Try removing your filters.</Text>
+        </Container>
+      );
+    }
+  }
+
+  renderFailureView() {
+    return (
+      <Container>
+        <Text>Your search request has failed.</Text>
+      </Container>
+    );
+  }
+
+  render() {
+    let content = null;
+
+    if (this.props.recipeSearchResults.status === 'in progress') {
+      content = this.renderInProgressView();
+    } else if (this.props.recipeSearchResults.status === 'success') {
+      content = this.renderSuccessView();
+    } else {
+      content = this.renderFailureView();
     }
 
     return (
@@ -104,7 +125,7 @@ const styles = {
     fontFamily: 'Avenir-Light',
     letterSpacing: 2
   },
-  inProgressView: {
+  inProgressContainer: {
     alignSelf: 'center'
   },
   inProgressSpinner: {

@@ -13,7 +13,6 @@ import {
   View,
   ScrollView,
   Image,
-  StatusBar,
   TextInput,
   Share
 } from 'react-native';
@@ -146,7 +145,7 @@ class RecipeView extends Component {
     return (
       <Container>
 
-      <StatusBar barStyle="light-content" />
+      
 
       <Content>
 

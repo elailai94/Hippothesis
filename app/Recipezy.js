@@ -9,7 +9,11 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import {
+  StatusBar,
+  StyleSheet
+} from 'react-native';
+import { Container } from 'native-base';
 import { Provider } from 'react-redux';
 
 import Store from './store/Store';
@@ -18,9 +22,12 @@ import AppNavigatorView from './views/AppNavigatorView';
 export default class Recipezy extends Component {
   render() {
     return (
-      <Provider store={Store}>
-        <AppNavigatorView />
-      </Provider>
+      <Container>
+        <StatusBar barStyle="light-content" />
+        <Provider store={Store}>
+          <AppNavigatorView />
+        </Provider>
+      </Container>
     );
   }
 }
