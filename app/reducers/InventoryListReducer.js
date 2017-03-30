@@ -123,8 +123,12 @@ function addIngredientToShoppingList(state = initialState, action) {
 
 // Remove an ingredient from the shopping list
 function removeIngredientFromShoppingList(state = initialState, action) {
-  return state.filter((ingredient) => {
-    return ingredient.id !== action.payload.id;
+  return state.map((ingredient) => {
+    if (ingredient.id === action.payload.id) {
+      return { ...ingredient, inShoppingList: false };
+    } else {
+      return ingredient;
+    }
   });
 }
 
