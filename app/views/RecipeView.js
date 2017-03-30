@@ -50,6 +50,11 @@ class RecipeView extends Component {
   recipe;
   stepNum = 0;
 
+  constructor(props) {
+    super(props);
+    TextToSpeech.addEventListener('tts-cancel', (event) => TextToSpeech.stop());
+  }
+
   readCurrentInstruction() {
     TextToSpeech.addEventListener('tts-start', (event) => console.log("Start", event));
     TextToSpeech.speak(this.recipe.instructions[this.stepNum]);
@@ -216,6 +221,18 @@ class RecipeView extends Component {
           </Row>
         </Grid>
       </Content>
+
+      <View style={styles.textToSpeechContainer}>
+        <Button full style={styles.textToSpeechButton} onPress={() => this.readPreviousInstruction()}>
+          <Text>Previous</Text>
+        </Button>
+        <Button full style={styles.textToSpeechButton} onPress={() => this.readCurrentInstruction()}>
+          <Text>Current</Text>
+        </Button>
+        <Button full style={styles.textToSpeechButton} onPress={() => this.readNextInstruction()}>
+          <Text>Next</Text>
+        </Button>
+      </View>
  
       </Container>
     );
@@ -303,8 +320,16 @@ const styles = {
   colInline: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+  },
+  textToSpeechContainer: {
+    height: 45,
+    flexDirection: 'row'
+  },
+  textToSpeechButton: {
+    flex: 1,
+    backgroundColor: '#48abf2',
+    justifyContent: 'center'
   }
-
 }
 
 function mapStateToProps(state) {
