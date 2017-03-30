@@ -17,6 +17,8 @@ import {
 
 import ShoppingListView from './ShoppingListView';
 import InventoryListView from './InventoryListView';
+import RecipeSearchResultView from './RecipeSearchResultView';
+import RecipeView from './RecipeSearchResultView';
 
 export default class ListsNavigatorView extends Component {
   // Set up navigation options for the app navigator
@@ -39,7 +41,9 @@ export default class ListsNavigatorView extends Component {
     // Set up route settings for the lists navigator
     this.routeSettings = {
       shoppingList : { screen: ShoppingListView  },
-      inventoryList: { screen: InventoryListView }
+      inventoryList: { screen: InventoryListView },
+      recipeSearchResult: { screen: RecipeSearchResultView },
+      recipe            : { screen: RecipeView             },
     };
 
     // Set up tab navigator settings for the lists navigator

@@ -31,6 +31,8 @@ import {
   markIngredientAsUsedInInventoryList,
   markIngredientAsNotUsedInInventoryList
 } from '../actions/InventoryListActions';
+import { searchRecipes } from '../actions/RecipeSearchResultsActions';
+
 
 class InventoryListView extends Component {
   // Set up navigation options for the lists navigator
@@ -38,6 +40,34 @@ class InventoryListView extends Component {
     tabBar: {
       label: 'Inventory List'
     }
+  }
+
+  searchRecipes() {
+
+    let ingredientString =
+      this.props.inventoryList.map((elem) => elem.name).join(",");
+
+    var parameters = {
+      addRecipeInformation: true,
+      fillIngredients: true,
+      instructionsRequired: true,
+      limitLicense: false,
+      number: 10,
+      offset: 0,
+      ranking: 1
+    };
+
+    parameters.includeIngredients = ingredientString;
+    parameters.exludeIngredients = this.props.allergies;
+    parameters.cuisine = this.props.cuisines;
+    parameters.diet = this.props.diets;
+    parameters.maxCalories = parseInt(this.props.nutrition);
+    parameters.type = this.props.types;
+
+    console.log("parameters", parameters);
+
+    this.props.searchRecipes(parameters);
+    this.props.navigation.navigate('recipeSearchResult');
   }
 
   // Add a new ingredient to the inventory list
@@ -65,6 +95,10 @@ class InventoryListView extends Component {
   }
 
   render() {
+
+    var inventoryList = [];
+    if (this.props.inventoryList) inventoryList = this.props.inventoryList.filter((item) => item.bought);
+
     return (
      <Container>
         <Image
@@ -83,7 +117,7 @@ class InventoryListView extends Component {
 
         <List
           style={styles.inventoryList}
-          dataArray={this.props.inventoryList}
+          dataArray={inventoryList}
           renderRow={(ingredient) =>
             <ListItem style={styles.inventoryListItem}>
               <Item style={styles.ingredientItem}>
@@ -107,6 +141,11 @@ class InventoryListView extends Component {
             </ListItem>
           }
         />
+
+        <Button full style={styles.searchButton} onPress={() => this.searchRecipes()}>
+          <Text>Search</Text>
+        </Button>
+
       </Container>
     );
   }
@@ -165,12 +204,20 @@ const styles = {
   },
   trashIcon: {
     color: '#707070'
-  }
+  },
+  searchButton: {
+    backgroundColor: '#f2487a'
+  },
 };
 
 function mapStateToProps(state) {
   return {
-    inventoryList: state.inventoryList
+    inventoryList: state.inventoryList,
+    allergies: state.filters.allergies,
+    cuisines: state.filters.cuisines,
+    diets: state.filters.diets,
+    nutrition: state.filters.nutrition,
+    types: state.filters.types
   };
 }
 
@@ -180,7 +227,8 @@ function mapDispatchToProps(dispatch) {
     removeIngredient: (id) => dispatch(removeIngredientFromInventoryList(id)),
     editIngredient: (id, name) => dispatch(editIngredientInInventoryList(id, name)),
     markIngredientAsUsed: (id) => dispatch(markIngredientAsUsedInInventoryList(id)),
-    markIngredientAsNotUsed: (id) => dispatch(markIngredientAsNotUsedInInventoryList(id))
+    markIngredientAsNotUsed: (id) => dispatch(markIngredientAsNotUsedInInventoryList(id)),
+    searchRecipes: (parameters) => dispatch(searchRecipes(parameters)),
   };
 }
 

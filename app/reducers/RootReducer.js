@@ -28,7 +28,7 @@ const RootReducer = combineReducers({
   recipeSearchResultsList: RecipeSearchResultsReducer,
   recipes: RecipesReducer,
   recipeSearchIngredientsList: RecipeSearchIngredientsListReducer,
-  shoppingList: ShoppingListReducer,
+  //shoppingList: ShoppingListReducer,
   inventoryList: InventoryListReducer,
   filters: FilterReducer,
   recipesStore: RecipesStoreReducer
