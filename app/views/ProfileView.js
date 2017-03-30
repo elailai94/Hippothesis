@@ -125,39 +125,12 @@ class ProfileView extends Component {
 
     return (
       <Container>
-        <Container>
-        <Header hasTabs style={{height: 10, backgroundColor: '#F2487A'}}/>
-        <Tabs
-          tabBarUnderlineStyle={{backgroundColor: 'white'}}
-          tabBarBackgroundColor='#F2487A'
-        >
-          <Tab
-            heading="Dietary Settings"
-            tabStyle={{backgroundColor: '#F2487A'}}
-            activeTabStyle={{backgroundColor: '#F2487A'}}
-            textStyle={{color: 'white'}}
-            activeTextStyle={{color: 'white'}}
-          >
-          </Tab>
-          <Tab
-            heading="Saved Recipes"
-            tabStyle={{backgroundColor: '#F2487A'}}
-            activeTabStyle={{backgroundColor: '#F2487A'}}
-            textStyle={{color: 'white'}}
-            activeTextStyle={{color: 'white'}}
-          >
-          </Tab>
-        </Tabs>
-      </Container>
-
         <View>
           <StatusBar barStyle="light-content"/>
           <Image style={styles.background} source={Images.backgrounds.profile}>
             <Text style={styles.header}>Manage</Text>
           </Image>
         </View>
-
-        <View style={{height:10}} />
 
         <Content>
 

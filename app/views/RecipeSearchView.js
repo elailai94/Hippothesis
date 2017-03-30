@@ -144,7 +144,7 @@ class RecipeSearchView extends Component {
     }
 
     return (
-      <Container>
+      <Container style={{backgroundColor: 'white'}}>
         <Image
           style={styles.headerImage}
           source={Images.backgrounds.search}

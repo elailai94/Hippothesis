@@ -25,7 +25,8 @@ class RecipeCard extends Component {
     console.log(this.props.id);
 
     this.props.setSelectedRecipe(this.props.id);
-    this.props.navigation.navigate('recipe');
+    console.log("This.props.recipe", this.props.recipe);
+    this.props.navigation.navigate('recipe', {recipe: this.props.recipe});
   }
 
   render() {

@@ -10,16 +10,19 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Image, ListView } from 'react-native';
+import { Image, ListView, ScrollView, View } from 'react-native';
 import {
+  Button,
   Container,
+  Content,
   Card,
   CardItem,
+  Grid,
   Icon,
-  Text,
-  Button,
   List,
-  ListItem
+  ListItem,
+  Row,
+  Text
 } from 'native-base';
 import Spinner from 'react-native-spinkit';
 
@@ -33,7 +36,7 @@ class HomeView extends Component {
   // Suggest recipes that fit the parameters
   suggestRecipes() {
     const parameters = {
-      number: 5
+      number: 6
     };
 
     this.props.suggestRecipes(parameters).catch((error) => console.log(error));
@@ -41,6 +44,11 @@ class HomeView extends Component {
 
   componentDidMount() {
     this.suggestRecipes();
+  }
+
+  goToRecipeView(id, recipe) {
+    this.props.selectRecipe(id);
+    this.props.navigation.navigate('recipe', {recipe: recipe});
   }
 
   renderInProgressView() {
@@ -54,19 +62,19 @@ class HomeView extends Component {
     );
   }
 
-  renderSuccessView() {
+  renderSavedRecipes() {
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
     return (
-      <Container style={styles.container2}>
-        <Text style={styles.title}>Popular Recipes</Text>
+      <Container style={{flex: 1}}>
+        <Text style={styles.title}>Saved Recipes</Text>
         <ListView
-          dataSource={ds.cloneWithRows(this.props.recipeSuggestionResults.resultsList)}
+          dataSource={ds.cloneWithRows(this.props.recipesStore)}
           renderRow={(data) =>
             {
                 return (
                   <Card style={styles.recipeCard}>
-                    <CardItem cardBody style={styles.imageContainer} onPress={() => this.goToRecipeView(data.id)}>
+                    <CardItem cardBody style={styles.imageContainer} onPress={() => this.goToRecipeView(data.id, data)}>
                       <Image style={styles.image} source={{uri: data.image}} />
                     </CardItem>
                     <CardItem>
@@ -79,7 +87,51 @@ class HomeView extends Component {
           horizontal={true}
           showsHorizontalScrollIndicator={false}
           enableEmptySections={true}
+          contentContainerStyle={styles.contentContainer}
         />
+      </Container>
+    );
+  }
+
+  renderSuccessView() {
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+
+    let content = <View></View>;
+
+    if (Object.keys(this.props.recipesStore) !== null) {
+      if(Object.keys(this.props.recipesStore).length > 0) {
+        content = this.renderSavedRecipes();
+      }
+    }
+
+    return (
+      <Container style={{flex: 1}}>
+      <Container style={{flex: 1}}>
+        <Text style={styles.title}>Popular Recipes</Text>
+
+        <ListView
+          dataSource={ds.cloneWithRows(this.props.recipeSuggestionResults.resultsList)}
+          renderRow={(data) =>
+            {
+                return (
+                  <Card style={styles.recipeCard}>
+                    <CardItem cardBody style={styles.imageContainer} onPress={() => this.goToRecipeView(data.id, data)}>
+                      <Image style={styles.image} source={{uri: data.image}} />
+                    </CardItem>
+                    <CardItem>
+                      <Text ellipsizeMode="tail" numberOfLines={1}>{data.title}</Text>
+                    </CardItem>
+                  </Card>
+                );            
+              }
+          }
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          enableEmptySections={true}
+          contentContainerStyle={styles.contentContainer}
+        />
+      </Container>
+      {content}
       </Container>
     );
   }
@@ -121,7 +173,7 @@ class HomeView extends Component {
 */    
     
     return (
-      <Container>
+      <Container style={{flex: 1, backgroundColor: 'white'}}>
         <Image
           style={styles.headerImage}
           source={Images.backgrounds.cooking}
@@ -129,7 +181,9 @@ class HomeView extends Component {
           <Text style={styles.headerText}>Explore</Text>
         </Image>
 
+        <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
         {content}
+        </ScrollView>
 
       </Container>
     );
@@ -158,11 +212,6 @@ const styles = {
   inProgressSpinner: {
     color: '#F2487A'
   },
-  container2: {
-    backgroundColor: '#fff',
-   // borderBottomWidth: 1,
-    borderBottomColor:'#d3d3d3'
-  },
   title:{
     fontWeight:'400',
     fontSize:20,
@@ -170,9 +219,14 @@ const styles = {
     margin:20,
     marginBottom:15
   },
+  contentContainer: {
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingBottom: 0
+  },
   recipeCard: {
     flex: 1,
-    height: 150,
+    height: 160,
     width: 200
   },
   imageContainer: {
@@ -184,7 +238,6 @@ const styles = {
     resizeMode: 'cover',
     height: 150,
     width: 200,
-    marginBottom:30,
     justifyContent: 'space-between',
     alignItems:'center'
   }
@@ -192,13 +245,15 @@ const styles = {
 
 function mapStateToProps(state) {
   return {
-    recipeSuggestionResults: state.recipeSuggestionResults
+    recipeSuggestionResults: state.recipeSuggestionResults,
+    recipesStore: state.recipesStore
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    suggestRecipes: (parameters) => dispatch(suggestRecipes(parameters))
+    suggestRecipes: (parameters) => dispatch(suggestRecipes(parameters)),
+    selectRecipe: (id) => dispatch(selectRecipe(id))
   };
 }
 

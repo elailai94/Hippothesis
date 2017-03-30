@@ -140,12 +140,10 @@ class RecipeView extends Component {
   }
 
   render() {
-    this.findMyObject();
+    this.recipe = this.props.navigation.state.params.recipe;
 
     return (
-      <Container>
-
-      
+      <Container style={{backgroundColor: 'white'}}>
 
       <Content>
 

@@ -52,10 +52,12 @@ class RecipeSearchResultView extends Component {
         <Container>
         <List
           dataArray={this.props.recipes}
-          renderRow={(data) =>
-            <RecipeCard {...data[Object.keys(data)[0]]} navigation={
+          renderRow={(data) => {
+            console.log(Object.values(data));
+            return <RecipeCard {...data[Object.keys(data)[0]]} recipe={Object.values(data)[0]} navigation={
               this.props.navigation
-            }/>
+            }/>;
+            }
           }
         />
       </Container>
