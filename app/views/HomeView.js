@@ -66,7 +66,7 @@ class HomeView extends Component {
             {
                 return (
                   <Card style={styles.recipeCard}>
-                    <CardItem cardBody onPress={() => this.goToRecipeView(data.id)}>
+                    <CardItem cardBody style={styles.imageContainer} onPress={() => this.goToRecipeView(data.id)}>
                       <Image style={styles.image} source={{uri: data.image}} />
                     </CardItem>
                     <CardItem>
@@ -77,6 +77,8 @@ class HomeView extends Component {
               }
           }
           horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          enableEmptySections={true}
         />
       </Container>
     );
@@ -169,6 +171,7 @@ const styles = {
     marginBottom:15
   },
   recipeCard: {
+    flex: 1,
     height: 150,
     width: 200
   },
@@ -178,10 +181,9 @@ const styles = {
   },
   image: {
     flex: 1,
-    resizeMode: 'stretch',
+    resizeMode: 'cover',
     height: 150,
     width: 200,
-    margin:5,
     marginBottom:30,
     justifyContent: 'space-between',
     alignItems:'center'
