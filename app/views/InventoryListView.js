@@ -44,8 +44,11 @@ class InventoryListView extends Component {
 
   searchRecipes() {
 
-    let ingredientString =
-      this.props.inventoryList.map((elem) => elem.name).join(",");
+    var list = [];
+    if (this.props.inventoryList) 
+      list = this.props.inventoryList.filter((item) => item.bought && !item.used);
+    
+    let ingredientString = list.map((elem) => elem.name).join(",");
 
     var parameters = {
       addRecipeInformation: true,
@@ -217,7 +220,7 @@ function mapStateToProps(state) {
     cuisines: state.filters.cuisines,
     diets: state.filters.diets,
     nutrition: state.filters.nutrition,
-    types: state.filters.types
+    types: state.filters.types,
   };
 }
 
