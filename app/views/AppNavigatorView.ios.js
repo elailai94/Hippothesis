@@ -30,7 +30,7 @@ export default class AppNavigatorView extends Component {
 
     // Set up tab navigator settings for the app navigator
     this.tabNavigatorSettings = {
-      initialRouteName: 'search',
+      initialRouteName: 'home',
       tabBarOptions: {
         activeTintColor: '#F2487A'
       }

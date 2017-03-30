@@ -24,9 +24,9 @@ import {
   Right,
   Button,
   Icon,
-  Text,
-  Spinner
+  Text
 } from 'native-base';
+import Spinner from 'react-native-spinkit';
 
 import Images from '../constants/Images';
 import { searchRecipes } from '../actions/RecipeSearchResultsActions';
@@ -38,11 +38,20 @@ class RecipeSearchResultView extends Component {
     this.props.navigation.goBack();
   }
 
+  renderInProgressView() {
+    return (
+      <Container style={styles.inProgressView}>
+        <Spinner
+          type="ThreeBounce"
+          color={styles.inProgressSpinner.color}
+        />
+      </Container>
+    );
+  }
+
   render() {
 
-    let content =
-      <View><Spinner color="#999999"/></View>
-    ;
+    let content = this.renderInProgressView();
 
     console.log("props tops:", this.props.recipes);
 
@@ -92,6 +101,12 @@ const styles = {
     marginTop: 10,
     fontFamily: 'Avenir-Light',
     letterSpacing: 2
+  },
+  inProgressView: {
+    alignSelf: 'center'
+  },
+  inProgressSpinner: {
+    color: '#F2487A'
   }
 }
 

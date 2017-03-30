@@ -10,62 +10,86 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  View,
-  StatusBar,
-  Image,
-} from 'react-native';
+import { Image } from 'react-native';
 import {
   Container,
   Card,
   CardItem,
   Icon,
   Text,
-  Spinner,
   Button,
   List,
   ListItem
 } from 'native-base';
+import Spinner from 'react-native-spinkit';
+
 import Images from '../constants/Images';
-import { searchRecipes } from '../actions/RecipeSearchResultsActions';
 import RecipeCard from '../components/RecipeCard';
+import { searchRecipes } from '../actions/RecipeSearchResultsActions';
+import { suggestRecipes } from '../actions/RecipeSuggestionResultsActions';
 import { selectRecipe } from '../actions/NavigationActions';
 
-
 class HomeView extends Component {
-
-  search() {
-    const includeIngredients = this.props.inventoryList.map((elem) => elem.name).join(",");
-
+  // Suggest recipes that fit the parameters
+  suggestRecipes() {
     const parameters = {
-      addRecipeInformation: true,
-      fillIngredients: true,
-      includeIngredients: includeIngredients,
-      instructionsRequired: true,
-      limitLicense: false,
-      number: 10,
-      offset: 0,
-      ranking: 1
+      number: 5
     };
-    this.props.searchRecipes(parameters);  
 
-    this.props.navigation.navigate('recipeSearchResult');
+    this.props.suggestRecipes(parameters).catch((error) => console.log(error));
   }
 
-  goToRecipeView(id) {
-    this.props.setSelectedRecipe(id);
-    this.props.navigation.navigate('recipe');
+  componentDidMount() {
+    this.suggestRecipes();
+  }
+
+  renderInProgressView() {
+    return (
+      <Container style={styles.inProgressView}>
+        <Spinner
+          type="ThreeBounce"
+          color={styles.inProgressSpinner.color}
+        />
+      </Container>
+    );
+  }
+
+  renderSuccessView() {
+    return (
+      <Container>
+        <List
+          dataArray={this.props.recipeSuggestionResults.resultsList}
+          renderRow={(data) =>
+            {
+                console.log("Object keys", data);
+                return (
+                  <Card>
+                    <CardItem cardBody style={styles.imageContainer}  onPress={() => this.goToRecipeView(data.id)}>
+                      <Image style={styles.image} source={{uri: data.image}} />
+                    </CardItem>
+                    <CardItem>
+                      <Text>{data.title}</Text>
+                    </CardItem>
+                  </Card>
+                );            
+              }
+          }
+        />
+      </Container>
+    );
   }
 
   render() {
+    let content = null;
 
-    let content =
-      <View><Text>No Recipes Saved</Text></View>
-    ;
-
-    console.log("props tops:", this.props);
-    console.log("props tops:", this.props.recipesStore);
-    
+    if (this.props.recipeSuggestionResults.status === 'in progress') {
+      content = this.renderInProgressView();
+    } else if (this.props.recipeSuggestionResults.status === 'success') {
+      content = this.renderSuccessView();
+    } else {
+      content = this.renderSuccessView();
+    }
+/*   
     if (Object.keys(this.props.recipesStore) != null){
       if(Object.keys(this.props.recipesStore).length > 0) {
         content =
@@ -89,34 +113,32 @@ class HomeView extends Component {
           />;
       }
     }
-    
+*/    
     
     return (
       <Container>
-        <View>
-          <StatusBar barStyle="light-content"/>
-          <Image style={styles.background} source={Images.backgrounds.cooking}>
-            <Text style={styles.header}>Explore</Text>
-          </Image>
-        </View>
+        <Image
+          style={styles.headerImage}
+          source={Images.backgrounds.cooking}
+        >
+          <Text style={styles.headerText}>Explore</Text>
+        </Image>
 
-        <Button full style={styles.searchButton} onPress={() => this.search()}>
-          <Text>Search for recipes</Text>
-        </Button>
         {content}
+
       </Container>
     );
   }
 }
 
 const styles = {
-  background: {
+  headerImage: {
     height: 175,
     width: null,
     resizeMode: 'cover',
     justifyContent: 'center'
   },
-  header: {
+  headerText: {
     backgroundColor: 'transparent',
     color: 'white',
     fontSize: 40,
@@ -125,8 +147,11 @@ const styles = {
     fontFamily: 'Avenir-Light',
     letterSpacing: 2
   },
-  searchButton: {
-    backgroundColor: '#f2487a'
+  inProgressView: {
+    alignSelf: 'center'
+  },
+  inProgressSpinner: {
+    color: '#F2487A'
   },
   imageContainer: {
     flex: 1,
@@ -140,16 +165,13 @@ const styles = {
 
 function mapStateToProps(state) {
   return {
-    inventoryList: state.inventoryList,
-    recipes: state.recipes,
-    recipesStore: state.recipesStore,
+    recipeSuggestionResults: state.recipeSuggestionResults
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    searchRecipes: (parameters) => dispatch(searchRecipes(parameters)),
-    setSelectedRecipe: (id) => dispatch(selectRecipe(id))
+    suggestRecipes: (parameters) => dispatch(suggestRecipes(parameters))
   };
 }
 

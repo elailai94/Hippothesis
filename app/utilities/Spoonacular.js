@@ -158,7 +158,22 @@ export function getRandomRecipes(parameters) {
   return callEndpoint(
     Settings.spoonacular.GET_RANDOM_RECIPES_SEARCH_PATH,
     parameters
-  );
+  )
+  .then((json) => {
+    return json.recipes.map((recipe) => {
+      const normalizedResult = {
+        ...recipe,
+        equipments: extractEquipments(recipe),
+        ingredients: extractExtendedIngredients(recipe),
+        instructions: extractInstructions(recipe)
+      };
+
+      delete normalizedResult.analyzedInstructions;
+      delete normalizedResult.extendedIngredients;
+
+      return normalizedResult;
+    });
+  });
 }
 
 /*

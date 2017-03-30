@@ -13,6 +13,7 @@ import { combineReducers } from 'redux';
 import NavigationReducer from './NavigationReducer';
 import RecipeSearchResultsReducer from './RecipeSearchResultsReducer';
 import RecipesReducer from './RecipesReducer';
+import RecipeSuggestionResultsReducer from './RecipeSuggestionResultsReducer';
 import RecipeSearchIngredientsListReducer from './RecipeSearchIngredientsListReducer';
 import ShoppingListReducer from './ShoppingListReducer';
 import InventoryListReducer from './InventoryListReducer';
@@ -22,6 +23,7 @@ import RecipesStoreReducer from './RecipesStoreReducer';
 // Root reducer for Recipezy
 const RootReducer = combineReducers({
   navigation: NavigationReducer,
+  recipeSuggestionResults: RecipeSuggestionResultsReducer,
   recipeSearchResults: RecipeSearchResultsReducer,
   recipeSearchResultsList: RecipeSearchResultsReducer,
   recipes: RecipesReducer,
