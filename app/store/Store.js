@@ -27,14 +27,17 @@ import createLogger from 'redux-logger';
 import RootReducer from '../reducers/RootReducer';
 
 const Store = null;
-if (process.env.NODE_ENV === 'development') {
+const rehydrator = autoRehydrate();
+const compressor = createCompressor();
+
+if (__DEV__) {
   const logger = createLogger();
   Store = createStore(
     RootReducer, 
     undefined,
     compose(
       applyMiddleware(thunk, logger),
-      autoRehydrate() 
+      rehydrator
     )
   );
 } else {
@@ -42,8 +45,8 @@ if (process.env.NODE_ENV === 'development') {
     RootReducer, 
     undefined, 
     compose(
-      applyMiddleware(thunk), 
-      autoRehydrate()
+      applyMiddleware(thunk),
+      rehydrator
     )
   );
 }
@@ -54,7 +57,7 @@ persistStore(
   {
     whitelist: ['shoppingList', 'inventoryList', 'filters', 'recipesStore'],
     storage: AsyncStorage,
-    transforms: [createCompressor()]
+    transforms: [compressor]
   }
 );
 
