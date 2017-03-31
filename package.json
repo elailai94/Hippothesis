@@ -18,6 +18,7 @@
     "redux": "^3.6.0",
     "redux-logger": "^2.8.1",
     "redux-persist": "^4.5.0",
+    "redux-persist-transform-compress": "^4.2.0",
     "redux-thunk": "^2.2.0",
     "reselect": "^2.5.4",
     "sentence-cleaner": "^1.0.0",

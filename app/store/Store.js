@@ -20,6 +20,7 @@ import {
   persistStore, 
   autoRehydrate
 } from 'redux-persist';
+import createCompressor from 'redux-persist-transform-compress';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 
@@ -52,7 +53,8 @@ persistStore(
   Store,
   {
     whitelist: ['shoppingList', 'inventoryList', 'filters', 'recipesStore'],
-    storage: AsyncStorage
+    storage: AsyncStorage,
+    transforms: [createCompressor()]
   }
 );
 
