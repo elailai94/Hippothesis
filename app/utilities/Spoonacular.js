@@ -15,14 +15,14 @@ import {
   extractEquipments,
   extractUsedAndMissedIngredients,
   extractExtendedIngredients,
-  extractInstructions
+  extractInstructions,
 } from './Extract';
 
 // Get the headers for a request
 function getHeaders() {
   return {
-    'Accept': 'application/json',
-    'X-Mashape-Key': Settings.spoonacular.API_KEY
+    Accept: 'application/json',
+    'X-Mashape-Key': Settings.spoonacular.API_KEY,
   };
 }
 
@@ -33,7 +33,7 @@ function callEndpoint(path, parameters) {
   const endpoint = `${Settings.spoonacular.BASE_URL}${path}${queryStrings}`;
 
   return fetch(endpoint, {
-    headers: getHeaders()
+    headers: getHeaders(),
   })
   .then((response) => response.json());
 }
@@ -50,7 +50,7 @@ function callEndpoint(path, parameters) {
 export function autocompleteIngredientSearch(parameters) {
   return callEndpoint(
     Settings.spoonacular.AUTOCOMPLETE_INGREDIENT_SEARCH_PATH,
-    parameters
+    parameters,
   );
 }
 
@@ -65,7 +65,7 @@ export function autocompleteIngredientSearch(parameters) {
 export function autocompleteRecipeSearch(parameters) {
   return callEndpoint(
     Settings.spoonacular.AUTOCOMPLETE_RECIPE_SEARCH_PATH,
-    parameters
+    parameters,
   );
 }
 
@@ -105,7 +105,7 @@ export function autocompleteRecipeSearch(parameters) {
 export function complexRecipeSearch(parameters) {
   return callEndpoint(
     Settings.spoonacular.COMPLEX_RECIPE_SEARCH_PATH,
-    parameters
+    parameters,
   )
   .then((json) => {
     return json.results.map((result) => {
@@ -113,7 +113,7 @@ export function complexRecipeSearch(parameters) {
         ...result,
         equipments: extractEquipments(result),
         ingredients: extractUsedAndMissedIngredients(result),
-        instructions: extractInstructions(result)
+        instructions: extractInstructions(result),
       };
 
       delete normalizedResult.analyzedInstructions;
@@ -157,7 +157,7 @@ export function findSimilarRecipes(id) {
 export function getRandomRecipes(parameters) {
   return callEndpoint(
     Settings.spoonacular.GET_RANDOM_RECIPES_SEARCH_PATH,
-    parameters
+    parameters,
   )
   .then((json) => {
     return json.recipes.map((recipe) => {
@@ -165,7 +165,7 @@ export function getRandomRecipes(parameters) {
         ...recipe,
         equipments: extractEquipments(recipe),
         ingredients: extractExtendedIngredients(recipe),
-        instructions: extractInstructions(recipe)
+        instructions: extractInstructions(recipe),
       };
 
       delete normalizedResult.analyzedInstructions;
@@ -190,6 +190,6 @@ export function getRandomRecipes(parameters) {
 export function generateMealPlan(parameters) {
   return callEndpoint(
     Settings.spoonacular.GENERATE_MEAL_PLAN_PATH,
-    parameters
+    parameters,
   );
 }

@@ -25,14 +25,14 @@ export default class AppNavigatorView extends Component {
       home   : { screen: HomeNavigatorView   },
       search : { screen: SearchNavigatorView },
       lists  : { screen: ListsNavigatorView  },
-      profile: { screen: ProfileView         }
+      profile: { screen: ProfileView         },
     };
 
     // Set up tab navigator settings for the app navigator
     this.tabNavigatorSettings = {
       initialRouteName: 'home',
       tabBarOptions: {
-        activeTintColor: '#F2487A'
+        activeTintColor: '#F2487A',
       }
     };
   }
@@ -40,7 +40,7 @@ export default class AppNavigatorView extends Component {
   render() {
     const AppNavigator = TabNavigator(
       this.routeSettings,
-      this.tabNavigatorSettings
+      this.tabNavigatorSettings,
     );
 
     return (

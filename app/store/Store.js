@@ -9,16 +9,16 @@
 'use strict';
 
 import {
-  AsyncStorage
+  AsyncStorage,
 } from 'react-native';
 import {
   compose,
   createStore,
-  applyMiddleware
+  applyMiddleware,
 } from 'redux';
 import {
-  persistStore, 
-  autoRehydrate
+  persistStore,
+  autoRehydrate,
 } from 'redux-persist';
 import createCompressor from 'redux-persist-transform-compress';
 import thunk from 'redux-thunk';
@@ -26,28 +26,29 @@ import createLogger from 'redux-logger';
 
 import RootReducer from '../reducers/RootReducer';
 
-const Store = null;
+let Store;
 const rehydrator = autoRehydrate();
 const compressor = createCompressor();
 
 if (__DEV__) {
   const logger = createLogger();
+
   Store = createStore(
-    RootReducer, 
+    RootReducer,
     undefined,
     compose(
       applyMiddleware(thunk, logger),
-      rehydrator
-    )
+      rehydrator,
+    ),
   );
 } else {
   Store = createStore(
-    RootReducer, 
-    undefined, 
+    RootReducer,
+    undefined,
     compose(
       applyMiddleware(thunk),
-      rehydrator
-    )
+      rehydrator,
+    ),
   );
 }
 
@@ -57,8 +58,8 @@ persistStore(
   {
     whitelist: ['shoppingList', 'inventoryList', 'filters', 'recipesStore'],
     storage: AsyncStorage,
-    transforms: [compressor]
-  }
+    transforms: [compressor],
+  },
 );
 
 export default Store;
