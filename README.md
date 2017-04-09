@@ -13,3 +13,6 @@ react-native run-ios
 ```Bash
 react-native run-android
 ```
+
+## License
+This repository is licensed under the [BSD 3-Clause license](https://github.com/elailai94/Hippothesis/blob/master/LICENSE.md).
