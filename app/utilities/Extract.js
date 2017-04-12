@@ -17,13 +17,13 @@ export function extractEquipments(recipe) {
 
   // Extract deeply-nested equipments
   const equipments = new Set();
-  for (let i = 0; i < steps.length; i++) {
-    const { equipment } = steps[i];
-    for (let j = 0; j < equipment.length; j++) {
-      const { name } = equipment[j];
+  steps.map((step) => {
+    const { equipment } = step;
+    equipment.map((apparatus) => {
+      const { name } = apparatus;
       equipments.add(name.toLowerCase());
-    }
-  }
+    });
+  });
 
   return [...equipments];
 }
@@ -79,6 +79,9 @@ export function extractInstructions(recipe) {
   // Remove step numbers from instructions
   instructions = instructions.filter((instruction) =>
     !Str(instruction).isNumeric()
+  )
+  .map((instruction) =>
+    instruction.replace(/\.\d+$/, '')
   );
 
   // Capitalizes the first letter of each sentence in each instruction

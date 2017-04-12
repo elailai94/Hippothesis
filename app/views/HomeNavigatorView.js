@@ -9,9 +9,9 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { Container, Content, Header, Left, Right, Body, Icon, Tab, Tabs } from 'native-base';
-
+import { Icon } from 'native-base';
 import { StackNavigator } from 'react-navigation';
+
 import HomeView from './HomeView';
 import RecipeSearchResultView from './RecipeSearchResultView';
 import RecipeView from './RecipeView';
@@ -19,44 +19,55 @@ import RecipeView from './RecipeView';
 export default class HomeNavigatorView extends Component {
   // Set up navigation options for the app navigator
   static navigationOptions = {
+    drawer: {
+      label: 'Home',
+      icon: ({ focused, tintColor }) => {
+        if (focused) {
+          return <Icon name="ios-home" />;
+        } else {
+          return <Icon name="ios-home-outline" />;
+        }
+      },
+    },
     tabBar: {
       label: 'Home',
       icon: ({ focused, tintColor }) => {
         if (focused) {
-          return <Icon name='ios-home' />;
+          return <Icon name="ios-home" />;
         } else {
-          return <Icon name='ios-home-outline' />;
+          return <Icon name="ios-home-outline" />;
         }
-      }
-    }
+      },
+    },
   }
 
   constructor(props) {
     super(props);
 
-    // Set up route settings for the lists navigator
+    // Set up route settings for the home navigator
     this.routeSettings = {
-      home: { screen: HomeView  },
+      home              : { screen: HomeView               },
       recipeSearchResult: { screen: RecipeSearchResultView },
-      recipe: { screen: RecipeView },
+      recipe            : { screen: RecipeView             },
     };
 
-    // Set up stack navigator settings for the search navigator
+    // Set up stack navigator settings for the home navigator
     this.stackNavigatorSettings = {
       initialRouteName: 'home',
-      headerMode: 'none'
+      headerMode: 'none',
     };
 
     this.HomeNavigator = StackNavigator(
       this.routeSettings,
-      this.stackNavigatorSettings
+      this.stackNavigatorSettings,
     );
   }
 
   render() {
     const HomeNavigator = this.HomeNavigator;
+    
     return (
-      <HomeNavigator/>
+      <HomeNavigator />
     );
   }
 }

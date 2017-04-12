@@ -33,15 +33,17 @@ export default class AppNavigatorView extends Component {
       initialRouteName: 'home',
       tabBarOptions: {
         activeTintColor: '#F2487A',
-      }
+      },
     };
-  }
 
-  render() {
-    const AppNavigator = TabNavigator(
+    this.AppNavigator = TabNavigator(
       this.routeSettings,
       this.tabNavigatorSettings,
     );
+  }
+
+  render() {
+    const AppNavigator = this.AppNavigator;
 
     return (
       <AppNavigator />

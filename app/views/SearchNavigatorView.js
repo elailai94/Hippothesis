@@ -17,10 +17,19 @@ import RecipeSearchResultView from './RecipeSearchResultView';
 import RecipeView from './RecipeView';
 import AdditionalFilterView from './AdditionalFilterView';
 
-
 export default class SearchNavigatorView extends Component {
   // Set up navigation options for the app navigator
   static navigationOptions = {
+    drawer: {
+      label: 'Search',
+      icon: ({ focused, tintColor }) => {
+        if (focused) {
+          return <Icon name='ios-search' />;
+        } else {
+          return <Icon name='ios-search-outline' />;
+        }
+      },
+    },
     tabBar: {
       label: 'Search',
       icon: ({ focused, tintColor }) => {
@@ -29,8 +38,8 @@ export default class SearchNavigatorView extends Component {
         } else {
           return <Icon name='ios-search-outline' />;
         }
-      }
-    }
+      },
+    },
   }
 
   constructor(props) {
@@ -47,15 +56,17 @@ export default class SearchNavigatorView extends Component {
     // Set up stack navigator settings for the search navigator
     this.stackNavigatorSettings = {
       initialRouteName: 'recipeSearch',
-      headerMode: 'none'
+      headerMode: 'none',
     };
+
+    this.SearchNavigator = StackNavigator(
+      this.routeSettings,
+      this.stackNavigatorSettings,
+    );
   }
 
   render() {
-    const SearchNavigator = StackNavigator(
-      this.routeSettings,
-      this.stackNavigatorSettings
-    );
+    const SearchNavigator = this.SearchNavigator;
 
     return (
       <SearchNavigator />

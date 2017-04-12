@@ -19,43 +19,55 @@ import RecipeView from './RecipeView';
 export default class ListsNavigatorView extends Component {
   // Set up navigation options for the app navigator
   static navigationOptions = {
+    drawer: {
+      label: 'Lists',
+      icon: ({ focused, tintColor }) => {
+        if (focused) {
+          return <Icon name='ios-list-box' />;
+        } else {
+          return <Icon name='ios-list-box-outline' />;
+        }
+      },
+    },
     tabBar: {
       label: 'Lists',
       icon: ({ focused, tintColor }) => {
         if (focused) {
-          return (<Icon name='ios-list-box' color='#F2487A' />);
+          return <Icon name='ios-list-box' />;
         } else {
-          return (<Icon name='ios-list-box-outline' />);
+          return <Icon name='ios-list-box-outline' />;
         }
-      }
-    }
+      },
+    },
   }
 
   constructor(props) {
     super(props);
 
-    // Set up route settings for the search navigator
+    // Set up route settings for the lists navigator
     this.routeSettings = {
-      lists: { screen: ListsView },
+      lists             : { screen: ListsView              },
       recipeSearchResult: { screen: RecipeSearchResultView },
       recipe            : { screen: RecipeView             },
     };
 
-    // Set up stack navigator settings for the search navigator
+    // Set up stack navigator settings for the lists navigator
     this.stackNavigatorSettings = {
       initialRouteName: 'lists',
-      headerMode: 'none'
+      headerMode: 'none',
     };
+
+    this.ListsNavigator = StackNavigator(
+      this.routeSettings,
+      this.stackNavigatorSettings,
+    );
   }
 
   render() {
-    const Navigator = StackNavigator(
-      this.routeSettings,
-      this.stackNavigatorSettings
-    );
+    const ListsNavigator = this.ListsNavigator;
     
     return (
-      <Navigator/>
+      <ListsNavigator />
     );
   }
 }

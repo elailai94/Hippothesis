@@ -19,6 +19,7 @@ import ShoppingListReducer from './ShoppingListReducer';
 import InventoryListReducer from './InventoryListReducer';
 import FilterReducer from './FilterReducer';
 import RecipesStoreReducer from './RecipesStoreReducer';
+import DietaryPreferencesReducer from './DietaryPreferencesReducer';
 
 // Root reducer for Recipezy
 const RootReducer = combineReducers({
@@ -31,7 +32,8 @@ const RootReducer = combineReducers({
   //shoppingList: ShoppingListReducer,
   inventoryList: InventoryListReducer,
   filters: FilterReducer,
-  recipesStore: RecipesStoreReducer
+  recipesStore: RecipesStoreReducer,
+  dietaryPreferences: DietaryPreferencesReducer,
 });
 
 export default RootReducer;

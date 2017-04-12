@@ -11,7 +11,7 @@
 import React, { Component } from 'react';
 import { DrawerNavigator } from 'react-navigation';
 
-import HomeView from './HomeView';
+import HomeNavigatorView from './HomeNavigatorView';
 import SearchNavigatorView from './SearchNavigatorView';
 import ListsNavigatorView from './ListsNavigatorView';
 import ProfileView from './ProfileView';
@@ -22,26 +22,28 @@ export default class AppNavigatorView extends Component {
 
     // Set up route settings for the app navigator
     this.routeSettings = {
-      home   : { screen: HomeView            },
+      home   : { screen: HomeNavigatorView   },
       search : { screen: SearchNavigatorView },
       lists  : { screen: ListsNavigatorView  },
-      profile: { screen: ProfileView         }
+      profile: { screen: ProfileView         },
     };
 
     // Set up drawer navigator settings for the app navigator
     this.drawerNavigatorSettings = {
-      initialRouteName: 'search',
+      initialRouteName: 'home',
       contentOptions: {
-        activeTintColor: '#F2487A'
-      }
+        activeTintColor: '#F2487A',
+      },
     };
+
+    this.AppNavigator = DrawerNavigator(
+      this.routeSettings,
+      this.drawerNavigatorSettings,
+    );
   }
 
   render() {
-    const AppNavigator = DrawerNavigator(
-      this.routeSettings,
-      this.drawerNavigatorSettings
-    );
+    const AppNavigator = this.AppNavigator;
 
     return (
       <AppNavigator />

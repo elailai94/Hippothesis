@@ -4,16 +4,17 @@
  *
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
- *
- * @flow
  */
 
 'use strict';
 
 import React, { Component } from 'react';
 import { View, ScrollView, Image, StatusBar, TextInput} from 'react-native';
+import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import { connect } from 'react-redux';
 import {
+  Body,
+  Title,
   Container,
   Content,
   Text,
@@ -44,6 +45,16 @@ class ProfileView extends Component {
   
   // Set up navigation options for the app navigator
   static navigationOptions = {
+    drawer: {
+      label: 'Profile',
+      icon: ({ focused, tintColor }) => {
+        if (focused) {
+          return <Icon name='ios-person' />;
+        } else {
+          return <Icon name='ios-person-outline' />;
+        }
+      },
+    },
     tabBar: {
       label: 'Profile',
       icon: ({ focused, tintColor }) => {
@@ -52,30 +63,30 @@ class ProfileView extends Component {
         } else {
           return <Icon name='ios-person-outline' />;
         }
-      }
-    }
+      },
+    },
   }
 
   constructor(props) {
-      super(props);
+    super(props);
 
-      console.log("ALLERGIES: ", this.props.allergies);
-      console.log("cuisines: ", this.props.cuisines);
-      console.log("diets: ", this.props.diets);
-      console.log("nutrition: ", this.props.nutrition);
-      console.log("types: ", this.props.types);
+    console.log("ALLERGIES: ", this.props.allergies);
+    console.log("cuisines: ", this.props.cuisines);
+    console.log("diets: ", this.props.diets);
+    console.log("nutrition: ", this.props.nutrition);
+    console.log("types: ", this.props.types);
 
-      this.state = {
-          selectedItem: undefined,
-          selected1: this.props.allergies,
-          selected2: this.props.cuisines,
-          selected3: this.props.diets,
-          selected4: this.props.nutrition,
-          selected5: this.props.types,
-          results: {
-              items: []
-          }
+    this.state = {
+      selectedItem: undefined,
+      selected1: this.props.allergies,
+      selected2: this.props.cuisines,
+      selected3: this.props.diets,
+      selected4: this.props.nutrition,
+      selected5: this.props.types,
+      results: {
+        items: []
       }
+    }
   }
 
   onAllergiesValueChange (value: string) {
@@ -88,12 +99,12 @@ class ProfileView extends Component {
       this.props.updateAllergies(value);
   }
 
-  onCuisineValueChange (value: string) {
-      this.setState({
-          selected2 : value
-      });
+  onCuisineValueChange(value: string) {
+    this.setState({
+      selected2 : value
+    });
 
-      this.props.updateCuisines(value);
+    this.props.updateCuisines(value);
   }
 
   onDietValueChange (value: string) {
@@ -124,13 +135,13 @@ class ProfileView extends Component {
     var dummyVal = '';
 
     return (
-      <Container>
-        <View>
-          <StatusBar barStyle="light-content"/>
-          <Image style={styles.background} source={Images.backgrounds.profile}>
-            <Text style={styles.header}>Manage</Text>
-          </Image>
-        </View>
+      <Container style={{flex: 1, backgroundColor: 'white'}}>
+        <Image
+          style={styles.headerImage}
+          source={Images.backgrounds.profile}
+        >
+          <Text style={styles.header}>Manage</Text>
+        </Image>
 
         <Content>
 
@@ -242,14 +253,59 @@ class ProfileView extends Component {
     );
   }
 
+/*
+  render() {
+    return (
+      <Container>
+        <ParallaxScrollView
+          backgroundColor='white'
+          parallaxHeaderHeight={ PARALLAX_HEADER_HEIGHT }
+          stickyHeaderHeight={ STICKY_HEADER_HEIGHT }
+          renderBackground={() => (
+            <View key="bg">
+                <Image
+                  style={{width: window.width, height: PARALLAX_HEADER_HEIGHT}}
+                  source={Images.backgrounds.profile}/>
+            </View>
+          )}
+          renderForeground={() => (
+            <View style={{flex: 1, justifyContent: 'center'}}>
+              <Text style={styles.header}>Manage</Text>
+            </View>
+          )}
+          renderStickyHeader={() => (
+            <Header style={{height: 70}}>
+              <Body>
+                <Title>Manage</Title>
+              </Body>
+            </Header>
+          )}
+        >
+        </ParallaxScrollView>
+      </Container>
+    );
+  }
+*/
 }
 
+const AVATAR_SIZE = 120;
+const ROW_HEIGHT = 60;
+const PARALLAX_HEADER_HEIGHT = 175;
+const STICKY_HEADER_HEIGHT = 70;
+
 const styles = {
-  background: {
+  headerImage: {
     height: 175,
     width: null,
     resizeMode: 'cover',
     justifyContent: 'center'
+  },
+  bg: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: window.width,
+    height: PARALLAX_HEADER_HEIGHT
   },
   picker: {
     color: 'white'
@@ -335,7 +391,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ProfileView);
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileView);
