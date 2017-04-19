@@ -23,23 +23,13 @@ import {
 } from 'native-base';
 import { connect } from 'react-redux';
 
-import DietaryPreferencesListItem from '../components/DietaryPreferencesListItem';
 import {
-  addDiet,
-  removeDiet,
-  removeAllDiets,
+  addDislikedIngredients,
+  removeDislikedIngredients,
+  removeAllDislikedIngredients,
 } from '../actions/DietaryPreferencesActions';
 
-class DietPreferencesView extends Component {
-  // Mark a diet as checked or not checked in the diet list
-  toggleDiet(name) {
-    if (this.props.diets.includes(name)) {
-      this.props.removeDiet(name);
-    } else {
-      this.props.addDiet(name);
-    }
-  }
-
+class DislikedIngredientsPreferencesView extends Component {
   renderHeader() {
     return (
       <Header>
@@ -53,13 +43,13 @@ class DietPreferencesView extends Component {
           </Left>
           
           <Body>
-            <Title>Diets</Title>
+            <Title>Disliked Ingredients</Title>
           </Body>
           
           <Right>
             <Button
               transparent
-              onPress={() => this.props.removeAllDiets()}
+              onPress={() => this.props.removeAllDislikedIngredients()}
             >
               <Text>Reset</Text>
             </Button>
@@ -69,29 +59,9 @@ class DietPreferencesView extends Component {
   }
 
   renderContent() {
-    const diets = [
-      'Lacto Vegetarian',
-      'Ovo Vegetarian',
-      'Paleo',
-      'Pescetarian',
-      'Primal',
-      'Vegan',
-      'Vegetarian',
-    ];
-
     return (
       <Content>
-        {diets.map((diet) => {
-          return (
-            <DietaryPreferencesListItem
-              key={diet}
-              type="selection"
-              title={diet}
-              checked={this.props.diets.includes(diet)}
-              onPress={() => this.toggleDiet(diet)}
-            />
-          );
-        })}
+        <Text>Hello</Text>
       </Content>
     );
   }
@@ -114,16 +84,16 @@ const styles = {
 
 function mapStateToProps(state) {
   return {
-    diets: state.dietaryPreferences.diets,
+    dislikedIngredients: state.dietaryPreferences.dislikedIngredients,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    addDiet: (name) => dispatch(addDiet(name)),
-    removeDiet: (name) => dispatch(removeDiet(name)),
-    removeAllDiets: () => dispatch(removeAllDiets()),
+    addDislikedIngredients: (name) => dispatch(addDislikedIngredients(name)),
+    removeDislikedIngredients: (name) => dispatch(removeDislikedIngredients(name)),
+    removeAllDislikedIngredients: () => dispatch(removeAllDislikedIngredients()),
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DietPreferencesView);
+export default connect(mapStateToProps, mapDispatchToProps)(DislikedIngredientsPreferencesView);

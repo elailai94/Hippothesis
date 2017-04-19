@@ -16,7 +16,7 @@ import DietaryPreferencesView from './DietaryPreferencesView';
 import AllergyPreferencesView from './AllergyPreferencesView';
 import CuisinePreferencesView from './CuisinePreferencesView';
 import DietPreferencesView from './DietPreferencesView';
-//import DislikedIngredientsPreferencesView from './DislikedIngredientsPreferencesView';
+import DislikedIngredientsPreferencesView from './DislikedIngredientsPreferencesView';
 
 export default class ProfileNavigatorView extends Component {
   // Set up navigation options for the app navigator
@@ -48,11 +48,11 @@ export default class ProfileNavigatorView extends Component {
 
     // Set up route settings for the profile navigator
     this.routeSettings = {
-      dietaryPreferences            : { screen: DietaryPreferencesView             },
-      allergyPreferences            : { screen: AllergyPreferencesView             },
-      cuisinePreferences            : { screen: CuisinePreferencesView             },
-      dietPreferences               : { screen: DietPreferencesView                },
-//      dislikedIngredientPreferences: { screen: DislikedIngredientsPreferencesView },
+      dietaryPreferences           : { screen: DietaryPreferencesView             },
+      allergyPreferences           : { screen: AllergyPreferencesView             },
+      cuisinePreferences           : { screen: CuisinePreferencesView             },
+      dietPreferences              : { screen: DietPreferencesView                },
+      dislikedIngredientPreferences: { screen: DislikedIngredientsPreferencesView },
     };
 
     // Set up stack navigator settings for the profile navigator

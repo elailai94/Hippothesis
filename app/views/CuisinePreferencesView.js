@@ -17,7 +17,6 @@ import {
   Header,
   Icon,
   Left,
-  ListItem,
   Right,
   Text,
   Title,

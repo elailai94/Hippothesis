@@ -11,7 +11,6 @@
 import React, { Component } from 'react';
 import {
   Body,
-  Button,
   CheckBox,
   Icon,
   ListItem,
@@ -20,17 +19,19 @@ import {
 } from 'native-base';
 
 export default class DietaryPreferencesListItem extends Component {
+  renderBody() {
+    return (
+      <Body>
+        <Text>{this.props.title}</Text>
+      </Body>
+    );
+  }
+
   renderRightElement() {
     if (this.props.type === 'navigation') {
       return (
         <Right>
-          <Button
-            transparent
-            style={{padding: 0}}
-            onPress={() => this.props.onPress()}
-          >
-            <Icon name="arrow-forward" />
-          </Button>
+          <Icon name="arrow-forward" />
         </Right>
       );
     } else {
@@ -47,11 +48,8 @@ export default class DietaryPreferencesListItem extends Component {
 
   render() {
     return (
-      <ListItem>
-        <Body>
-          <Text>{this.props.title}</Text>
-        </Body>
-        
+      <ListItem onPress={() => this.props.onPress()}>
+        {this.renderBody()}
         {this.renderRightElement()}
       </ListItem>
     );
