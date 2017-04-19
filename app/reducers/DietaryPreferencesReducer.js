@@ -31,6 +31,11 @@ function removeAllergy(state = initialState.allergies, action) {
   );
 }
 
+// Case reducer for removing all allergies
+function removeAllAllergies(state = initialState.allergies, action) {
+  return initialState.allergies;
+}
+
 // Slice reducer for allergies
 function allergiesReducer(state = initialState.allergies, action) {
   switch (action.type) {
@@ -39,6 +44,9 @@ function allergiesReducer(state = initialState.allergies, action) {
 
     case ActionTypes.dietaryPreferences.REMOVE_ALLERGY:
       return removeAllergy(state, action);
+
+    case ActionTypes.dietaryPreferences.REMOVE_ALL_ALLERGIES:
+      return removeAllAllergies(state, action);
 
     default:
       return state;
@@ -57,6 +65,11 @@ function removeCuisine(state = initialState.cuisines, action) {
   );
 }
 
+// Case reducer for removing all cuisines
+function removeAllCuisines(state = initialState.cuisines, action) {
+  return initialState.cuisines;
+}
+
 // Slice reducer for cuisines
 function cuisinesReducer(state = initialState.cuisines, action) {
   switch (action.type) {
@@ -65,6 +78,9 @@ function cuisinesReducer(state = initialState.cuisines, action) {
 
     case ActionTypes.dietaryPreferences.REMOVE_CUISINE:
       return removeCuisine(state, action);
+
+    case ActionTypes.dietaryPreferences.REMOVE_ALL_CUISINES:
+      return removeAllCuisines(state, action);
 
     default:
       return state;
@@ -83,6 +99,11 @@ function removeDiet(state = initialState.diets, action) {
   );
 }
 
+// Case reducer for removing all diets
+function removeAllDiets(state = initialState.diets, action) {
+  return initialState.diets;
+}
+
 // Slice reducer for diets
 function dietsReducer(state = initialState.diets, action) {
   switch (action.type) {
@@ -91,6 +112,9 @@ function dietsReducer(state = initialState.diets, action) {
 
     case ActionTypes.dietaryPreferences.REMOVE_DIET:
       return removeDiet(state, action);
+
+    case ActionTypes.dietaryPreferences.REMOVE_ALL_DIETS:
+      return removeAllDiets(state, action);
 
     default:
       return state;
@@ -111,6 +135,12 @@ function removeDislikedIngredient(state = initialState.dislikedIngredients,
   );
 }
 
+// Case reducer for removing all disliked ingredients
+function removeAllDislikedIngredients(state = initialState.dislikedIngredients,
+  action) {
+  return initialState.dislikedIngredients;
+}
+
 // Slice reducer for dislikedIngredients
 function dislikedIngredientsReducer(state = initialState.dislikedIngredients,
   action) {
@@ -120,6 +150,9 @@ function dislikedIngredientsReducer(state = initialState.dislikedIngredients,
 
     case ActionTypes.dietaryPreferences.REMOVE_DISLIKED_INGREDIENTS:
       return removeDislikedIngredients(state, action);
+
+    case ActionTypes.dietaryPreferences.REMOVE_ALL_DISLIKED_INGREDIENTS:
+      return removeAllDislikedIngredients(state, action);
 
     default:
       return state;

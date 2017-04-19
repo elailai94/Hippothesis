@@ -67,7 +67,11 @@ class ShoppingListView extends Component {
   render() {
 
     var shoppingList = [];
-    if (this.props.inventoryList) shoppingList = this.props.inventoryList.filter((item) => item.inShoppingList);
+    if (this.props.inventoryList) {
+      shoppingList = this.props.inventoryList.filter((item) => {
+        return item.inShoppingList;
+      });
+    }
 
     return (
       <Container>

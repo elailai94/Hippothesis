@@ -24,7 +24,7 @@ export default class SearchNavigatorView extends Component {
       label: 'Search',
       icon: ({ focused, tintColor }) => {
         if (focused) {
-          return <Icon name='ios-search' />;
+          return <Icon name='ios-search' style={{color: tintColor}} />;
         } else {
           return <Icon name='ios-search-outline' />;
         }
@@ -34,7 +34,7 @@ export default class SearchNavigatorView extends Component {
       label: 'Search',
       icon: ({ focused, tintColor }) => {
         if (focused) {
-          return <Icon name='ios-search' />;
+          return <Icon name='ios-search' style={{color: tintColor}} />;
         } else {
           return <Icon name='ios-search-outline' />;
         }
@@ -68,8 +68,6 @@ export default class SearchNavigatorView extends Component {
   render() {
     const SearchNavigator = this.SearchNavigator;
 
-    return (
-      <SearchNavigator />
-    );
+    return <SearchNavigator />;
   }
 }

@@ -56,7 +56,13 @@ if (__DEV__) {
 persistStore(
   Store,
   {
-    whitelist: ['shoppingList', 'inventoryList', 'filters', 'recipesStore'],
+    whitelist: [
+      'filters',
+      'recipesStore',
+      'shoppingList',
+      'inventoryList',
+      'dietaryPreferences',
+    ],
     storage: AsyncStorage,
     transforms: [compressor],
   },

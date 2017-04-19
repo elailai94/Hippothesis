@@ -30,6 +30,14 @@ export function removeAllergy(name) {
   }
 }
 
+// Remove all allergies from the dietary preferences
+export function removeAllAllergies() {
+  return {
+    type: ActionTypes.dietaryPreferences.REMOVE_ALL_ALLERGIES,
+    payload: {}
+  }
+}
+
 // Add a cuisine to the dietary preferences
 export function addCuisine(name) {
   return {
@@ -47,6 +55,14 @@ export function removeCuisine(name) {
     payload: {
       name
     }
+  }
+}
+
+// Remove all cuisines from the dietary preferences
+export function removeAllCuisines() {
+  return {
+    type: ActionTypes.dietaryPreferences.REMOVE_ALL_CUISINES,
+    payload: {}
   }
 }
 
@@ -70,6 +86,14 @@ export function removeDiet(name) {
   }
 }
 
+// Remove all diets from the dietary preferences
+export function removeAllDiets() {
+  return {
+    type: ActionTypes.dietaryPreferences.REMOVE_ALL_DIETS,
+    payload: {}
+  }
+}
+
 // Add a disliked ingredient to the dietary preferences
 export function addDislikedIngredient(name) {
   return {
@@ -87,5 +111,13 @@ export function removeDislikedIngredient(name) {
     payload: {
       name
     }
+  }
+}
+
+// Remove all diets from the dietary preferences
+export function removeAllDislikedIngredients() {
+  return {
+    type: ActionTypes.dietaryPreferences.REMOVE_ALL_DISLIKED_INGREDIENTS,
+    payload: {}
   }
 }

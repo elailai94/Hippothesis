@@ -23,7 +23,7 @@ export default class ListsNavigatorView extends Component {
       label: 'Lists',
       icon: ({ focused, tintColor }) => {
         if (focused) {
-          return <Icon name='ios-list-box' />;
+          return <Icon name='ios-list-box' style={{color: tintColor}} />;
         } else {
           return <Icon name='ios-list-box-outline' />;
         }
@@ -33,7 +33,7 @@ export default class ListsNavigatorView extends Component {
       label: 'Lists',
       icon: ({ focused, tintColor }) => {
         if (focused) {
-          return <Icon name='ios-list-box' />;
+          return <Icon name='ios-list-box' style={{color: tintColor}} />;
         } else {
           return <Icon name='ios-list-box-outline' />;
         }
@@ -66,8 +66,6 @@ export default class ListsNavigatorView extends Component {
   render() {
     const ListsNavigator = this.ListsNavigator;
     
-    return (
-      <ListsNavigator />
-    );
+    return <ListsNavigator />;
   }
 }

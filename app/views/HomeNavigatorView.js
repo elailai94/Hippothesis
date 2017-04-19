@@ -23,7 +23,7 @@ export default class HomeNavigatorView extends Component {
       label: 'Home',
       icon: ({ focused, tintColor }) => {
         if (focused) {
-          return <Icon name="ios-home" />;
+          return <Icon name="ios-home" style={{color: tintColor}} />;
         } else {
           return <Icon name="ios-home-outline" />;
         }
@@ -33,7 +33,7 @@ export default class HomeNavigatorView extends Component {
       label: 'Home',
       icon: ({ focused, tintColor }) => {
         if (focused) {
-          return <Icon name="ios-home" />;
+          return <Icon name="ios-home" style={{color: tintColor}} />;
         } else {
           return <Icon name="ios-home-outline" />;
         }
@@ -66,8 +66,6 @@ export default class HomeNavigatorView extends Component {
   render() {
     const HomeNavigator = this.HomeNavigator;
     
-    return (
-      <HomeNavigator />
-    );
+    return <HomeNavigator />;
   }
 }
