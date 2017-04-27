@@ -29,15 +29,13 @@ export default class HomeNavigatorView extends Component {
         }
       },
     },
-    tabBar: {
-      label: 'Home',
-      icon: ({ focused, tintColor }) => {
-        if (focused) {
-          return <Icon name="ios-home" style={{color: tintColor}} />;
-        } else {
-          return <Icon name="ios-home-outline" />;
-        }
-      },
+    tabBarLabel: 'Home',
+    tabBarIcon: ({ focused, tintColor }) => {
+      if (focused) {
+        return <Icon name="ios-home" style={{color: tintColor}} />;
+      } else {
+        return <Icon name="ios-home-outline" />;
+      }
     },
   }
 

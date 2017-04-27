@@ -29,15 +29,13 @@ export default class ListsNavigatorView extends Component {
         }
       },
     },
-    tabBar: {
-      label: 'Lists',
-      icon: ({ focused, tintColor }) => {
-        if (focused) {
-          return <Icon name='ios-list-box' style={{color: tintColor}} />;
-        } else {
-          return <Icon name='ios-list-box-outline' />;
-        }
-      },
+    tabBarLabel: 'Lists',
+    tabBarIcon: ({ focused, tintColor }) => {
+      if (focused) {
+        return <Icon name='ios-list-box' style={{color: tintColor}} />;
+      } else {
+        return <Icon name='ios-list-box-outline' />;
+      }
     },
   }
 

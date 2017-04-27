@@ -23,7 +23,7 @@ import {
 } from 'native-base';
 import { connect } from 'react-redux';
 
-import DietaryPreferencesListItem from '../components/DietaryPreferencesListItem';
+import SelectableListItem from '../components/SelectableListItem';
 import {
   addAllergy,
   removeAllergy,
@@ -31,7 +31,7 @@ import {
 } from '../actions/DietaryPreferencesActions';
 
 class AllergyPreferencesView extends Component {
-  // Mark an allergy as checked or not checked in the allergy list
+  // Toggle an allergy as active or not active in the allergy list
   toggleAllergy(name) {
     if (this.props.allergies.includes(name)) {
       this.props.removeAllergy(name);
@@ -87,9 +87,8 @@ class AllergyPreferencesView extends Component {
       <Content>
         {allergies.map((allergy) => {
           return (
-            <DietaryPreferencesListItem
+            <SelectableListItem
               key={allergy}
-              type="selection"
               title={allergy}
               checked={this.props.allergies.includes(allergy)}
               onPress={() => this.toggleAllergy(allergy)}

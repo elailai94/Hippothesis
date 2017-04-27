@@ -11,14 +11,13 @@
 import React, { Component } from 'react';
 import {
   Body,
-  CheckBox,
   Icon,
   ListItem,
   Right,
   Text,
 } from 'native-base';
 
-export default class DietaryPreferencesListItem extends Component {
+export default class NavigableListItem extends Component {
   renderBody() {
     return (
       <Body>
@@ -28,22 +27,11 @@ export default class DietaryPreferencesListItem extends Component {
   }
 
   renderRightElement() {
-    if (this.props.type === 'navigation') {
-      return (
-        <Right>
-          <Icon name="arrow-forward" />
-        </Right>
-      );
-    } else {
-      return (
-        <Right>
-          <CheckBox
-            checked={this.props.checked}
-            onPress={() => this.props.onPress()}
-          />
-        </Right>
-      );
-    }
+    return (
+      <Right>
+        <Icon name="arrow-forward" />
+      </Right>
+    );
   }
 
   render() {

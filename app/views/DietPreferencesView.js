@@ -23,7 +23,7 @@ import {
 } from 'native-base';
 import { connect } from 'react-redux';
 
-import DietaryPreferencesListItem from '../components/DietaryPreferencesListItem';
+import SelectableListItem from '../components/SelectableListItem';
 import {
   addDiet,
   removeDiet,
@@ -31,7 +31,7 @@ import {
 } from '../actions/DietaryPreferencesActions';
 
 class DietPreferencesView extends Component {
-  // Mark a diet as checked or not checked in the diet list
+  // Toggle a diet as active or not active in the diet list
   toggleDiet(name) {
     if (this.props.diets.includes(name)) {
       this.props.removeDiet(name);
@@ -83,9 +83,8 @@ class DietPreferencesView extends Component {
       <Content>
         {diets.map((diet) => {
           return (
-            <DietaryPreferencesListItem
+            <SelectableListItem
               key={diet}
-              type="selection"
               title={diet}
               checked={this.props.diets.includes(diet)}
               onPress={() => this.toggleDiet(diet)}
@@ -126,4 +125,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DietPreferencesView);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DietPreferencesView);

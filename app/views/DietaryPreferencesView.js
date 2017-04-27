@@ -19,7 +19,7 @@ import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import { connect } from 'react-redux';
 
 import Images from '../constants/Images';
-import DietaryPreferencesListItem from '../components/DietaryPreferencesListItem';
+import NavigableListItem from '../components/NavigableListItem';
 
 export default class DietaryPreferencesView extends Component {
   goToView(routeName) {
@@ -51,9 +51,8 @@ export default class DietaryPreferencesView extends Component {
           const routeName = dietaryPreferences[dietaryPreference];
 
           return (
-            <DietaryPreferencesListItem
+            <NavigableListItem
               key={dietaryPreference}
-              type="navigation"
               title={dietaryPreference}
               onPress={() => this.goToView(routeName)}
             />

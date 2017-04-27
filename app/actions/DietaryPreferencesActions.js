@@ -8,6 +8,8 @@
 
 'use strict';
 
+import ShortID from 'shortid';
+
 import ActionTypes from '../constants/ActionTypes';
 
 // Add an allergy to the dietary preferences
@@ -99,17 +101,18 @@ export function addDislikedIngredient(name) {
   return {
     type: ActionTypes.dietaryPreferences.ADD_DISLIKED_INGREDIENT,
     payload: {
+      id: ShortID.generate(),
       name
     }
   }
 }
 
 // Remove a disliked ingredient from the dietary preferences
-export function removeDislikedIngredient(name) {
+export function removeDislikedIngredient(id) {
   return {
     type: ActionTypes.dietaryPreferences.REMOVE_DISLIKED_INGREDIENT,
     payload: {
-      name
+      id
     }
   }
 }
@@ -119,5 +122,16 @@ export function removeAllDislikedIngredients() {
   return {
     type: ActionTypes.dietaryPreferences.REMOVE_ALL_DISLIKED_INGREDIENTS,
     payload: {}
+  }
+}
+
+// Edit a disliked ingredient in the dietary preferences
+export function editDislikedIngredient(id, name) {
+  return {
+    type: ActionTypes.dietaryPreferences.EDIT_DISLIKED_INGREDIENT,
+    payload: {
+      id,
+      name
+    }
   }
 }

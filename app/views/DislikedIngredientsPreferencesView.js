@@ -23,10 +23,12 @@ import {
 } from 'native-base';
 import { connect } from 'react-redux';
 
+import EditableListItem from '../components/EditableListItem';
 import {
-  addDislikedIngredients,
-  removeDislikedIngredients,
+  addDislikedIngredient,
+  removeDislikedIngredient,
   removeAllDislikedIngredients,
+  editDislikedIngredient,
 } from '../actions/DietaryPreferencesActions';
 
 class DislikedIngredientsPreferencesView extends Component {
@@ -61,7 +63,20 @@ class DislikedIngredientsPreferencesView extends Component {
   renderContent() {
     return (
       <Content>
-        <Text>Hello</Text>
+        {this.props.dislikedIngredients.map((dislikedIngredient) => {
+          return (
+            <EditableListItem
+              key={dislikedIngredient.id}
+              title={dislikedIngredient.name}
+              onEndEditing={(text) => this.props.editDislikedIngredient(dislikedIngredient.id, text)}
+              onPress={() => this.props.removeDislikedIngredient(dislikedIngredient.id)}
+            />
+          );
+        })}
+        <Button
+          full
+          onPress={() => this.props.addDislikedIngredient('New Ingredient')}
+        />
       </Content>
     );
   }
@@ -90,10 +105,14 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addDislikedIngredients: (name) => dispatch(addDislikedIngredients(name)),
-    removeDislikedIngredients: (name) => dispatch(removeDislikedIngredients(name)),
+    addDislikedIngredient: (name) => dispatch(addDislikedIngredient(name)),
+    removeDislikedIngredient: (id) => dispatch(removeDislikedIngredient(id)),
     removeAllDislikedIngredients: () => dispatch(removeAllDislikedIngredients()),
+    editDislikedIngredient: (id, name) => dispatch(editDislikedIngredient(id, name)),
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DislikedIngredientsPreferencesView);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DislikedIngredientsPreferencesView);

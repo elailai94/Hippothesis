@@ -124,14 +124,14 @@ function dietsReducer(state = initialState.diets, action) {
 // Case reducer for adding a disliked ingredient
 function addDislikedIngredient(state = initialState.dislikedIngredients,
   action) {
-  return state.concat(action.payload.name);
+  return state.concat({ ...(action.payload) });
 }
 
 // Case reducer for removing a disliked ingredient
 function removeDislikedIngredient(state = initialState.dislikedIngredients,
   action) {
-  return state.filter((name) =>
-    name !== action.payload.name
+  return state.filter((dislikedIngredient) =>
+    dislikedIngredient.id !== action.payload.id
   );
 }
 
@@ -141,18 +141,36 @@ function removeAllDislikedIngredients(state = initialState.dislikedIngredients,
   return initialState.dislikedIngredients;
 }
 
+// Case reducer for editing a disliked ingredient
+function editDislikedIngredient(state = initialState.dislikedIngredients,
+  action) {
+  return state.map((dislikedIngredient) => {
+    if (dislikedIngredient.id === action.payload.id) {
+      return {
+        ...dislikedIngredient,
+        name: action.payload.name,
+      }
+    } else {
+      return dislikedIngredient;
+    }
+  });
+}
+
 // Slice reducer for dislikedIngredients
 function dislikedIngredientsReducer(state = initialState.dislikedIngredients,
   action) {
   switch (action.type) {
-    case ActionTypes.dietaryPreferences.ADD_DISLIKED_INGREDIENTS:
-      return addDislikedIngredients(state, action);
+    case ActionTypes.dietaryPreferences.ADD_DISLIKED_INGREDIENT:
+      return addDislikedIngredient(state, action);
 
-    case ActionTypes.dietaryPreferences.REMOVE_DISLIKED_INGREDIENTS:
-      return removeDislikedIngredients(state, action);
+    case ActionTypes.dietaryPreferences.REMOVE_DISLIKED_INGREDIENT:
+      return removeDislikedIngredient(state, action);
 
     case ActionTypes.dietaryPreferences.REMOVE_ALL_DISLIKED_INGREDIENTS:
       return removeAllDislikedIngredients(state, action);
+
+    case ActionTypes.dietaryPreferences.EDIT_DISLIKED_INGREDIENT:
+      return editDislikedIngredient(state, action);
 
     default:
       return state;

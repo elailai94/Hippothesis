@@ -30,15 +30,13 @@ export default class SearchNavigatorView extends Component {
         }
       },
     },
-    tabBar: {
-      label: 'Search',
-      icon: ({ focused, tintColor }) => {
-        if (focused) {
-          return <Icon name='ios-search' style={{color: tintColor}} />;
-        } else {
-          return <Icon name='ios-search-outline' />;
-        }
-      },
+    tabBarLabel: 'Search',
+    tabBarIcon: ({ focused, tintColor }) => {
+      if (focused) {
+        return <Icon name='ios-search' style={{color: tintColor}} />;
+      } else {
+        return <Icon name='ios-search-outline' />;
+      }
     },
   }
 

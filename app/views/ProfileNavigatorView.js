@@ -31,15 +31,13 @@ export default class ProfileNavigatorView extends Component {
         }
       },
     },
-    tabBar: {
-      label: 'Profile',
-      icon: ({ focused, tintColor }) => {
-        if (focused) {
-          return <Icon name='ios-person' style={{color: tintColor}} />;
-        } else {
-          return <Icon name='ios-person-outline' />;
-        }
-      },
+    tabBarLabel: 'Profile',
+    tabBarIcon: ({ focused, tintColor }) => {
+      if (focused) {
+        return <Icon name='ios-person' style={{color: tintColor}} />;
+      } else {
+        return <Icon name='ios-person-outline' />;
+      }
     },
   }
 

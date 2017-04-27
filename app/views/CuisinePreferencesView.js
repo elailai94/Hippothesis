@@ -23,7 +23,7 @@ import {
 } from 'native-base';
 import { connect } from 'react-redux';
 
-import DietaryPreferencesListItem from '../components/DietaryPreferencesListItem';
+import SelectableListItem from '../components/SelectableListItem';
 import {
   addCuisine,
   removeCuisine,
@@ -31,7 +31,7 @@ import {
 } from '../actions/DietaryPreferencesActions';
 
 class CuisinePreferencesView extends Component {
-  // Mark a cuisine as checked or not checked in the cuisine list
+  // Toggle a cuisine as active or not active in the cuisine list
   toggleCuisine(name) {
     if (this.props.cuisines.includes(name)) {
       this.props.removeCuisine(name);
@@ -100,9 +100,8 @@ class CuisinePreferencesView extends Component {
       <Content>
         {cuisines.map((cuisine) => {
           return (
-            <DietaryPreferencesListItem
+            <SelectableListItem
               key={cuisine}
-              type="selection"
               title={cuisine}
               checked={this.props.cuisines.includes(cuisine)}
               onPress={() => this.toggleCuisine(cuisine)}
